@@ -503,31 +503,6 @@
 </head>
 <body>
 
- 	<section class="workspace-right">
-                
-                <div class="compact-countdown-row">
-                    <div class="mini-timer-box" style="border-left: 3px solid var(--color-5500);">
-                        <div class="mini-timer-title">🎫 Weverse Membership Presale</div>
-                        <div id="presale-timer-container" class="mini-timer-digits-wrap">
-                            <div class="digit-block"><div id="p-timer-days" class="digit-val">00</div><div class="digit-unit">D</div></div>
-                            <div class="digit-block"><div id="p-timer-hours" class="digit-val">00</div><div class="digit-unit">H</div></div>
-                            <div class="digit-block"><div id="p-timer-mins" class="digit-val">00</div><div class="digit-unit">M</div></div>
-                            <div class="digit-block" style="border-color: rgba(255,122,0,0.3);"><div id="p-timer-secs" class="digit-val" style="color: var(--color-5500);">00</div><div class="digit-unit">S</div></div>
-                        </div>
-                        <div id="presale-live-msg" class="live-alert-text" style="display: none; color: var(--color-5500);">🔥 เปิดขายบัตรรอบ Presale แล้ว!</div>
-                    </div>
-
-                    <div class="mini-timer-box" style="border-left: 3px solid var(--neon-red);">
-                        <div class="mini-timer-title">🛸 Countdown to Showtime</div>
-                        <div class="mini-timer-digits-wrap">
-                            <div class="digit-block"><div id="timer-days" class="digit-val">00</div><div class="digit-unit">D</div></div>
-                            <div class="digit-block"><div id="timer-hours" class="digit-val">00</div><div class="digit-unit">H</div></div>
-                            <div class="digit-block"><div id="timer-mins" class="digit-val">00</div><div class="digit-unit">M</div></div>
-                            <div class="digit-block" style="border-color: rgba(255,0,43,0.3);"><div id="timer-secs" class="digit-val" style="color: var(--neon-red); text-shadow: 0 0 5px var(--neon-glow);">00</div><div class="digit-unit">S</div></div>
-                        </div>
-                    </div>
-                </div>
-
    	 <div class="modal-window">
         
         <header class="modal-header">
@@ -567,6 +542,30 @@
                             <p><strong>⏰ เวลาแสดง :</strong> 18:00 น. </p>
                             <p><strong>🚪 ประตูเปิด :</strong> 16.30 น. </p>
                             <div class="tag-container">
+
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 15px;">
+                    <div style="background: rgba(255, 122, 0, 0.04); border: 1px solid rgba(255, 122, 0, 0.2); border-radius: 6px; padding: 8px 12px; display: flex; flex-direction: column; justify-content: center;">
+                        <div style="font-size: 0.7rem; font-weight: bold; color: #FF7A00; letter-spacing: 0.5px; margin-bottom: 2px;">🎫 WEVERSE PRESALE</div>
+                        <div id="presale-timer-container" style="font-size: 1.05rem; font-weight: 800; color: #fff; font-family: monospace;">
+                            <span id="p-timer-days">00</span><span style="font-size: 0.75rem; color: #8a96a3; font-weight:normal; margin-right:4px;">d</span>
+                            <span id="p-timer-hours">00</span><span style="font-size: 0.75rem; color: #8a96a3; font-weight:normal; margin-right:4px;">h</span>
+                            <span id="p-timer-mins">00</span><span style="font-size: 0.75rem; color: #8a96a3; font-weight:normal; margin-right:4px;">m</span>
+                            <span id="p-timer-secs" style="color: #FF7A00;">00</span><span style="font-size: 0.75rem; color: #FF7A00; font-weight:normal;">s</span>
+                        </div>
+                        <div id="presale-live-msg" style="display: none; color: #FF7A00; font-size: 0.8rem; font-weight: bold;">🔥 เปิดขายบัตรรอบ Presale แล้ว!</div>
+                    </div>
+
+                    <div style="background: rgba(255, 0, 43, 0.04); border: 1px solid rgba(255, 0, 43, 0.2); border-radius: 6px; padding: 8px 12px; display: flex; flex-direction: column; justify-content: center;">
+                        <div style="font-size: 0.7rem; font-weight: bold; color: var(--neon-red); letter-spacing: 0.5px; margin-bottom: 2px;">🛸 COUNTDOWN TO SHOWTIME</div>
+                        <div style="font-size: 1.05rem; font-weight: 800; color: #fff; font-family: monospace;">
+                            <span id="timer-days">00</span><span style="font-size: 0.75rem; color: #8a96a3; font-weight:normal; margin-right:4px;">d</span>
+                            <span id="timer-hours">00</span><span style="font-size: 0.75rem; color: #8a96a3; font-weight:normal; margin-right:4px;">h</span>
+                            <span id="timer-mins">00</span><span style="font-size: 0.75rem; color: #8a96a3; font-weight:normal; margin-right:4px;">m</span>
+                            <span id="timer-secs" style="color: var(--neon-red);">00</span><span style="font-size: 0.75rem; color: var(--neon-red); font-weight:normal;">s</span>
+                        </div>
+                    </div>
+                </div>
+                                
                                 <span class="price-badge price-6800">VIP 6,800 ฿</span>
                                 <span class="price-badge price-5500">5,500 ฿</span>
                                 <span class="price-badge price-3800">3,800 ฿</span>
@@ -895,69 +894,73 @@
         }
     }
 
-   // 7. ฟังก์ชันคำนวณนับถอยหลังแบบ 2 ส่วนแยกจากกัน (Weverse Presale & Concert Day)
-        function initDualCountdown() {
-            const presaleTarget = new Date("August 1, 2026 11:00:00").getTime();
-            const concertTarget = new Date("October 10, 2026 18:00:00").getTime();
+// ==========================================================================
+    // ฟังก์ชันคำนวณนับถอยหลังขนาดเล็กแบบ 2 ส่วน (Weverse Presale & Concert Day)
+    // ==========================================================================
+    function initDualCountdown() {
+        // 1. วันเปิดขายบัตร Weverse Presale: 1 สิงหาคม 2026 เวลา 11:00:00 น.
+        const presaleTarget = new Date("August 1, 2026 11:00:00").getTime();
+        // 2. วันคอนเสิร์ตใหญ่: 10 ตุลาคม 2026 เวลา 18:00:00 น.
+        const concertTarget = new Date("October 10, 2026 18:00:00").getTime();
 
-            function updateTimers() {
-                const now = new Date().getTime();
+        function updateTimers() {
+            const now = new Date().getTime();
 
-                // --- ส่วนที่ 1: คำนวณรอบ Weverse Presale ---
-                const pDiff = presaleTarget - now;
-                const pContainer = document.getElementById("presale-timer-container");
-                const pLiveMsg = document.getElementById("presale-live-msg");
-                
-                if (pDiff <= 0) {
-                    if (pContainer) pContainer.style.display = "none";
-                    if (pLiveMsg) pLiveMsg.style.display = "block";
-                } else {
-                    const pDays = Math.floor(pDiff / (1000 * 60 * 60 * 24));
-                    const pHours = Math.floor((pDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const pMinutes = Math.floor((pDiff % (1000 * 60 * 60)) / (1000 * 60));
-                    const pSeconds = Math.floor((pDiff % (1000 * 60)) / 1000);
+            // --- คำนวณรอบ Weverse Presale ---
+            const pDiff = presaleTarget - now;
+            const pContainer = document.getElementById("presale-timer-container");
+            const pLiveMsg = document.getElementById("presale-live-msg");
+            
+            if (pDiff <= 0) {
+                if (pContainer) pContainer.style.display = "none";
+                if (pLiveMsg) pLiveMsg.style.display = "block";
+            } else {
+                const pDays = Math.floor(pDiff / (1000 * 60 * 60 * 24));
+                const pHours = Math.floor((pDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const pMinutes = Math.floor((pDiff % (1000 * 60 * 60)) / (1000 * 60));
+                const pSeconds = Math.floor((pDiff % (1000 * 60)) / 1000);
 
-                    const pdEl = document.getElementById("p-timer-days");
-                    const phEl = document.getElementById("p-timer-hours");
-                    const pmEl = document.getElementById("p-timer-mins");
-                    const psEl = document.getElementById("p-timer-secs");
+                const pdEl = document.getElementById("p-timer-days");
+                const phEl = document.getElementById("p-timer-hours");
+                const pmEl = document.getElementById("p-timer-mins");
+                const psEl = document.getElementById("p-timer-secs");
 
-                    if (pdEl) pdEl.textContent = pDays.toString().padStart(2, '0');
-                    if (phEl) phEl.textContent = pHours.toString().padStart(2, '0');
-                    if (pmEl) pmEl.textContent = pMinutes.toString().padStart(2, '0');
-                    if (psEl) psEl.textContent = pSeconds.toString().padStart(2, '0');
-                }
-
-                // --- ส่วนที่ 2: คำนวณวันงานคอนเสิร์ต ---
-                const cDiff = concertTarget - now;
-                const cdEl = document.getElementById("timer-days");
-                const chEl = document.getElementById("timer-hours");
-                const cmEl = document.getElementById("timer-mins");
-                const csEl = document.getElementById("timer-secs");
-
-                if (cdEl && chEl && cmEl && csEl) {
-                    if (cDiff <= 0) {
-                        cdEl.textContent = "00";
-                        chEl.textContent = "00";
-                        cmEl.textContent = "00";
-                        csEl.textContent = "00";
-                    } else {
-                        const cDays = Math.floor(cDiff / (1000 * 60 * 60 * 24));
-                        const cHours = Math.floor((cDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        const cMinutes = Math.floor((cDiff % (1000 * 60 * 60)) / (1000 * 60));
-                        const cSeconds = Math.floor((cDiff % (1000 * 60)) / 1000);
-
-                        cdEl.textContent = cDays.toString().padStart(2, '0');
-                        chEl.textContent = cHours.toString().padStart(2, '0');
-                        cmEl.textContent = cMinutes.toString().padStart(2, '0');
-                        csEl.textContent = cSeconds.toString().padStart(2, '0');
-                    }
-                }
+                if (pdEl) pdEl.textContent = pDays.toString().padStart(2, '0');
+                if (phEl) phEl.textContent = pHours.toString().padStart(2, '0');
+                if (pmEl) pmEl.textContent = pMinutes.toString().padStart(2, '0');
+                if (psEl) psEl.textContent = pSeconds.toString().padStart(2, '0');
             }
 
-            updateTimers();
-            setInterval(updateTimers, 1000);
+            // --- คำนวณวันงานคอนเสิร์ต ---
+            const cDiff = concertTarget - now;
+            const cdEl = document.getElementById("timer-days");
+            const chEl = document.getElementById("timer-hours");
+            const cmEl = document.getElementById("timer-mins");
+            const csEl = document.getElementById("timer-secs");
+
+            if (cdEl && chEl && cmEl && csEl) {
+                if (cDiff <= 0) {
+                    cdEl.textContent = "00"; chEl.textContent = "00"; cmEl.textContent = "00"; csEl.textContent = "00";
+                } else {
+                    const cDays = Math.floor(cDiff / (1000 * 60 * 60 * 24));
+                    const cHours = Math.floor((cDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const cMinutes = Math.floor((cDiff % (1000 * 60 * 60)) / (1000 * 60));
+                    const cSeconds = Math.floor((cDiff % (1000 * 60)) / 1000);
+
+                    cdEl.textContent = cDays.toString().padStart(2, '0');
+                    chEl.textContent = cHours.toString().padStart(2, '0');
+                    cmEl.textContent = cMinutes.toString().padStart(2, '0');
+                    csEl.textContent = cSeconds.toString().padStart(2, '0');
+                }
+            }
         }
+
+        updateTimers();
+        setInterval(updateTimers, 1000);
+    }
+
+    // เรียกเปิดใช้งานเมื่อเอกสารโหลดเสร็จสมบูรณ์
+    document.addEventListener("DOMContentLoaded", initDualCountdown);
 
     //
 document.addEventListener('contextmenu', function(e) {
