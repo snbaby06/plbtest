@@ -19,466 +19,491 @@
             --glass-inner-right: rgba(20, 22, 28, 0.85);  
             
             /* สีตัวอักษร */
-            --text-light-main: #f0f2f5;           
-            --text-light-dim: #8a96a3;            
-            --text-dark-main: #0c0f14;            
+            --text-light-main: #f8fafc;            
+            --text-light-dim: #94a3b8;               
             
-            /* อัปเดตชุดสีผังคอนเสิร์ตจริง */
-            --color-6800: #FF1F00;
-            --color-5500: #FF7A00;
-            --color-3800: #FFE57F;
-            --color-3500: #FFF2B2;
-            --color-2800: #A1E3F5;
-            --color-2500: #0072CE;
-        }
-
-        /* RESET & BASE STYLE */
-        * { box-sizing: border-box; margin: 0; padding: 0; margin-block: 0; margin-inline: 0; }
-        body {
-            font-family: 'Inter', 'Prompt', system-ui, -apple-system, sans-serif;
-            background-color: #040608;
-            background-image: 
-                radial-gradient(at 10% 10%, rgba(255, 0, 43, 0.08) 0px, transparent 40%),
-                radial-gradient(at 90% 90%, rgba(0, 114, 206, 0.05) 0px, transparent 40%);
-            background-attachment: fixed;
-            color: var(--text-light-main);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            overflow-x: hidden;
+            /* ปุ่ม BUY TICKET */
+            --btn-gray: #e2e8f0;                
+            --btn-text-black: #090d16;          
         }
 
         /* ==========================================================================
-           2. MAIN APP CONTAINERS
+           2. LAYOUT & BACKGROUND
            ========================================================================== */
-        .app-outer-frame {
-            width: 100%;
-            max-width: 1440px;
-            background: var(--glass-outer-bg);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 16px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 24px;
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),  
+                        url('bg.jpg');   
+            background-repeat: no-repeat;
+            background-position: center;       
+            background-size: cover;            
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            justify-content: center;             
+            align-items: center;                 
+            box-sizing: border-box;
+            overflow: hidden;
         }
 
-        /* HEADER AREA */
-        .app-header {
+        /* ==========================================================================
+           3. CONTAINER DESIGN 
+           ========================================================================== */
+        .modal-window {
+            width: 1350px;                        
+            height: 88vh; 
+            max-width: 95vw;
+            max-height: 88vh;
+            background: var(--glass-outer-bg);
+            border: 2px solid var(--neon-red);    
+            border-radius: 16px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), 
+                        0 0 40px rgba(255, 0, 43, 0.25);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            backdrop-filter: blur(16px);          
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        /* แถบ Header */
+        .modal-header {
+            padding: 20px 28px;
+            border-bottom: 1px solid rgba(255, 0, 43, 0.25);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 16px;
-        }
-        .header-title-box h1 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            background: linear-gradient(135deg, #fff 30%, var(--text-light-dim));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .header-title-box p {
-            font-size: 0.85rem;
-            color: var(--text-light-dim);
-            margin-top: 4px;
-        }
-        .header-badge {
-            background: rgba(255, 0, 43, 0.1);
-            border: 1px solid var(--neon-red);
-            color: #fff;
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            box-shadow: 0 0 10px var(--neon-glow);
+            background: rgba(0, 0, 0, 0.4);
+            flex-shrink: 0;
         }
 
-        /* CORE INTERACTION INTERFACE WORKSPACE */
-        .workspace-grid {
-            display: grid;
-            grid-template-columns: 1fr 420px;
+        .modal-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* 🛸*/
+        .modal-emoji-logo {
+            font-size: 1.4rem;  
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 0 6px var(--neon-red)); 
+        }
+
+        .modal-title {
+            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        
+        .header-controls {
+            display: flex;
+            align-items: center;
             gap: 20px;
         }
-        @media (max-width: 1100px) {
-            .workspace-grid { grid-template-columns: 1fr; }
+
+        .btn-buy-ticket-top {
+            background-color: var(--btn-gray);
+            color: var(--btn-text-black);
+            border: 1px solid var(--btn-gray);
+            padding: 9px 24px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .btn-buy-ticket-top:hover {
+            background-color: transparent;
+            color: #ffffff;
+            border-color: var(--neon-red);
+            box-shadow: 0 0 15px var(--neon-glow);
         }
 
-        /* LEFT WORKSPACE: INTERACTIVE MAP */
-        .workspace-left {
-            background: var(--glass-inner-left);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 12px;
-            padding: 20px;
+        .close-window-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #ffffff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .close-window-btn:hover {
+            background: var(--neon-red);
+            border-color: var(--neon-red);
+        }
+
+        .modal-body {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            flex: 1;
+            overflow: hidden; 
+        }
+
+        .left-menu-bar {
+            background: var(--glass-inner-left);
+            border-right: 1px solid rgba(255, 0, 43, 0.15);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow-y: auto;
+        }
+        .menu-item {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-light-dim);
+            padding: 14px 18px;
+            font-size: 0.9rem;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+        .menu-item:hover {
+            color: #ffffff;
+            background: rgba(255, 0, 43, 0.05);
+        }
+        .menu-item.active {
+            background: rgba(255, 0, 43, 0.15);
+            border: 1px solid var(--neon-red);
+            color: #ffffff;
+            font-weight: bold;
+            border-left: 5px solid var(--neon-red);
+            box-shadow: 0 0 15px rgba(255, 0, 43, 0.1);
+        }
+
+        .right-content-viewer {
+            background: var(--glass-inner-right);
+            padding: 40px 45px;
+            overflow-y: auto;
             position: relative;
         }
 
-        /* RIGHT WORKSPACE: CONTROL PANEL & CARD LISTS */
-        .workspace-right {
+        .tab-content-block {
+            display: none;
+        }
+        .tab-content-block.active {
+            display: block;
+            animation: glassFadeIn 0.3s ease-out forwards;
+        }
+        @keyframes glassFadeIn {
+            from { opacity: 0; transform: scale(0.99) translateY(5px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .section-title {
+            color: var(--text-light-main);
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-top: 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding-bottom: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .bullet-list {
+            list-style: none;
+            padding: 0; margin: 0;
+        }
+        .bullet-list li {
+            margin-bottom: 22px;
+            line-height: 1.75;
+            border-left: 4px solid var(--neon-red);
+            padding-left: 18px;
+            font-size: 1rem;
+            color: var(--text-light-main);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
+        }
+        .bullet-list strong { 
+            color: var(--neon-red); 
+            font-weight: 700;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        .right-content-viewer img {
+            width: 100%;             
+            max-width: 100%;         
+            height: auto;            
+            display: block;
+            margin: 0 auto 25px auto;
+            border-radius: 8px;
+        }
+
+        .seating-map-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 25px;
+            margin-top: 10px;
+        }
+  
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr; 
+            gap: 30px;
+            align-items: start;
+        }
+        .poster-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .details-box p {
+            margin: 16px 0;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text-light-main);
+        }
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+        }
+        
+        .price-badge {
+            display: inline-block; 
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: bold;
+            color: #fff; 
+        }
+        .price-badge.price-6800 { background-color: #FF1F00; color: #000; } 
+        .price-badge.price-5500 { background-color: #FF7A00; color: #000; } 
+        .price-badge.price-3800 { background-color: #FFE57F; color: #000; } 
+        .price-badge.price-3500 { background-color: #FFF2B2; color: #000; } 
+        .price-badge.price-2800 { background-color: #A1E3F5; color: #000; } 
+        .price-badge.price-2500 { background-color: #0072CE; color: #000; }
+
+        .seating-interactive-wrapper {
+            margin-top: 30px;
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
-
-        .info-card-panel {
-            background: var(--glass-inner-right);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 12px;
+        .zone-selector-container {
+            background: rgba(255, 255, 255, 0.05);
             padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        /* TAB NAVIGATION HEADER SYSTEMS */
-        .tabs-nav-bar {
-            display: flex;
-            background: rgba(4, 6, 8, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 8px;
-            padding: 4px;
-            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .tab-trigger-btn {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: var(--text-light-dim);
-            padding: 10px 0;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 6px;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .tab-trigger-btn:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.03);
-        }
-        .tab-trigger-btn.is-active {
-            color: #fff;
-            background: rgba(255, 0, 43, 0.15);
-            border: 1px solid rgba(255, 0, 43, 0.3);
-            box-shadow: 0 4px 12px rgba(255, 0, 43, 0.1);
-        }
-
-        /* DATA SHOWCASE LAYOUT GRID */
-        .overview-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-        .overview-item-tile {
-            background: rgba(4, 6, 8, 0.4);
-            border: 1px solid rgba(255,255,255,0.04);
-            border-radius: 8px;
-            padding: 12px;
-        }
-        .overview-item-tile span {
+        .selector-label {
+            color: var(--text-light-main);
             display: block;
-            font-size: 0.75rem;
-            color: var(--text-light-dim);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-        }
-        .overview-item-tile p {
-            font-size: 0.95rem;
+            margin-bottom: 15px;
             font-weight: 600;
-            color: #fff;
+        }
+        .zone-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .zone-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-light-main);
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .zone-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
         }
 
-        /* TAB VIEW CONTROLLER CONTENT STATES */
-        .tab-view-content { display: none; }
-        .tab-view-content.is-active { display: block; animation: viewFadeIn 0.4s ease; }
-        @keyframes viewFadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+        .zone-details-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            transition: border-color 0.25s ease;
+        }
+        .zone-details-header {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 20px;
+            color: var(--text-light-dim);
+            font-weight: 700;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+        .zone-details-body {
+            padding: 25px;
+        }
+        .bullet-list-interactive {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .bullet-list-interactive li {
+            margin-bottom: 12px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #fff;
+        }
+        .default-msg {
+            color: var(--text-light-dim);
+            font-style: italic;
+        }
+
+        .calc-row {
+            display: flex; 
+            justify-content: space-between; 
+            margin-bottom: 14px;
+            font-size: 1rem;
+            color: #e2e8f0;
+        }
+        .calc-row.total {
+            margin-top: 18px; 
+            padding-top: 18px; 
+            border-top: 1px solid rgba(255, 255, 255, 0.15); 
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        /* คำนวณราคา */
+        .zone-btn-calc {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-light-main);
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .zone-btn-calc:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .right-content-viewer::-webkit-scrollbar { width: 5px; }
+        .right-content-viewer::-webkit-scrollbar-track { background: transparent; }
+        .right-content-viewer::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 10px; }
+        .right-content-viewer::-webkit-scrollbar-thumb:hover { background: var(--neon-red); }
 
         /* ==========================================================================
-           3. SVG MAP STYLING & INTERACTION DEFINITIONS
+           4. MOBILE RESPONSIVE & PROTECTION STYLES
            ========================================================================== */
-        .concert-svg-map {
-            width: 100%;
-            height: auto;
-            max-height: 720px;
-        }
-        .st-zone {
-            cursor: pointer;
-            transition: all 0.2s ease;
-            stroke: #07090d;
-            stroke-width: 1.5;
-            opacity: 0.85;
-        }
-        .st-zone:hover {
-            opacity: 1 !important;
-            filter: brightness(1.2) drop-shadow(0 0 10px rgba(255,255,255,0.3));
-        }
-        .st-zone.is-focused {
-            opacity: 1 !important;
-            stroke: #fff !important;
-            stroke-width: 3 !important;
-            filter: brightness(1.3);
+        body {
+            -webkit-user-select: none;  
+            -moz-user-select: none;     
+            -ms-user-select: none;      
+            user-select: none;          
         }
 
-        /* TICKET SELECTION LEGEND TABLE */
-        .legend-list-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-top: 15px;
-        }
-        .legend-row-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(4, 6, 8, 0.3);
-            border: 1px solid rgba(255,255,255,0.03);
-            border-radius: 8px;
-            padding: 10px 14px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .legend-row-item:hover { background: rgba(255, 255, 255, 0.03); }
-        .legend-left-meta { display: flex; align-items: center; gap: 12px; }
-        .legend-color-dot { width: 14px; height: 14px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.3); }
-        .legend-tier-name { font-size: 0.9rem; font-weight: 600; }
-        .legend-tier-price { font-size: 0.95rem; font-weight: 700; color: #fff; }
-
-        /* ZONE DETAIL CONTAINER STYLE */
-        .dynamic-detail-container {
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 8px;
-            background: rgba(4,6,8,0.5);
-            padding: 16px;
-            margin-top: 15px;
-            display: none;
-        }
-        .detail-header-box {
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-weight: 800;
-            display: inline-block;
-            margin-bottom: 12px;
-            font-size: 0.9rem;
+        img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            pointer-events: none; 
         }
 
-        .benefit-item-row {
-            font-size: 0.85rem;
-            color: var(--text-light-main);
-            margin-bottom: 6px;
-            display: flex;
-            align-items: flex-start;
-            gap: 6px;
-        }
-        .benefit-item-row::before { content: "•"; color: var(--neon-red); font-weight: bold; }
-
-        /* DUAL ROW INTERACTIVE COUNTDOWN GRID */
-        .compact-countdown-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        @media (max-width: 640px) {
-            .compact-countdown-row { grid-template-columns: 1fr; }
-        }
-        .mini-timer-box {
-            background: rgba(15, 18, 25, 0.7);
-            border-radius: 8px;
-            padding: 10px 14px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .mini-timer-title {
-            font-size: 0.72rem;
-            font-weight: bold;
-            color: var(--text-light-dim);
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .mini-timer-digits-wrap {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-        }
-        .digit-block {
-            background: rgba(4, 6, 8, 0.9);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 4px;
-            padding: 4px 6px;
-            min-width: 38px;
-            text-align: center;
-        }
-        .digit-val {
-            font-size: 1.15rem;
-            font-weight: 800;
-            color: #fff;
-            line-height: 1.1;
-        }
-        .digit-unit {
-            font-size: 0.55rem;
-            color: var(--text-light-dim);
-            margin-top: 1px;
-            font-weight: bold;
-        }
-        .live-alert-text {
-            font-size: 0.95rem;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            padding: 4px 0;
+        @media (max-width: 992px) {
+            body { 
+                padding: 10px;
+                overflow-y: auto; 
+                align-items: flex-start;
+            }
+            .modal-window { 
+                max-width: 100vw; 
+                width: 100%;
+                height: auto; 
+                max-height: none; 
+                border-radius: 12px;
+            }
+            .modal-header {
+                padding: 15px 20px;
+            }
+            .modal-title {
+                font-size: 0.9rem;
+            }
+            .modal-body { 
+                grid-template-columns: 1fr;
+            }
+            .left-menu-bar { 
+                flex-direction: row; 
+                flex-wrap: nowrap; 
+                overflow-x: auto;
+                padding: 10px; 
+                border-right: none; 
+                border-bottom: 1px solid rgba(255,0,43,0.2); 
+                -webkit-overflow-scrolling: touch;
+                gap: 8px;
+            }
+            .menu-item { 
+                padding: 8px 14px;
+                font-size: 0.8rem; 
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+            .right-content-viewer { 
+                padding: 20px 15px; 
+            }
+            .overview-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .poster-box {
+                max-width: 320px;
+                margin: 0 auto;
+            }
+            .section-title {
+                font-size: 1.25rem;
+                margin-bottom: 20px;
+                padding-bottom: 10px;
+            }
+            .bullet-list li, .bullet-list-interactive li {
+                font-size: 0.9rem;
+                margin-bottom: 14px;
+            }
+            .zone-buttons, .button-group {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            .zone-btn, .zone-btn-calc {
+                width: 100% !important;
+                padding: 10px 5px !important;
+                font-size: 0.85rem !important;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="app-outer-frame">
-        <header class="app-header">
-            <div class="header-title-box">
-                <h1>2026 PLAVE WORLD TOUR [KEEP IT MANIC] IN BANGKOK</h1>
-                <p>ระบบตรวจสอบข้อมูลผังคอนเสิร์ต สิทธิประโยชน์ และสถานะการจำหน่ายบัตรแบบตอบสนอง</p>
-            </div>
-            <div class="header-badge">Official Interactive Map</div>
-        </header>
-
-        <main class="workspace-grid">
-            
-            <section class="workspace-left">
-                <svg class="concert-svg-map" viewBox="0 0 1100 950" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <style>
-                            .st-stage { fill: #11141d; stroke: #ff002b; stroke-width: 4; }
-                            .st-stage-text { fill: #fff; font-size: 26px; font-weight: 900; letter-spacing: 4px; text-anchor: middle; }
-                            .st-foh { fill: #07090e; stroke: #555; stroke-width: 2; }
-                            .st-foh-text { fill: #888; font-size: 13px; font-weight: bold; text-anchor: middle; }
-                            .st-camera-box { fill: #222; stroke: #444; stroke-width: 1.5; }
-                            .st-camera-text { fill: #666; font-size: 10px; font-weight: bold; text-anchor: middle; }
-                            .st-label { fill: #000; font-size: 18px; font-weight: 800; text-anchor: middle; }
-                            .st-label-light { fill: #fff; font-size: 18px; font-weight: 800; text-anchor: middle; }
-                            .st-label-3rd { fill: #000; font-size: 15px; font-weight: 700; text-anchor: middle; }
-                        </style>
-                    </defs>
-
-                    <rect width="100%" height="100%" fill="#07090d" rx="10"/>
-
-                    <g class="st-stage">
-                        <rect x="390" y="50" width="320" height="90" rx="4"/>
-                        <text x="550" y="105" class="st-stage-text">STAGE</text>
-                    </g>
-
-                    <path id="svg-zone-A1" class="st-zone" data-price="5500" data-zone="A1" d="M 330 170 L 440 170 L 440 330 L 330 330 Z" fill="#FF7A00"/>
-                    <path id="svg-zone-B1" class="st-zone" data-price="5500" data-zone="B1" d="M 330 340 L 440 340 L 440 460 L 330 460 Z" fill="#FF7A00"/>
-                    <path id="svg-zone-A4" class="st-zone" data-price="5500" data-zone="A4" d="M 660 170 L 770 170 L 770 330 L 660 330 Z" fill="#FF7A00"/>
-                    <path id="svg-zone-B4" class="st-zone" data-price="5500" data-zone="B4" d="M 660 340 L 770 340 L 770 460 L 660 460 Z" fill="#FF7A00"/>
-
-                    <path id="svg-zone-A2" class="st-zone" data-price="6800" data-zone="A2" d="M 450 170 L 545 170 L 545 370 L 450 370 Z" fill="#FF1F00"/>
-                    <path id="svg-zone-A3" class="st-zone" data-price="6800" data-zone="A3" d="M 555 170 L 650 170 L 650 370 L 555 370 Z" fill="#FF1F00"/>
-                    <path id="svg-zone-B2" class="st-zone" data-price="6800" data-zone="B2" d="M 450 380 L 545 380 L 545 460 L 450 460 Z" fill="#FF1F00"/>
-                    <path id="svg-zone-B3" class="st-zone" data-price="6800" data-zone="B3" d="M 555 380 L 650 380 L 650 460 L 555 460 Z" fill="#FF1F00"/>
-
-                    <g class="st-camera">
-                        <rect x="330" y="170" width="55" height="40" class="st-camera-box"/>
-                        <text x="357" y="194" class="st-camera-text">CAM</text>
-                        <rect x="715" y="420" width="55" height="40" class="st-camera-box"/>
-                        <text x="742" y="444" class="st-camera-text">CAM</text>
-                    </g>
-                    <g class="st-foh">
-                        <rect x="490" y="480" width="120" height="45" rx="2"/>
-                        <text x="550" y="508" class="st-foh-text">FOH</text>
-                    </g>
-
-                    <path id="svg-zone-SC" class="st-zone" data-price="5500" data-zone="SC" d="M 230 170 L 310 200 L 310 290 L 230 290 Z" fill="#FF7A00"/>
-                    <path id="svg-zone-SD" class="st-zone" data-price="5500" data-zone="SD" d="M 230 305 L 310 305 L 310 395 L 230 395 Z" fill="#FF7A00"/>
-                    <path id="svg-zone-SE" class="st-zone" data-price="5500" data-zone="SE" d="M 230 410 L 310 410 L 310 500 L 230 520 Z" fill="#FF7A00"/>
-                    <path id="svg-zone-SF" class="st-zone" data-price="5500" data-zone="SF" d="M 245 535 L 320 515 L 375 585 L 310 615 Z" fill="#FF7A00"/>
-                    
-                    <path id="svg-zone-SJ" class="st-zone" data-price="5500" data-zone="SJ" d="M 700 595 L 765 630 L 690 700 L 635 655 Z" fill="#FF7A00"/>
-                    <path id="svg-zone-SK" class="st-zone" data-price="5500" data-zone="SK" d="M 780 410 L 860 170 L 860 520 L 780 500 Z" fill="#FF7A00"/>
-                    <path id="svg-zone-SL" class="st-zone" data-price="5500" data-zone="SL" d="M 780 305 L 860 305 L 860 395 L 780 395 Z" fill="#FF7A00"/>
-                    <path id="svg-zone-SM" class="st-zone" data-price="5500" data-zone="SM" d="M 780 170 L 860 200 L 860 290 L 780 290 Z" fill="#FF7A00"/>
-
-                    <path id="svg-zone-SG" class="st-zone" data-price="6800" data-zone="SG" d="M 325 630 L 390 595 L 455 655 L 400 700 Z" fill="#FF1F00"/>
-                    <path id="svg-zone-SH" class="st-zone" data-price="6800" data-zone="SH" d="M 415 710 L 470 663 L 545 663 L 545 725 Z" fill="#FF1F00"/>
-                    <path id="svg-zone-SI" class="st-zone" data-price="6800" data-zone="SI" d="M 555 663 L 630 663 L 685 710 L 555 725 Z" fill="#FF1F00"/>
-
-                    <path id="svg-zone-C" class="st-zone" data-price="3500" data-zone="C" d="M 130 170 L 210 200 L 210 290 L 130 290 Z" fill="#FFF2B2"/>
-                    <path id="svg-zone-D" class="st-zone" data-price="3500" data-zone="D" d="M 130 305 L 210 305 L 210 395 L 130 395 Z" fill="#FFF2B2"/>
-                    <path id="svg-zone-E" class="st-zone" data-price="3500" data-zone="E" d="M 130 410 L 210 410 L 210 500 L 130 520 Z" fill="#FFF2B2"/>
-                    
-                    <path id="svg-zone-F" class="st-zone" data-price="3800" data-zone="F" d="M 140 535 L 220 515 L 265 575 L 195 605 Z" fill="#FFE57F"/>
-
-                    <path id="svg-zone-S" class="st-zone" data-price="3800" data-zone="S" d="M 890 120 L 970 140 L 970 195 L 890 195 Z" fill="#FFE57F"/>
-                    <path id="svg-zone-R" class="st-zone" data-price="3800" data-zone="R" d="M 890 200 L 970 220 L 970 290 L 890 290 Z" fill="#FFE57F"/>
-                    <path id="svg-zone-Q" class="st-zone" data-price="3800" data-zone="Q" d="M 890 305 L 970 305 L 970 395 L 890 395 Z" fill="#FFE57F"/>
-                    <path id="svg-zone-P" class="st-zone" data-price="3800" data-zone="P" d="M 890 410 L 970 410 L 970 500 L 890 520 Z" fill="#FFE57F"/>
-
-                    <path id="svg-zone-G" class="st-zone" data-price="2800" data-zone="G" d="M 210 620 L 275 588 L 330 640 L 275 680 Z" fill="#A1E3F5"/>
-                    <path id="svg-zone-H" class="st-zone" data-price="2800" data-zone="H" d="M 290 695 L 345 650 L 400 705 L 355 755 Z" fill="#A1E3F5"/>
-                    <path id="svg-zone-I" class="st-zone" data-price="2800" data-zone="I" d="M 370 765 L 415 715 L 470 755 L 435 815 Z" fill="#A1E3F5"/>
-                    
-                    <path id="svg-zone-J" class="st-zone" data-price="3500" data-zone="J" d="M 450 820 L 485 760 L 540 760 L 540 830 Z" fill="#FFF2B2"/>
-                    <path id="svg-zone-K" class="st-zone" data-price="3500" data-zone="K" d="M 560 760 L 615 760 L 650 820 L 560 830 Z" fill="#FFF2B2"/>
-                    <path id="svg-zone-L" class="st-zone" data-price="3500" data-zone="L" d="M 685 715 L 730 765 L 665 815 L 630 755 Z" fill="#FFF2B2"/>
-
-                    <path id="svg-zone-M" class="st-zone" data-price="2800" data-zone="M" d="M 755 650 L 810 695 L 745 755 L 700 705 Z" fill="#A1E3F5"/>
-                    <path id="svg-zone-N" class="st-zone" data-price="2800" data-zone="N" d="M 825 588 L 890 620 L 825 680 L 770 640 Z" fill="#A1E3F5"/>
-                    <path id="svg-zone-O" class="st-zone" data-price="2800" data-zone="O" d="M 880 515 L 960 535 L 905 605 L 835 575 Z" fill="#A1E3F5"/>
-
-                    <path id="svg-zone-TOP-2500" class="st-zone" data-price="2500" data-zone="แถวบนสุดหลังคา (All Top Rows)" d="M 130 160 L 140 160 C 100 500, 300 900, 550 930 C 800 900, 1000 500, 960 160 L 970 160 C 1020 520, 800 940, 550 950 C 300 940, 800 520, 130 160 Z" fill="#0072CE"/>
-
-                    <text x="385" y="255" class="st-label">A1</text>
-                    <text x="497" y="275" class="st-label-light">A2</text>
-                    <text x="602" y="275" class="st-label-light">A3</text>
-                    <text x="715" y="255" class="st-label">A4</text>
-                    <text x="385" y="405" class="st-label">B1</text>
-                    <text x="497" y="425" class="st-label-light">B2</text>
-                    <text x="602" y="425" class="st-label-light">B3</text>
-                    <text x="690" y="405" class="st-label">B4</text>
-
-                    <text x="270" y="240" class="st-label">SC</text>
-                    <text x="270" y="355" class="st-label">SD</text>
-                    <text x="270" y="460" class="st-label">SE</text>
-                    <text x="290" y="565" class="st-label">SF</text>
-                    <text x="380" y="650" class="st-label-light">SG</text>
-                    <text x="475" y="700" class="st-label-light">SH</text>
-                    <text x="625" y="700" class="st-label-light">SI</text>
-                    <text x="720" y="650" class="st-label">SJ</text>
-                    <text x="820" y="460" class="st-label">SK</text>
-                    <text x="820" y="355" class="st-label">SL</text>
-                    <text x="820" y="240" class="st-label">SM</text>
-
-                    <text x="170" y="240" class="st-label-3rd">C</text>
-                    <text x="170" y="355" class="st-label-3rd">D</text>
-                    <text x="170" y="460" class="st-label-3rd">E</text>
-                    <text x="180" y="565" class="st-label-3rd">F</text>
-                    <text x="250" y="635" class="st-label-3rd">G</text>
-                    <text x="325" y="705" class="st-label-3rd">H</text>
-                    <text x="410" y="765" class="st-label-3rd">I</text>
-                    <text x="495" y="795" class="st-label-3rd">J</text>
-                    <text x="605" y="795" class="st-label-3rd">K</text>
-                    <text x="680" y="765" class="st-label-3rd">L</text>
-                    <text x="755" y="705" class="st-label-3rd">M</text>
-                    <text x="830" y="635" class="st-label-3rd">N</text>
-                    <text x="900" y="565" class="st-label-3rd">O</text>
-                    <text x="930" y="460" class="st-label-3rd">P</text>
-                    <text x="930" y="355" class="st-label-3rd">Q</text>
-                    <text x="930" y="240" class="st-label-3rd">R</text>
-                    <text x="930" y="160" class="st-label-3rd">S</text>
-                    
-                    <text x="550" y="915" class="st-label-light" font-size="14px">🔴 2,500 ฿ แถวบนสุดรอบนอกสุด 🔴</text>
-                </svg>
-            </section>
-
-            <section class="workspace-right">
+ 	<section class="workspace-right">
                 
                 <div class="compact-countdown-row">
                     <div class="mini-timer-box" style="border-left: 3px solid var(--color-5500);">
@@ -503,196 +528,374 @@
                     </div>
                 </div>
 
-                <div class="info-card-panel">
-                    <nav class="tabs-nav-bar">
-                        <button class="tab-trigger-btn is-active" onclick="switchActiveTab('show-info')">ข้อมูลการแสดง</button>
-                        <button class="tab-trigger-btn" onclick="switchActiveTab('ticket-benefits')">สิทธิประโยชน์ผังรวม</button>
-                    </nav>
+   	 <div class="modal-window">
+        
+        <header class="modal-header">
+            <div class="modal-title-group">
+                <span class="modal-emoji-logo">🛸</span>
+                <h1 class="modal-title">2026 PLAVE WORLD TOUR [KEEP IT MANIC] IN BANGKOK</h1>
+            </div>
+            <div class="header-controls">
+                <button class="btn-buy-ticket-top" onclick="window.open('https://www.thaiticketmajor.com/concert/2026-plave-world-tour-keep-it-manic-in-bangkok.html', '_blank')">Buy Ticket</button>
+                <div class="close-window-btn" onclick="alert('ปิดหน้าต่างข้อมูล')">✕</div>
+            </div>
+        </header>
 
-                    <div id="tab-show-info" class="tab-view-content is-active">
-                        <div class="overview-grid">
-                            <div class="overview-item-tile"><span>ศิลปินผู้แสดง</span><p>PLAVE (เพลฟ)</p></div>
-                            <div class="overview-item-tile"><span>สถานที่จัดงาน</span><p>IMPACT Arena เมืองทองธานี</p></div>
-                            <div class="overview-item-tile"><span>รอบการแสดง</span><p>เสาร์ที่ 10 ตุลาคม 2569</p></div>
-                            <div class="overview-item-tile"><span>เวลาประตูเปิด</span><p>18:00 น. เป็นต้นไป</p></div>
+        <div class="modal-body">
+            
+            <nav class="left-menu-bar">
+                <button class="menu-item active" onclick="changeModalTab(0, this)">📜 ข้อมูลการแสดง</button>
+                <button class="menu-item" onclick="changeModalTab(1, this)">💺 ผังที่นั่งและราคา</button>
+                <button class="menu-item" onclick="changeModalTab(2, this)">🎫 How To การกดบัตรรอบ Weverse Presale</button>
+                <button class="menu-item" onclick="changeModalTab(3, this)">🎫 How To การกดบัตรรอบ General Sale</button>
+                <button class="menu-item" onclick="changeModalTab(4, this)">✨ สิทธิพิเศษ Benefits</button>
+                <button class="menu-item" onclick="changeModalTab(5, this)">⚠️ ข้อกำหนดเพิ่มเติม</button>
+                <button class="menu-item" onclick="changeModalTab(6, this)">🚘 วิธีการเดินทาง</button>
+            </nav>
+
+            <div class="right-content-viewer">
+
+                <div class="tab-content-block active">
+                    <h2 class="section-title">ข้อมูลการแสดงและกำหนดการ</h2>
+                    <div class="overview-grid">
+                        <div class="poster-box">
+                            <img src="poster.jpg" alt="PLAVE Concert Poster">
                         </div>
-                        
-                        <div class="legend-list-wrapper">
-                            <div class="legend-row-item" onclick="highlightMapPriceGroup('6800')">
-                                <div class="legend-left-meta">
-                                    <div class="legend-color-dot" style="background: var(--color-6800);"></div>
-                                    <span class="legend-tier-name">บัตรโซนสีแดง (Floor / Lower Stand)</span>
-                                </div>
-                                <span class="legend-tier-price">6,800 ฿</span>
+                        <div class="details-box">
+                            <p><strong>📍 สถานที่แสดง :</strong> อิมแพ็ค อารีน่า เมืองทองธานี</p>
+                            <p><strong>📅 วันแสดง :</strong> วันเสาร์ที่ 10 ตุลาคม 2569</p>
+                            <p><strong>⏰ เวลาแสดง :</strong> 18:00 น. </p>
+                            <p><strong>🚪 ประตูเปิด :</strong> 16.30 น. </p>
+                            <div class="tag-container">
+                                <span class="price-badge price-6800">VIP 6,800 ฿</span>
+                                <span class="price-badge price-5500">5,500 ฿</span>
+                                <span class="price-badge price-3800">3,800 ฿</span>
+                                <span class="price-badge price-3500">3,500 ฿</span>
+                                <span class="price-badge price-2800">2,800 ฿</span>
+                                <span class="price-badge price-2500">2,500 ฿</span>
                             </div>
-                            <div class="legend-row-item" onclick="highlightMapPriceGroup('5500')">
-                                <div class="legend-left-meta">
-                                    <div class="legend-color-dot" style="background: var(--color-5500);"></div>
-                                    <span class="legend-tier-name">บัตรโซนสีส้ม (Floor / Lower Stand)</span>
-                                </div>
-                                <span class="legend-tier-price">5,500 ฿</span>
-                            </div>
-                            <div class="legend-row-item" onclick="highlightMapPriceGroup('3800')">
-                                <div class="legend-left-meta">
-                                    <div class="legend-color-dot" style="background: var(--color-3800);"></div>
-                                    <span class="legend-tier-name">บัตรโซนสีเหลือง (Middle Stand)</span>
-                                </div>
-                                <span class="legend-tier-price">3,800 ฿</span>
-                            </div>
-                            <div class="legend-row-item" onclick="highlightMapPriceGroup('3500')">
-                                <div class="legend-left-meta">
-                                    <div class="legend-color-dot" style="background: var(--color-3500);"></div>
-                                    <span class="legend-tier-name">บัตรโซนสีครีม (Middle-Back Stand)</span>
-                                </div>
-                                <span class="legend-tier-price">3,500 ฿</span>
-                            </div>
-                            <div class="legend-row-item" onclick="highlightMapPriceGroup('2800')">
-                                <div class="legend-left-meta">
-                                    <div class="legend-color-dot" style="background: var(--color-2800);"></div>
-                                    <span class="legend-tier-name">บัตรโซนสีฟ้า (Upper Stand)</span>
-                                </div>
-                                <span class="legend-tier-price">2,800 ฿</span>
-                            </div>
-                            <div class="legend-row-item" onclick="highlightMapPriceGroup('2500')">
-                                <div class="legend-left-meta">
-                                    <div class="legend-color-dot" style="background: var(--color-2500);"></div>
-                                    <span class="legend-tier-name">บัตรโซนสีน้ำเงิน (Top Outer Rows)</span>
-                                </div>
-                                <span class="legend-tier-price">2,500 ฿</span>
-                            </div>
+                            <br>
+                            <ul class="bullet-list">
+                                <li><strong>จำหน่ายบัตรรอบ Weverse Membership :</strong> วันเสาร์ที่ 1 สิงหาคม เวลา 11.00 น. - 21.59 น.</li>
+                                <li><strong>จำหน่ายบัตรรอบ General Sale :</strong> วันอาทิตย์ที่ 2 สิงหาคม ตั้งแต่เวลา 11.00 น. เป็นต้นไป</li>
+                            </ul>
                         </div>
                     </div>
-
-                    <div id="tab-ticket-benefits" class="tab-view-content">
-                        <div class="overview-grid" style="grid-template-columns: 1fr; gap: 8px;">
-                            <div class="overview-item-tile" style="border-left: 3px solid var(--neon-red);">
-                                <p style="font-size: 0.95rem; color: #fff;">🔴 ทุกที่นั่ง ทุกราคา รับสิทธิ์สูงสุดตามลำดับ</p>
-                                <span style="margin-top:4px; text-transform:none;">สิทธิประโยชน์ Official Poster และ Souvenir Card มอบให้ผู้ซื้อบัตรทุกใบในงาน</span>
-                            </div>
-                            <div class="overview-item-tile" style="border-left: 3px solid #ffcc00;">
-                                <p style="font-size: 0.95rem; color: #fff;">⭐ สิทธิ์สุ่ม (Lucky Draw) เฉพาะราคาที่ระบุ</p>
-                                <span style="margin-top:4px; text-transform:none;">สิทธิ์การเข้าชมรอบ Soundcheck และสิทธิ์สุ่มรับบัตรมินิโปสเตอร์พร้อมลายเซ็นสด (Signed Poster) จะแบ่งตามสัดส่วนของแต่ละราคาตามตารางอย่างเป็นทางการ</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="dynamic-zone-detail" class="dynamic-detail-container">
-                        <div id="benefit-header" class="detail-header-box">ZONE INFO</div>
-                        <div style="margin-bottom: 12px; font-size: 0.9rem;">
-                            <span style="color: var(--text-light-dim);">ราคาจำหน่าย: </span>
-                            <strong id="benefit-price-tag" style="color: #fff; font-size: 1.1rem;">-</strong>
-                        </div>
-                        <div style="font-size: 0.8rem; font-weight: bold; color: var(--text-light-dim); margin-bottom: 8px; text-transform: uppercase;">รายการสิทธิประโยชน์ (Benefits List)</div>
-                        <div id="benefit-list-content"></div>
-                    </div>
-
                 </div>
-            </section>
-        </main>
+
+                <div class="tab-content-block">
+                    <h2 class="section-title">ผังที่นั่งและราคา</h2>
+                    <div class="seating-map-container">
+                        <img src="seating-map.png" alt="PLAVE Concert Seating Map">
+                        <ul class="bullet-list">
+                            <li><strong>เลือกดูมุมมองแต่ละโซน: </strong><a href="https://www.plutoticket.com/virtual" target="_blank" style="color: #ffffff; font-weight: bold;">🪐Pluto Ticket</a></li>
+                        </ul>          
+                        
+                        <div class="seating-interactive-wrapper" style="margin-top: 10px;">
+                            <div class="zone-selector-container">
+                                <span class="selector-label">🎟️ เลือกราคาบัตรเพื่อคำนวณจำนวนเงินทั้งหมดที่ต้องชำระ:</span>
+                                <div class="button-group">
+                                    <button class="zone-btn-calc" onclick="calculateTicketPrice('6800', this)">VIP 6,800 ฿</button>
+                                    <button class="zone-btn-calc" onclick="calculateTicketPrice('5500', this)">5,500 ฿</button>
+                                    <button class="zone-btn-calc" onclick="calculateTicketPrice('3800', this)">3,800 ฿</button>
+                                    <button class="zone-btn-calc" onclick="calculateTicketPrice('3500', this)">3,500 ฿</button>
+                                    <button class="zone-btn-calc" onclick="calculateTicketPrice('2800', this)">2,800 ฿</button>
+                                    <button class="zone-btn-calc" onclick="calculateTicketPrice('2500', this)">2,500 ฿</button>
+                                </div>
+                            </div>
+
+                            <div id="calc-details-box" class="zone-details-container">
+                                <div id="calc-details-header" class="zone-details-header">
+                                    <span id="selected-calc-title">ราคาบัตร</span>
+                                </div>
+                                <div class="zone-details-body">
+                                    <div class="calc-row">
+                                        <span>ราคาบัตร:</span>
+                                        <span><strong id="base-price-text">-</strong> ฿</span>
+                                    </div>
+                                    <div class="calc-row">
+                                        <span>ค่าบริการ 30 บาทต่อใบ + Processing fee 3%:</span>
+                                        <span><strong id="fee-price-text">-</strong> ฿</span>
+                                    </div>
+                                    <div class="calc-row total">
+                                        <span>จำนวนเงินที่ต้องชำระทั้งหมด (ไม่รวมค่า Ticket Protect) :</span>
+                                        <span><strong id="total-price-text">-</strong> ฿</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content-block">
+                    <h2 class="section-title">How To & Remarks การกดบัตรรอบ Weverse Presale</h2>
+                    <img src="how to Weverse Presale.jpg" alt="PLAVE Concert how to">
+                    <ul class="bullet-list">
+                        <li><strong>หมายเหตุ</strong></li>
+                        <li><strong>🎟️</strong> จะต้องกรอกหมายเลข Weverse Membership ID ก่อนทำการสั่งซื้อ</li>
+                        <li><strong>🎟️</strong> ลงทะเบียน Weverse Membership ตั้งแต่วันที่ 13 - 17 กรกฎาคม 2569 ผ่านเว็บไซต์ <a href="https://weverse.io/plave" target="_blank" style="color: #ffffff; font-weight: bold;">WEVERSE</a></li>
+                        <li><strong>🎟️</strong> Weverse Membership 1 รหัส สามารถซื้อบัตรคอนเสิร์ต ได้สูงสุด 2 ใบ ต่อ 1 รอบการแสดง</li>
+                        <li><strong>🎟️</strong> มีระบบรันคิวหน้าเว็บไซต์ เปิดให้รอรับคิวตั้งแต่เวลา 10:00 น. ของวันกดรอบบัตร Weverse Membership Presale</li>
+                        <li><strong>🎟️</strong> ผู้ซื้อบัตรคอนเสิร์ต ต้องระบุชื่อและนามสกุลของผู้เข้าร่วมงานบนบัตรฯ และต้องตรงกับชื่อที่ปรากฏในบัตรประชาชนหรือหนังสือเดินทาง (Passport) ห้ามโอนสิทธิ์ ขายต่อ เปลี่ยนชื่อ หรือมอบอำนาจในทุกกรณี</li>
+                        <li><strong>🎟️</strong> ผู้เข้าร่วมงานต้องแสดง บัตรประชาชนหรือหนังสือเดินทาง (Passport) ตัวจริงที่ยังไม่หมดอายุ ณ จุดตรวจหน้าประตูทางเข้า</li>
+                        <li><strong>🎟️</strong> หากชื่อหรือนามสกุลสะกดผิดโดยไม่ตั้งใจ รวมกันไม่เกิน 4 ตัวอักษร อนุโลมให้เข้างานได้ โดยขึ้นอยู่กับดุลยพินิจของเจ้าหน้าที่ในวันงาน</li>
+                        <li><strong>🎟️</strong> การซื้อบัตรฯ ถือเป็นการยอมรับเงื่อนไขทั้งหมดของบริษัทฯ โดยสมบูรณ์ และขอสงวนสิทธิ์ไม่คืนเงินในทุกกรณี</li>
+                    </ul>
+                </div>
+
+                <div class="tab-content-block">
+                    <h2 class="section-title">How To & Remarks การกดบัตรรอบ General Sale</h2>
+                    <img src="how to General Sale.jpg" alt="PLAVE Concert how to">
+                    <ul class="bullet-list">
+                        <li><strong>หมายเหตุ</strong></li>
+                        <li><strong>🎟️</strong> รอบ General Sale สามารถซื้อบัตรคอนเสิร์ต ได้สูงสุด 4 ใบ ต่อการทำรายการ (Order)</li>
+                        <li><strong>🎟️</strong> มีระบบรันคิวหน้าเว็บไซต์ เปิดให้รอรับคิวตั้งแต่เวลา 10:00 น. ของวันกดรอบ General Sale</li>
+                        <li><strong>🎟️</strong> ผู้ซื้อบัตรคอนเสิร์ต ต้องระบุชื่อและนามสกุลของผู้เข้าร่วมงานบนบัตรฯ และต้องตรงกับชื่อที่ปรากฏในบัตรประชาชนหรือหนังสือเดินทาง (Passport) ห้ามโอนสิทธิ์ ขายต่อ เปลี่ยนชื่อ หรือมอบอำนาจในทุกกรณี</li>
+                        <li><strong>🎟️</strong> ผู้เข้าร่วมงานต้องแสดง บัตรประชาชนหรือหนังสือเดินทาง (Passport) ตัวจริงที่ยังไม่หมดอายุ ณ จุดตรวจหน้าประตูทางเข้า</li>
+                        <li><strong>🎟️</strong> หากชื่อหรือนามสกุลสะกดผิดโดยไม่ตั้งใจ รวมกันไม่เกิน 4 ตัวอักษร อนุโลมให้เข้างานได้ โดยขึ้นอยู่กับดุลยพินิจของเจ้าหน้าที่ในวันงาน</li>
+                        <li><strong>🎟️</strong> รับบัตรกระดาษที่ TTM Outlets หรือบูธ TTM ด้านหน้าคอนเสิร์ต</li>
+                        <li><strong>🎟️</strong> การซื้อบัตรฯ ถือเป็นการยอมรับเงื่อนไขทั้งหมดของบริษัทฯ โดยสมบูรณ์ และขอสงวนสิทธิ์ไม่คืนเงินในทุกกรณี</li>
+                    </ul>
+                </div>
+
+                <div class="tab-content-block">
+                    <h2 class="section-title">Benefits</h2>
+                    
+                    <img src="benefit.png" alt="benefit">
+
+                    <div class="seating-interactive-wrapper">
+                        <div class="seating-map-side">
+                            <div class="zone-selector-container">
+                                <span class="selector-label">🌟 เลือกราคาบัตรเพื่อดูรายละเอียด Benefits:</span>
+                                <div class="zone-buttons">
+                                    <button class="zone-btn" onclick="selectZone('6800', this)">VIP 6,800</button>
+                                    <button class="zone-btn" onclick="selectZone('5500', this)">5,500</button>
+                                    <button class="zone-btn" onclick="selectZone('3800', this)">3,800</button>
+                                    <button class="zone-btn" onclick="selectZone('3500', this)">3,500</button>
+                                    <button class="zone-btn" onclick="selectZone('2800', this)">2,800</button>
+                                    <button class="zone-btn" onclick="selectZone('2500', this)">2,500</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="benefit-details-box" class="zone-details-container">
+                            <div id="benefit-details-header" class="zone-details-header">
+                                <span id="selected-zone-title">รายละเอียด Benefits จะแยกตามราคาบัตร</span>
+                            </div>
+                            <div class="zone-details-body">
+                                <ul id="benefits-list" class="bullet-list-interactive">
+                                    <li class="default-msg">⭐ คลิกเลือกราคาบัตรด้านบน เพื่อตรวจสอบ Benefits</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content-block">
+                    <h2 class="section-title">ข้อกำหนดเพิ่มเติม</h2>
+                    <ul class="bullet-list">
+                        <li>ดำเนินการซื้อบัตรคอนเสิร์ต และชำระเงินให้เสร็จสิ้นภายใน 10 นาที </li>
+                        <li>บัตรคอนเสิร์ตทุกใบจะต้องระบุชื่อและนามสกุลของผู้เข้าชมให้ตรงกับบัตรประชาชนหรือหนังสือเดินทาง โดยกรอกเป็นภาษาอังกฤษเท่านั้น ไม่สามารถแก้ไขได้หลังจากชำระเงิน</li>
+                        <li>ราคาบัตรคอนเสิร์ต รวมภาษีมูลค่าเพิ่ม 7% แล้ว แต่ยังไม่รวมค่าธรรมเนียมอื่น ๆ ของไทยทิคเก็ตเมเจอร์ </li>
+                        <li>บัตรเข้าชมคอนเสิร์ตเป็นบัตรกระดาษที่ออกโดยไทยทิคเก็ตเมเจอร์เท่านั้น</li>
+                        <li>สำหรับผู้ถือบัตรคอนเสิร์ต ทุกประเภท จะได้รับแพ็คเกจ ณ ประตูทางเข้าฮอลล์ก่อนเริ่มการแสดง และรับโปสเตอร์บริเวณทางออกหลังจบการแสดง </li>
+                        <li>สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้</li>
+                        <li>ไม่อนุญาตให้ผู้ที่มีอายุต่ำกว่า 13 ปีเข้าชมคอนเสิร์ต </li>
+                        <li>บัตรเข้าชมคอนเสิร์ต 1 ใบ สำหรับผู้ชม 1 ท่านต่อรอบการแสดง</li>
+                        <li>บัตรคอนเสิร์ต ที่ซื้อแล้วไม่สามารถขอคืนเงินได้ ไม่ว่ากรณีใด ๆ ทั้งสิ้น</li>
+                        <li>หากมีข้อสงสัยเพิ่มเติม กรุณาติดต่อไทยทิคเก็ตเมเจอร์ โทร. 0-2262-3456</li>
+                    </ul>
+                </div>
+
+                <div class="tab-content-block">
+                    <h2 class="section-title">วิธีการเดินทาง</h2>
+                    <ul class="bullet-list">
+                        <li><strong>🚗 รถยนต์:</strong> | 📍 <a href="https://maps.app.goo.gl/cGqK639XK2t1WZmZ8?g_st=ic" target="_blank" style="color: #ff002b; font-weight: bold;">คลิกดูแผนที่</a></li>
+                        <li><strong>🚆 รถไฟฟ้า:</strong> รถไฟฟ้าสายสีชมพู ลงสถานีอิมแพ็ค เมืองทองธานี (MT01) ทางออก 3 </li>
+                        <li><strong>🚐 รถตู้:</strong> อนุสาวรีย์ชัยสมรภูมิ (เกาะพหลโยธิน) และจตุจักร (BTS หมอชิต/MRT จตุจักร)</li>
+                        <li><strong>🚌 รถเมล์:</strong> รถเมล์สาย 166 (ปอ.) (AC) และ 2-31E (166 ศรีสมาน)</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
     </div>
 
-    <script>
-        // 1. ฐานข้อมูลพาเลทสีประจำช่วงราคาที่แก้ไขให้ถูกต้องตรงผังจริง
-        const zoneColors = {
-            '6800': { bg: '#FF1F00', text: '#FFFFFF', glow: 'rgba(255, 31, 0, 0.5)' }, // สีแดง
-            '5500': { bg: '#FF7A00', text: '#000000', glow: 'rgba(255, 122, 0, 0.5)' }, // สีส้ม
-            '3800': { bg: '#FFE57F', text: '#000000', glow: 'rgba(255, 229, 127, 0.5)' }, // สีเหลืองเข้ม
-            '3500': { bg: '#FFF2B2', text: '#000000', glow: 'rgba(255, 242, 178, 0.5)' }, // สีครีมเหลืองอ่อน
-            '2800': { bg: '#A1E3F5', text: '#000000', glow: 'rgba(161, 227, 245, 0.5)' }, // สีฟ้า
-            '2500': { bg: '#0072CE', text: '#FFFFFF', glow: 'rgba(0, 114, 206, 0.5)' }  // สีน้ำเงิน
-        };
+<script>
+    // 1. 
+    const zoneColors = {
+        '6800': { bg: '#FF1F00', text: '#000000', glow: 'rgba(255, 31, 0, 0.5)' },
+        '5500': { bg: '#FF7A00', text: '#000000', glow: 'rgba(255, 122, 0, 0.5)' },
+        '3800': { bg: '#FFE57F', text: '#000000', glow: 'rgba(255, 229, 127, 0.5)' },
+        '3500': { bg: '#FFF2B2', text: '#000000', glow: 'rgba(255, 242, 178, 0.5)' },
+        '2800': { bg: '#A1E3F5', text: '#000000', glow: 'rgba(161, 227, 245, 0.5)' },
+        '2500': { bg: '#0072CE', text: '#000000', glow: 'rgba(0, 114, 206, 0.5)' }
+    };
 
-        // 2. ฐานข้อมูลตารางสิทธิประโยชน์แฟนคลับแยกตามระดับราคาสินค้าจริง
-        const benefitDatabase = {
-            '6800': ["สิทธิ์เข้าร่วมชมรอบ Soundcheck (สุ่ม 700 คน)", "การ์ดที่ระลึก Souvenir Card แบบแข็งสลักโฮโลแกรมพิเศษ", "โปสเตอร์ทางการคอนเสิร์ต Official Poster (100% All Seats)", "สิทธิ์สุ่มรับ Official Signed Poster ลายเซ็นแท้ศิลปิน (สุ่ม 40 สิทธิ์)"],
-            '5500': ["สิทธิ์เข้าร่วมชมรอบ Soundcheck (สุ่ม 300 คน)", "การ์ดที่ระลึก Souvenir Card ประจำโซน", "โปสเตอร์ทางการคอนเสิร์ต Official Poster (100% All Seats)", "สิทธิ์สุ่มรับ Official Signed Poster ลายเซ็นแท้ศิลปิน (สุ่ม 10 สิทธิ์)"],
-            '3800': ["การ์ดที่ระลึก Souvenir Card ประจำโซน", "โปสเตอร์ทางการคอนเสิร์ต Official Poster (100% All Seats)"],
-            '3500': ["การ์ดที่ระลึก Souvenir Card ประจำโซน", "โปสเตอร์ทางการคอนเสิร์ต Official Poster (100% All Seats)"],
-            '2800': ["การ์ดที่ระลึก Souvenir Card ประจำโซน", "โปสเตอร์ทางการคอนเสิร์ต Official Poster (100% All Seats)"],
-            '2500': ["การ์ดที่ระลึก Souvenir Card ประจำโซน", "โปสเตอร์ทางการคอนเสิร์ต Official Poster (100% All Seats)"]
-        };
-
-        // 3. ฟังก์ชันสลับการจัดแสดงกลุ่มแผงควบคุมหลักแบบแท็บ
-        function switchActiveTab(targetTabId) {
-            document.querySelectorAll('.tab-trigger-btn').forEach(btn => btn.classList.remove('is-active'));
-            document.querySelectorAll('.tab-view-content').forEach(view => view.classList.remove('is-active'));
-
-            const eventSourceButton = event.currentTarget;
-            if (eventSourceButton) eventSourceButton.classList.add('is-active');
-
-            const targetViewElement = document.getElementById(`tab-${targetTabId}`);
-            if (targetViewElement) targetViewElement.classList.add('is-active');
+    // 2. Benefits 
+    const concertBenefitData = {
+        '6800': {
+            title: "✨ ราคา 6,800 ฿ (VIP)",
+            benefits: [
+                "✅ Exclusive merchandise lane", "✅ Soundcheck", "✅ Goodbye talk session",
+                "✅ Laminate & Lanyard (1 ea)", "✅ Individual Photo Cards (1 Set / All Members)",
+                "✅ Large Hologram Group Photo Card (1 ea)", "✅ Tour Stamp Sticker (1 ea)",
+                "✅ Official Plastic Ticket (1 ea)", "✅ Official E-signed Poster (1 ea)",
+                "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
+            ]
+        },
+        '5500': {
+            title: "✨ ราคา 5,500 ฿",
+            benefits: [
+                "✅ Goodbye talk session", "✅ Individual Photo Cards (1 Set / All Members)",
+                "✅ Large Hologram Group Photo Card (1 ea)", "✅ Tour Stamp Sticker (1 ea)",
+                "✅ Official Plastic Ticket (1 ea)", "✅ Official E-signed Poster (1 ea)",
+                "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
+            ]
+        },
+        '3800': {
+            title: "✨ ราคา 3,800 ฿",
+            benefits: [
+                "✅ Individual Photo Cards (1 Set / All Members)", "✅ Large Hologram Group Photo Card (1 ea)",
+                "✅ Tour Stamp Sticker (1 ea)", "✅ Official Plastic Ticket (1 ea)",
+                "✅ Official E-signed Poster (1 ea)",
+                "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
+            ]
+        },
+        '3500': {
+            title: "✨ ราคา 3,500 ฿",
+            benefits: [
+                "✅ Individual Photo Cards (1 Set / All Members)", "✅ Large Hologram Group Photo Card (1 ea)",
+                "✅ Tour Stamp Sticker (1 ea)", "✅ Official Plastic Ticket (1 ea)",
+                "✅ Official E-signed Poster (1 ea)",
+                "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
+            ]
+        },
+        '2800': {
+            title: "✨ ราคา 2,800 ฿",
+            benefits: [
+                "✅ Individual Photo Cards (1 Set / All Members)", "✅ Large Hologram Group Photo Card (1 ea)",
+                "✅ Tour Stamp Sticker (1 ea)", "✅ Official Plastic Ticket (1 ea)",
+                "✅ Official E-signed Poster (1 ea)",
+                "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
+            ]
+        },
+        '2500': {
+            title: "✨ ราคา 2,500 ฿",
+            benefits: [
+                "✅ Individual Photo Cards (1 Set / All Members)", "✅ Large Hologram Group Photo Card (1 ea)",
+                "✅ Tour Stamp Sticker (1 ea)", "✅ Official Plastic Ticket (1 ea)",
+                "✅ Official E-signed Poster (1 ea)",
+                "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
+            ]
         }
+    };
 
-        // 4. ฟังก์ชันประมวลผลขับเคลื่อนข้อมูลการคลิกหรือสุ่มเลือกกลุ่มพื้นที่แผนที่
-        function displaySelectedZoneMetadata(zoneCode, basePrice) {
-            const detailContainer = document.getElementById('dynamic-zone-detail');
-            const benefitHeaderBox = document.getElementById('benefit-header');
-            const priceTagText = document.getElementById('benefit-price-tag');
-            const listContentContainer = document.getElementById('benefit-list-content');
+    //
+    function changeModalTab(tabIndex, buttonElement) {
+        const tabs = document.querySelectorAll('.tab-content-block');
+        tabs.forEach(tab => tab.classList.remove('active'));
+        
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach(item => item.classList.remove('active'));
+        
+        if(tabs[tabIndex]) tabs[tabIndex].classList.add('active');
+        if(buttonElement) buttonElement.classList.add('active');
+    }
 
-            if (!detailContainer || !benefitHeaderBox || !priceTagText || !listContentContainer) return;
+    function calculateTicketPrice(priceStr, element) {
+        if (!element) return;
+        
+        const price = parseFloat(priceStr);
+        const ticketFee = 30; 
+        const processingFee = price * 0.03;
+        const total = price + ticketFee + processingFee;
 
-            document.querySelectorAll('.st-zone').forEach(el => el.classList.remove('is-focused'));
-            
-            const targetedSvgElement = document.getElementById(`svg-zone-${zoneCode}`) || document.querySelector(`[data-zone="${zoneCode}"]`);
-            if (targetedSvgElement) targetedSvgElement.classList.add('is-focused');
+        document.getElementById('base-price-text').textContent = price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('fee-price-text').textContent = (ticketFee + processingFee).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('total-price-text').textContent = total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
-            const theme = zoneColors[basePrice] || { bg: '#444', text: '#fff', glow: 'rgba(255,255,255,0.1)' };
-            
-            benefitHeaderBox.textContent = `ZONE: ${zoneCode}`;
-            benefitHeaderBox.style.backgroundColor = theme.bg;
-            benefitHeaderBox.style.color = theme.text;
-            
-            priceTagText.textContent = `${Number(basePrice).toLocaleString()} บาท`;
-            
-            listContentContainer.innerHTML = '';
-            const targetedBenefitsArray = benefitDatabase[basePrice] || ["ไม่มีข้อมูลสิทธิประโยชน์เพิ่มเติมสำหรับราคานี้"];
-            
-            targetedBenefitsArray.forEach(benefitStr => {
-                const row = document.createElement('div');
-                row.className = 'benefit-item-row';
-                row.textContent = benefitStr;
-                listContentContainer.appendChild(row);
-            });
 
-            detailContainer.style.display = 'block';
-            detailContainer.style.borderColor = theme.bg;
-            detailContainer.style.boxShadow = `0 0 12px ${theme.glow}`;
-        }
+        const formattedPrice = priceStr === '6800' ? 'VIP 6,800 ฿' : `${Number(priceStr).toLocaleString()} ฿`;
+        document.getElementById('selected-calc-title').textContent = `📊 จำนวนเงินที่ต้องชำระสำหรับบัตรราคา ${formattedPrice}`;
 
-        // 5. ฟังก์ชันกดจากปุ่มลิสต์ด้านขวา เพื่อไฮไลต์กลุ่มราคานั้นๆ บนแผนที่
-        function highlightMapPriceGroup(selectedPrice) {
-            document.querySelectorAll('.st-zone').forEach(el => {
-                el.classList.remove('is-focused');
-                if (el.getAttribute('data-price') === selectedPrice) {
-                    el.style.opacity = '1';
-                } else {
-                    el.style.opacity = '0.2';
-                }
-            });
 
-            const matchingFirstZone = document.querySelector(`.st-zone[data-price="${selectedPrice}"]`);
-            if (matchingFirstZone) {
-                const zoneCode = matchingFirstZone.getAttribute('data-zone');
-                displaySelectedZoneMetadata(zoneCode, selectedPrice);
+        const allCalcButtons = document.querySelectorAll('.zone-btn-calc');
+        allCalcButtons.forEach(btn => {
+            btn.style.setProperty('background-color', '', 'important');
+            btn.style.setProperty('color', '', 'important');
+            btn.style.setProperty('border-color', '', 'important');
+            btn.style.setProperty('box-shadow', '', 'important');
+        });
+
+        const calcHeaderBox = document.getElementById('calc-details-header');
+        const calcBorderBox = document.getElementById('calc-details-box');
+
+        if (zoneColors[priceStr]) {
+            const theme = zoneColors[priceStr];
+            element.style.setProperty('background-color', theme.bg, 'important');
+            element.style.setProperty('color', theme.text, 'important');
+            element.style.setProperty('border-color', theme.bg, 'important');
+            element.style.setProperty('box-shadow', `0 0 12px ${theme.glow}`, 'important');
+
+            if (calcHeaderBox) {
+                calcHeaderBox.style.setProperty('background-color', theme.bg, 'important');
+                calcHeaderBox.style.setProperty('color', theme.text, 'important');
+            }
+            if (calcBorderBox) {
+                calcBorderBox.style.setProperty('border-color', theme.bg, 'important');
             }
         }
+    }
 
-        // 6. ฟังก์ชันริเริ่มแมปอีเวนต์ให้กับกลุ่มออบเจกต์ภายในแผนที่ SVG ล่วงหน้า
-        function initSvgInteractiveMapEventListeners() {
-            document.querySelectorAll('.st-zone').forEach(zonePolygon => {
-                zonePolygon.addEventListener('click', function() {
-                    const extractedZoneId = this.getAttribute('data-zone');
-                    const extractedPriceGroup = this.getAttribute('data-price');
-                    
-                    document.querySelectorAll('.st-zone').forEach(el => el.style.opacity = '0.85');
-                    displaySelectedZoneMetadata(extractedZoneId, extractedPriceGroup);
-                });
+    // 
+    function selectZone(zonePrice, element) {
+        if (!element) return;
+
+        const allBenefitButtons = document.querySelectorAll('.zone-btn');
+        allBenefitButtons.forEach(btn => {
+            btn.style.setProperty('background-color', '', 'important');
+            btn.style.setProperty('color', '', 'important');
+            btn.style.setProperty('border-color', '', 'important');
+            btn.style.setProperty('box-shadow', '', 'important');
+        });
+
+        const titleElement = document.getElementById('selected-zone-title');
+        const listElement = document.getElementById('benefits-list');
+        
+        const benefitHeaderBox = document.getElementById('benefit-details-header');
+        const benefitBorderBox = document.getElementById('benefit-details-box');
+
+        const data = concertBenefitData[zonePrice];
+        if (data) {
+            titleElement.textContent = data.title;
+            listElement.innerHTML = "";
+
+            data.benefits.forEach(benefit => {
+                const li = document.createElement('li');
+                li.textContent = benefit;
+                listElement.appendChild(li);
             });
-        }
 
-        // 7. ฟังก์ชันคำนวณนับถอยหลังแบบ 2 ส่วนแยกจากกัน (Weverse Presale & Concert Day)
+            if (zoneColors[zonePrice]) {
+                const theme = zoneColors[zonePrice];
+                element.style.setProperty('background-color', theme.bg, 'important');
+                element.style.setProperty('color', theme.text, 'important');
+                element.style.setProperty('border-color', theme.bg, 'important');
+                element.style.setProperty('box-shadow', `0 0 12px ${theme.glow}`, 'important');
+
+                if (benefitHeaderBox) {
+                    benefitHeaderBox.style.setProperty('background-color', theme.bg, 'important');
+                    benefitHeaderBox.style.setProperty('color', theme.text, 'important');
+                }
+                if (benefitBorderBox) {
+                    benefitBorderBox.style.setProperty('border-color', theme.bg, 'important');
+                }
+            }
+        }
+    }
+
+   // 7. ฟังก์ชันคำนวณนับถอยหลังแบบ 2 ส่วนแยกจากกัน (Weverse Presale & Concert Day)
         function initDualCountdown() {
             const presaleTarget = new Date("August 1, 2026 11:00:00").getTime();
             const concertTarget = new Date("October 10, 2026 18:00:00").getTime();
@@ -756,24 +959,38 @@
             setInterval(updateTimers, 1000);
         }
 
-        // คุมระบบทั้งหมดให้พร้อมทำงานเมื่อ DOM โหลดสมบูรณ์
-        document.addEventListener("DOMContentLoaded", () => {
-            initSvgInteractiveMapEventListeners();
-            initDualCountdown();
-        });
+    //
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
 
-        // ระบบป้องกันคลิกขวาและฟังก์ชันคีย์ลัด
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('keydown', function(e) {
-            const isCtrlOrCmd = e.ctrlKey || e.metaKey;
-            const key = e.key.toLowerCase();
-            if (isCtrlOrCmd && (key === 'c' || key === 'x' || key === 'a' || key === 's' || key === 'p')) {
-                e.preventDefault();
-            }
-            if (e.key === 'F12' || (isCtrlOrCmd && e.shiftKey && key === 'i') || (isCtrlOrCmd && e.shiftKey && key === 'c') || (isCtrlOrCmd && e.shiftKey && key === 'j') || (isCtrlOrCmd && key === 'u')) {
-                e.preventDefault();
-            }
-        });
+          // 
+          document.addEventListener('keydown', function(e) {
+           const isCtrlOrCmd = e.ctrlKey || e.metaKey;
+           const key = e.key.toLowerCase();
+
+           // 
+           if (isCtrlOrCmd && (key === 'c' || key === 'x' || key === 'a')) {
+               e.preventDefault();
+           }
+
+           // 
+           if (isCtrlOrCmd && key === 's') {
+        e.preventDefault();
+           }
+
+           // 
+           if (isCtrlOrCmd && key === 'p') {
+        e.preventDefault();
+           }
+
+           // 
+           if (e.key === 'F12' || 
+               (isCtrlOrCmd && key === 'u') || 
+               (isCtrlOrCmd && e.shiftKey && key === 'i')) {
+               e.preventDefault();
+           }
+       });
     </script>
 </body>
 </html>
