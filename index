@@ -632,28 +632,55 @@
                             <p><strong>⏰ เวลาแสดง :</strong> 18:00 น. </p>
                             <p><strong>🚪 ประตูเปิด :</strong> 16.30 น. </p>
                             
-                            <!-- แผงนับถอยหลังสู่วันคอนเสิร์ต (Countdown Timer) -->
-                            <div class="countdown-wrapper">
-                                <div class="countdown-title"><span>🛸</span> Time Until Showtime (นับถอยหลังสู่วันคอนเสิร์ต)</div>
-                                <div class="countdown-grid">
-                                    <div class="countdown-segment">
-                                        <div id="count-days" class="countdown-number">00</div>
-                                        <div class="countdown-label">Days</div>
-                                    </div>
-                                    <div class="countdown-segment">
-                                        <div id="count-hours" class="countdown-number">00</div>
-                                        <div class="countdown-label">Hrs</div>
-                                    </div>
-                                    <div class="countdown-segment">
-                                        <div id="count-mins" class="countdown-number">00</div>
-                                        <div class="countdown-label">Mins</div>
-                                    </div>
-                                    <div class="countdown-segment">
-                                        <div id="count-secs" class="countdown-number">00</div>
-                                        <div class="countdown-label">Secs</div>
-                                    </div>
+                            <!--Countdown Timer) -->
+                           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 25px;">
+                        
+                        <div style="background: rgba(255, 0, 43, 0.03); border: 1px solid rgba(255, 122, 0, 0.3); border-radius: 8px; padding: 15px 20px; box-shadow: inset 0 0 15px rgba(255,122,0,0.03);">
+                            <span style="color: #FF7A00; font-weight: bold; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; margin-bottom: 15px;">🎫 COUNTDOWN: รอบ Weverse Membership Presale (1 ส.ค. 69 @11:00)</span>
+                            <div id="presale-timer-container" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                                <div style="background: rgba(6, 8, 14, 0.85); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; min-width: 65px; padding: 10px; text-align: center;">
+                                    <div id="p-timer-days" style="font-size: 1.6rem; font-weight: 800; color: #fff; line-height: 1.2;">00</div>
+                                    <div style="font-size: 0.7rem; color: var(--text-light-dim); font-weight: bold; margin-top: 4px;">DAYS</div>
+                                </div>
+                                <div style="background: rgba(6, 8, 14, 0.85); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; min-width: 65px; padding: 10px; text-align: center;">
+                                    <div id="p-timer-hours" style="font-size: 1.6rem; font-weight: 800; color: #fff; line-height: 1.2;">00</div>
+                                    <div style="font-size: 0.7rem; color: var(--text-light-dim); font-weight: bold; margin-top: 4px;">HRS</div>
+                                </div>
+                                <div style="background: rgba(6, 8, 14, 0.85); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; min-width: 65px; padding: 10px; text-align: center;">
+                                    <div id="p-timer-mins" style="font-size: 1.6rem; font-weight: 800; color: #fff; line-height: 1.2;">00</div>
+                                    <div style="font-size: 0.7rem; color: var(--text-light-dim); font-weight: bold; margin-top: 4px;">MINS</div>
+                                </div>
+                                <div style="background: rgba(6, 8, 14, 0.85); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; min-width: 65px; padding: 10px; text-align: center;">
+                                    <div id="p-timer-secs" style="font-size: 1.6rem; font-weight: 800; color: #FF7A00; line-height: 1.2;">00</div>
+                                    <div style="font-size: 0.7rem; color: var(--text-light-dim); font-weight: bold; margin-top: 4px;">SECS</div>
                                 </div>
                             </div>
+                            <div id="presale-live-msg" style="display: none; color: #FF7A00; font-size: 1.2rem; font-weight: bold; letter-spacing: 1px; padding: 10px 0;">🔥 เปิดจำหน่ายบัตรรอบ Presale แล้ว!</div>
+                        </div>
+
+                        <div style="background: rgba(255, 0, 43, 0.03); border: 1px solid rgba(255, 0, 43, 0.25); border-radius: 8px; padding: 15px 20px; box-shadow: inset 0 0 15px rgba(255,0,43,0.03);">
+                            <span style="color: var(--neon-red); font-weight: bold; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; margin-bottom: 15px;">🛸 TIME UNTIL SHOWTIME: วันคอนเสิร์ตใหญ่ (10 ต.ค. 69 @18:00)</span>
+                            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                                <div style="background: rgba(6, 8, 14, 0.85); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; min-width: 65px; padding: 10px; text-align: center;">
+                                    <div id="timer-days" style="font-size: 1.6rem; font-weight: 800; color: #fff; line-height: 1.2;">00</div>
+                                    <div style="font-size: 0.7rem; color: var(--text-light-dim); font-weight: bold; margin-top: 4px;">DAYS</div>
+                                </div>
+                                <div style="background: rgba(6, 8, 14, 0.85); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; min-width: 65px; padding: 10px; text-align: center;">
+                                    <div id="timer-hours" style="font-size: 1.6rem; font-weight: 800; color: #fff; line-height: 1.2;">00</div>
+                                    <div style="font-size: 0.7rem; color: var(--text-light-dim); font-weight: bold; margin-top: 4px;">HRS</div>
+                                </div>
+                                <div style="background: rgba(6, 8, 14, 0.85); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; min-width: 65px; padding: 10px; text-align: center;">
+                                    <div id="timer-mins" style="font-size: 1.6rem; font-weight: 800; color: #fff; line-height: 1.2;">00</div>
+                                    <div style="font-size: 0.7rem; color: var(--text-light-dim); font-weight: bold; margin-top: 4px;">MINS</div>
+                                </div>
+                                <div style="background: rgba(6, 8, 14, 0.85); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; min-width: 65px; padding: 10px; text-align: center;">
+                                    <div id="timer-secs" style="font-size: 1.6rem; font-weight: 800; color: var(--neon-red); line-height: 1.2; text-shadow: 0 0 8px var(--neon-glow);">00</div>
+                                    <div style="font-size: 0.7rem; color: var(--text-light-dim); font-weight: bold; margin-top: 4px;">SECS</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
 
                             <div class="tag-container">
                                 <span class="price-badge price-6800">VIP 6,800 ฿</span>
@@ -677,8 +704,8 @@
                     <h2 class="section-title">ผังที่นั่งและราคา</h2>
                     <div class="seating-map-container">
                         
-                        <!-- เริ่มต้นโครงสร้างผัง Interactive SVG (IMPACT Arena Custom Build) -->
-                        <svg class="concert-svg-map" viewBox="0 0 1100 850" xmlns="http://www.w3.org/2000/svg">
+                        <!-- MPACT Arena) -->
+                       <svg class="concert-svg-map" viewBox="0 0 1100 950" xmlns="http://www.w3.org/2000/svg">
                             <defs>
                                 <style>
                                     .st-stage { fill: #11141d; stroke: #ff002b; stroke-width: 4; }
@@ -693,91 +720,73 @@
                                 </style>
                             </defs>
 
-                            <!-- สีพื้นหลังผัง -->
                             <rect width="100%" height="100%" fill="#07090d" rx="10"/>
 
-                            <!-- เวทีหลัก (STAGE) -->
                             <g class="st-stage">
                                 <rect x="390" y="50" width="320" height="90" rx="4"/>
                                 <text x="550" y="105" class="st-stage-text">STAGE</text>
                             </g>
 
-                            <!-- ==================== FLOOR & LOWER SEATS ==================== -->
-                            <!-- ZONE A1 (สีส้ม 5,500 THB) -->
                             <path id="svg-zone-A1" class="st-zone" data-price="5500" data-zone="A1" d="M 330 170 L 440 170 L 440 330 L 330 330 Z" fill="#FF7A00"/>
-                            <!-- ZONE A2 (สีแดง 6,800 THB) -->
-                            <path id="svg-zone-A2" class="st-zone" data-price="6800" data-zone="A2" d="M 450 170 L 545 170 L 545 370 L 450 370 Z" fill="#FF1F00"/>
-                            <!-- ZONE A3 (สีแดง 6,800 THB) -->
-                            <path id="svg-zone-A3" class="st-zone" data-price="6800" data-zone="A3" d="M 555 170 L 650 170 L 650 370 L 555 370 Z" fill="#FF1F00"/>
-                            <!-- ZONE A4 (สีส้ม 5,500 THB) -->
-                            <path id="svg-zone-A4" class="st-zone" data-price="5500" data-zone="A4" d="M 660 170 L 770 170 L 770 330 L 660 330 Z" fill="#FF7A00"/>
-
-                            <!-- ZONE B1 (สีส้ม 5,500 THB) -->
                             <path id="svg-zone-B1" class="st-zone" data-price="5500" data-zone="B1" d="M 330 340 L 440 340 L 440 460 L 330 460 Z" fill="#FF7A00"/>
-                            <!-- ZONE B2 (สีแดง 6,800 THB) -->
-                            <path id="svg-zone-B2" class="st-zone" data-price="6800" data-zone="B2" d="M 450 380 L 545 380 L 545 460 L 450 460 Z" fill="#FF1F00"/>
-                            <!-- ZONE B3 (สีแดง 6,800 THB) -->
-                            <path id="svg-zone-B3" class="st-zone" data-price="6800" data-zone="B3" d="M 555 380 L 650 380 L 650 460 L 555 460 Z" fill="#FF1F00"/>
-                            <!-- ZONE B4 (สีส้ม 5,500 THB) -->
+                            <path id="svg-zone-A4" class="st-zone" data-price="5500" data-zone="A4" d="M 660 170 L 770 170 L 770 330 L 660 330 Z" fill="#FF7A00"/>
                             <path id="svg-zone-B4" class="st-zone" data-price="5500" data-zone="B4" d="M 660 340 L 770 340 L 770 460 L 660 460 Z" fill="#FF7A00"/>
 
-                            <!-- กล้องแทรกในโซนเด่น (Camera Blocks) -->
+                            <path id="svg-zone-A2" class="st-zone" data-price="6800" data-zone="A2" d="M 450 170 L 545 170 L 545 370 L 450 370 Z" fill="#FF1F00"/>
+                            <path id="svg-zone-A3" class="st-zone" data-price="6800" data-zone="A3" d="M 555 170 L 650 170 L 650 370 L 555 370 Z" fill="#FF1F00"/>
+                            <path id="svg-zone-B2" class="st-zone" data-price="6800" data-zone="B2" d="M 450 380 L 545 380 L 545 460 L 450 460 Z" fill="#FF1F00"/>
+                            <path id="svg-zone-B3" class="st-zone" data-price="6800" data-zone="B3" d="M 555 380 L 650 380 L 650 460 L 555 460 Z" fill="#FF1F00"/>
+
                             <g class="st-camera">
                                 <rect x="330" y="170" width="55" height="40" class="st-camera-box"/>
                                 <text x="357" y="194" class="st-camera-text">CAM</text>
                                 <rect x="715" y="420" width="55" height="40" class="st-camera-box"/>
                                 <text x="742" y="444" class="st-camera-text">CAM</text>
                             </g>
-
-                            <!-- คอนโทรลกลาง (F.O.H) -->
                             <g class="st-foh">
                                 <rect x="490" y="480" width="120" height="45" rx="2"/>
                                 <text x="550" y="508" class="st-foh-text">FOH</text>
                             </g>
 
-                            <!-- ==================== TIER 2 SEATS (S-SERIES) ==================== -->
-                            <!-- ฝั่งซ้าย (SC, SD, SE, SF, SG) -->
                             <path id="svg-zone-SC" class="st-zone" data-price="5500" data-zone="SC" d="M 230 170 L 310 200 L 310 290 L 230 290 Z" fill="#FF7A00"/>
                             <path id="svg-zone-SD" class="st-zone" data-price="5500" data-zone="SD" d="M 230 305 L 310 305 L 310 395 L 230 395 Z" fill="#FF7A00"/>
                             <path id="svg-zone-SE" class="st-zone" data-price="5500" data-zone="SE" d="M 230 410 L 310 410 L 310 500 L 230 520 Z" fill="#FF7A00"/>
                             <path id="svg-zone-SF" class="st-zone" data-price="5500" data-zone="SF" d="M 245 535 L 320 515 L 375 585 L 310 615 Z" fill="#FF7A00"/>
-                            <path id="svg-zone-SG" class="st-zone" data-price="6800" data-zone="SG" d="M 325 630 L 390 595 L 455 655 L 400 700 Z" fill="#FF1F00"/>
                             
-                            <!-- โซนกลางท้ายหลังพิง FOH (SH, SI เป็น 6,800 THB สีแดง) -->
-                            <path id="svg-zone-SH" class="st-zone" data-price="6800" data-zone="SH" d="M 415 710 L 470 663 L 545 663 L 545 725 Z" fill="#FF1F00"/>
-                            <path id="svg-zone-SI" class="st-zone" data-price="6800" data-zone="SI" d="M 555 663 L 630 663 L 685 710 L 555 725 Z" fill="#FF1F00"/>
-
-                            <!-- ฝั่งขวา (SJ, SK, SL, SM) -->
                             <path id="svg-zone-SJ" class="st-zone" data-price="5500" data-zone="SJ" d="M 700 595 L 765 630 L 690 700 L 635 655 Z" fill="#FF7A00"/>
                             <path id="svg-zone-SK" class="st-zone" data-price="5500" data-zone="SK" d="M 780 410 L 860 170 L 860 520 L 780 500 Z" fill="#FF7A00"/>
                             <path id="svg-zone-SL" class="st-zone" data-price="5500" data-zone="SL" d="M 780 305 L 860 305 L 860 395 L 780 395 Z" fill="#FF7A00"/>
                             <path id="svg-zone-SM" class="st-zone" data-price="5500" data-zone="SM" d="M 780 170 L 860 200 L 860 290 L 780 290 Z" fill="#FF7A00"/>
 
+                            <path id="svg-zone-SG" class="st-zone" data-price="6800" data-zone="SG" d="M 325 630 L 390 595 L 455 655 L 400 700 Z" fill="#FF1F00"/>
+                            <path id="svg-zone-SH" class="st-zone" data-price="6800" data-zone="SH" d="M 415 710 L 470 663 L 545 663 L 545 725 Z" fill="#FF1F00"/>
+                            <path id="svg-zone-SI" class="st-zone" data-price="6800" data-zone="SI" d="M 555 663 L 630 663 L 685 710 L 555 725 Z" fill="#FF1F00"/>
 
-                            <!-- ==================== TIER 3 SEATS (OUTER WINGS) ==================== -->
-                            <!-- ฝั่งซ้ายนอกสุด (C, D, E, F, G, H, I, J) -->
                             <path id="svg-zone-C" class="st-zone" data-price="3500" data-zone="C" d="M 130 170 L 210 200 L 210 290 L 130 290 Z" fill="#FFF2B2"/>
                             <path id="svg-zone-D" class="st-zone" data-price="3500" data-zone="D" d="M 130 305 L 210 305 L 210 395 L 130 395 Z" fill="#FFF2B2"/>
                             <path id="svg-zone-E" class="st-zone" data-price="3500" data-zone="E" d="M 130 410 L 210 410 L 210 500 L 130 520 Z" fill="#FFF2B2"/>
+                            
                             <path id="svg-zone-F" class="st-zone" data-price="3800" data-zone="F" d="M 140 535 L 220 515 L 265 575 L 195 605 Z" fill="#FFE57F"/>
+
+                            <path id="svg-zone-S" class="st-zone" data-price="3800" data-zone="S" d="M 890 120 L 970 140 L 970 195 L 890 195 Z" fill="#FFE57F"/>
+                            <path id="svg-zone-R" class="st-zone" data-price="3800" data-zone="R" d="M 890 200 L 970 220 L 970 290 L 890 290 Z" fill="#FFE57F"/>
+                            <path id="svg-zone-Q" class="st-zone" data-price="3800" data-zone="Q" d="M 890 305 L 970 305 L 970 395 L 890 395 Z" fill="#FFE57F"/>
+                            <path id="svg-zone-P" class="st-zone" data-price="3800" data-zone="P" d="M 890 410 L 970 410 L 970 500 L 890 520 Z" fill="#FFE57F"/>
+
                             <path id="svg-zone-G" class="st-zone" data-price="2800" data-zone="G" d="M 210 620 L 275 588 L 330 640 L 275 680 Z" fill="#A1E3F5"/>
                             <path id="svg-zone-H" class="st-zone" data-price="2800" data-zone="H" d="M 290 695 L 345 650 L 400 705 L 355 755 Z" fill="#A1E3F5"/>
-                            <path id="svg-zone-I" class="st-zone" data-price="2500" data-zone="I" d="M 370 765 L 415 715 L 470 755 L 435 815 Z" fill="#0072CE"/>
-                            <path id="svg-zone-J" class="st-zone" data-price="2500" data-zone="J" d="M 450 820 L 485 760 L 540 760 L 540 830 Z" fill="#0072CE"/>
+                            <path id="svg-zone-I" class="st-zone" data-price="2800" data-zone="I" d="M 370 765 L 415 715 L 470 755 L 435 815 Z" fill="#A1E3F5"/>
+                            
+                            <path id="svg-zone-J" class="st-zone" data-price="3500" data-zone="J" d="M 450 820 L 485 760 L 540 760 L 540 830 Z" fill="#FFF2B2"/>
+                            <path id="svg-zone-K" class="st-zone" data-price="3500" data-zone="K" d="M 560 760 L 615 760 L 650 820 L 560 830 Z" fill="#FFF2B2"/>
+                            <path id="svg-zone-L" class="st-zone" data-price="3500" data-zone="L" d="M 685 715 L 730 765 L 665 815 L 630 755 Z" fill="#FFF2B2"/>
 
-                            <!-- ฝั่งขวานอกสุด (K, L, M, N, O, P, Q, R, S) -->
-                            <path id="svg-zone-K" class="st-zone" data-price="2500" data-zone="K" d="M 560 760 L 615 760 L 650 820 L 560 830 Z" fill="#0072CE"/>
-                            <path id="svg-zone-L" class="st-zone" data-price="2500" data-zone="L" d="M 685 715 L 730 765 L 665 815 L 630 755 Z" fill="#0072CE"/>
                             <path id="svg-zone-M" class="st-zone" data-price="2800" data-zone="M" d="M 755 650 L 810 695 L 745 755 L 700 705 Z" fill="#A1E3F5"/>
                             <path id="svg-zone-N" class="st-zone" data-price="2800" data-zone="N" d="M 825 588 L 890 620 L 825 680 L 770 640 Z" fill="#A1E3F5"/>
                             <path id="svg-zone-O" class="st-zone" data-price="2800" data-zone="O" d="M 880 515 L 960 535 L 905 605 L 835 575 Z" fill="#A1E3F5"/>
-                            <path id="svg-zone-P" class="st-zone" data-price="3800" data-zone="P" d="M 890 410 L 970 410 L 970 500 L 890 520 Z" fill="#FFE57F"/>
-                            <path id="svg-zone-Q" class="st-zone" data-price="3500" data-zone="Q" d="M 890 305 L 970 305 L 970 395 L 890 395 Z" fill="#FFF2B2"/>
-                            <path id="svg-zone-R" class="st-zone" data-price="3500" data-zone="R" d="M 890 170 L 970 200 L 970 290 L 890 290 Z" fill="#FFF2B2"/>
 
+                            <path id="svg-zone-TOP-2500" class="st-zone" data-price="2500" data-zone="แถวบนสุดหลังคา (All Top Rows)" d="M 130 160 L 140 160 C 100 500, 300 900, 550 930 C 800 900, 1000 500, 960 160 L 970 160 C 1020 520, 800 940, 550 950 C 300 940, 800 520, 130 160 Z" fill="#0072CE"/>
 
-                            <!-- ==================== SVG TEXT LABELS ==================== -->
-                            <!-- Floor / Lower -->
                             <text x="385" y="255" class="st-label">A1</text>
                             <text x="497" y="275" class="st-label-light">A2</text>
                             <text x="602" y="275" class="st-label-light">A3</text>
@@ -787,7 +796,6 @@
                             <text x="602" y="425" class="st-label-light">B3</text>
                             <text x="690" y="405" class="st-label">B4</text>
 
-                            <!-- Tier 2 -->
                             <text x="270" y="240" class="st-label">SC</text>
                             <text x="270" y="355" class="st-label">SD</text>
                             <text x="270" y="460" class="st-label">SE</text>
@@ -800,25 +808,26 @@
                             <text x="820" y="355" class="st-label">SL</text>
                             <text x="820" y="240" class="st-label">SM</text>
 
-                            <!-- Tier 3 -->
                             <text x="170" y="240" class="st-label-3rd">C</text>
                             <text x="170" y="355" class="st-label-3rd">D</text>
                             <text x="170" y="460" class="st-label-3rd">E</text>
                             <text x="180" y="565" class="st-label-3rd">F</text>
                             <text x="250" y="635" class="st-label-3rd">G</text>
                             <text x="325" y="705" class="st-label-3rd">H</text>
-                            <text x="410" y="765" class="st-label-light">I</text>
-                            <text x="495" y="795" class="st-label-light">J</text>
-                            <text x="605" y="795" class="st-label-light">K</text>
-                            <text x="680" y="765" class="st-label-light">L</text>
+                            <text x="410" y="765" class="st-label-3rd">I</text>
+                            <text x="495" y="795" class="st-label-3rd">J</text>
+                            <text x="605" y="795" class="st-label-3rd">K</text>
+                            <text x="680" y="765" class="st-label-3rd">L</text>
                             <text x="755" y="705" class="st-label-3rd">M</text>
                             <text x="830" y="635" class="st-label-3rd">N</text>
                             <text x="900" y="565" class="st-label-3rd">O</text>
                             <text x="930" y="460" class="st-label-3rd">P</text>
                             <text x="930" y="355" class="st-label-3rd">Q</text>
                             <text x="930" y="240" class="st-label-3rd">R</text>
+                            <text x="930" y="160" class="st-label-3rd">S</text>
+                            
+                            <text x="550" y="915" class="st-label-light" font-size="14px">🔴 2,500 ฿ แถวบนสุดรอบนอกสุด 🔴</text>
                         </svg>
-                        <!-- สิ้นสุดส่วน Interactive SVG -->
 
                         <ul class="bullet-list" style="width: 100%;">
                             <li><strong>💡 คำแนะนำระบบผังเมืองจำลอง:</strong> คุณสามารถนำเมาส์ไปชี้หรือแตะเลือกบนกลุ่มก้อนบล็อกสีของโซนที่นั่งบนผังจำลองด้านบนเพื่อคำนวณราคาสรุปยอดสุทธิได้ทันที หรือใช้ปุ่มด่วนด้านล่างนี้ได้เช่นกันครับ</li>
@@ -958,12 +967,13 @@
 <script>
     // 1. ฐานข้อมูลพาเลทสีประจำช่วงราคา
     const zoneColors = {
-        '6800': { bg: '#FF1F00', text: '#000000', glow: 'rgba(255, 31, 0, 0.5)' },
-        '5500': { bg: '#FF7A00', text: '#000000', glow: 'rgba(255, 122, 0, 0.5)' },
-        '3800': { bg: '#FFE57F', text: '#000000', glow: 'rgba(255, 229, 127, 0.5)' },
-        '3500': { bg: '#FFF2B2', text: '#000000', glow: 'rgba(255, 242, 178, 0.5)' },
-        '2800': { bg: '#A1E3F5', text: '#000000', glow: 'rgba(161, 227, 245, 0.5)' },
-        '2500': { bg: '#0072CE', text: '#000000', glow: 'rgba(0, 114, 206, 0.5)' }
+        '6800': { bg: '#FF1F00', text: '#FFFFFF', glow: 'rgba(255, 31, 0, 0.5)' }, // สีแดง
+        '5500': { bg: '#FF7A00', text: '#000000', glow: 'rgba(255, 122, 0, 0.5)' }, // สีส้ม
+        '3800': { bg: '#FFE57F', text: '#000000', glow: 'rgba(255, 229, 127, 0.5)' }, // สีเหลืองเข้ม
+        '3500': { bg: '#FFF2B2', text: '#000000', glow: 'rgba(255, 242, 178, 0.5)' }, // สีครีมเหลืองอ่อน
+        '2800': { bg: '#A1E3F5', text: '#000000', glow: 'rgba(161, 227, 245, 0.5)' }, // สีฟ้า
+        '2500': { bg: '#0072CE', text: '#FFFFFF', glow: 'rgba(0, 114, 206, 0.5)' }  // สีน้ำเงิน
+    };
     };
 
     // 2. Benefits 
@@ -1182,6 +1192,75 @@
         }
     }
 
+    // นับถอย Weverse Presale & Concert Day
+    function initDualCountdown() {
+        // 1. ตั้งเวลาเป้าหมายรอบ Weverse Presale: 1 สิงหาคม 2026 เวลา 11:00:00 น.
+        const presaleTarget = new Date("August 1, 2026 11:00:00").getTime();
+        // 2. ตั้งเวลาเป้าหมายวันคอนเสิร์ต: 10 ตุลาคม 2026 เวลา 18:00:00 น.
+        const concertTarget = new Date("October 10, 2026 18:00:00").getTime();
+
+        function updateTimers() {
+            const now = new Date().getTime();
+
+            // --- ส่วนที่ 1: คำนวณรอบ Weverse Presale ---
+            const pDiff = presaleTarget - now;
+            const pContainer = document.getElementById("presale-timer-container");
+            const pLiveMsg = document.getElementById("presale-live-msg");
+            
+            if (pDiff <= 0) {
+                if (pContainer) pContainer.style.display = "none";
+                if (pLiveMsg) pLiveMsg.style.display = "block";
+            } else {
+                const pDays = Math.floor(pDiff / (1000 * 60 * 60 * 24));
+                const pHours = Math.floor((pDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const pMinutes = Math.floor((pDiff % (1000 * 60 * 60)) / (1000 * 60));
+                const pSeconds = Math.floor((pDiff % (1000 * 60)) / 1000);
+
+                const pdEl = document.getElementById("p-timer-days");
+                const phEl = document.getElementById("p-timer-hours");
+                const pmEl = document.getElementById("p-timer-mins");
+                const psEl = document.getElementById("p-timer-secs");
+
+                if (pdEl) pdEl.textContent = pDays.toString().padStart(2, '0');
+                if (phEl) phEl.textContent = pHours.toString().padStart(2, '0');
+                if (pmEl) pmEl.textContent = pMinutes.toString().padStart(2, '0');
+                if (psEl) psEl.textContent = pSeconds.toString().padStart(2, '0');
+            }
+
+            // --- ส่วนที่ 2: คำนวณวันงานคอนเสิร์ต ---
+            const cDiff = concertTarget - now;
+            const cdEl = document.getElementById("timer-days");
+            const chEl = document.getElementById("timer-hours");
+            const cmEl = document.getElementById("timer-mins");
+            const csEl = document.getElementById("timer-secs");
+
+            if (cdEl && chEl && cmEl && csEl) {
+                if (cDiff <= 0) {
+                    cdEl.textContent = "00";
+                    chEl.textContent = "00";
+                    cmEl.textContent = "00";
+                    csEl.textContent = "00";
+                } else {
+                    const cDays = Math.floor(cDiff / (1000 * 60 * 60 * 24));
+                    const cHours = Math.floor((cDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const cMinutes = Math.floor((cDiff % (1000 * 60 * 60)) / (1000 * 60));
+                    const cSeconds = Math.floor((cDiff % (1000 * 60)) / 1000);
+
+                    cdEl.textContent = cDays.toString().padStart(2, '0');
+                    chEl.textContent = cHours.toString().padStart(2, '0');
+                    cmEl.textContent = cMinutes.toString().padStart(2, '0');
+                    csEl.textContent = cSeconds.toString().padStart(2, '0');
+                }
+            }
+        }
+
+        // เริ่มระบบทันที
+        updateTimers();
+        setInterval(updateTimers, 1000);
+    }
+
+    // เรียกเปิดใช้งานตัวนับเวลาคู่เมื่อโหลดหน้าเว็บเสร็จ
+    document.addEventListener("DOMContentLoaded", initDualCountdown);
     // 
     document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
