@@ -1,3 +1,4 @@
+HTML
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -503,7 +504,7 @@
 </head>
 <body>
 
-   	 <div class="modal-window">
+     <div class="modal-window">
         
         <header class="modal-header">
             <div class="modal-title-group">
@@ -532,6 +533,30 @@
 
                 <div class="tab-content-block active">
                     <h2 class="section-title">ข้อมูลการแสดงและกำหนดการ</h2>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 25px;">
+                        <div style="background: rgba(255, 122, 0, 0.04); border: 1px solid rgba(255, 122, 0, 0.2); border-radius: 6px; padding: 10px 14px; display: flex; flex-direction: column; justify-content: center;">
+                            <div style="font-size: 0.7rem; font-weight: bold; color: #FF7A00; letter-spacing: 0.5px; margin-bottom: 2px;">🎫 WEVERSE PRESALE</div>
+                            <div id="presale-timer-container" style="font-size: 1.1rem; font-weight: 800; color: #fff; font-family: monospace;">
+                                <span id="p-timer-days">00</span><span style="font-size: 0.75rem; color: #8a96a3; font-weight:normal; margin-right:4px;">d</span>
+                                <span id="p-timer-hours">00</span><span style="font-size: 0.75rem; color: #8a96a3; font-weight:normal; margin-right:4px;">h</span>
+                                <span id="p-timer-mins">00</span><span style="font-size: 0.75rem; color: #8a96a3; font-weight:normal; margin-right:4px;">m</span>
+                                <span id="p-timer-secs" style="color: #FF7A00;">00</span><span style="font-size: 0.75rem; color: #FF7A00; font-weight:normal;">s</span>
+                            </div>
+                            <div id="presale-live-msg" style="display: none; color: #FF7A00; font-size: 0.8rem; font-weight: bold;">🔥 เปิดขายบัตรรอบ Presale แล้ว!</div>
+                        </div>
+
+                        <div style="background: rgba(255, 0, 43, 0.04); border: 1px solid rgba(255, 0, 43, 0.2); border-radius: 6px; padding: 10px 14px; display: flex; flex-direction: column; justify-content: center;">
+                            <div style="font-size: 0.7rem; font-weight: bold; color: var(--neon-red); letter-spacing: 0.5px; margin-bottom: 2px;">🛸 COUNTDOWN TO SHOWTIME</div>
+                            <div style="font-size: 1.1rem; font-weight: 800; color: #fff; font-family: monospace;">
+                                <span id="timer-days">00</span><span style="font-size: 0.75rem; color: #8a96a3; font-weight:normal; margin-right:4px;">d</span>
+                                <span id="timer-hours">00</span><span style="font-size: 0.75rem; color: #8a96a3; font-weight:normal; margin-right:4px;">h</span>
+                                <span id="timer-mins">00</span><span style="font-size: 0.75rem; color: #8a96a3; font-weight:normal; margin-right:4px;">m</span>
+                                <span id="timer-secs" style="color: var(--neon-red);">00</span><span style="font-size: 0.75rem; color: var(--neon-red); font-weight:normal;">s</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="overview-grid">
                         <div class="poster-box">
                             <img src="poster.jpg" alt="PLAVE Concert Poster">
@@ -541,27 +566,20 @@
                             <p><strong>📅 วันแสดง :</strong> วันเสาร์ที่ 10 ตุลาคม 2569</p>
                             <p><strong>⏰ เวลาแสดง :</strong> 18:00 น. </p>
                             <p><strong>🚪 ประตูเปิด :</strong> 16.30 น. </p>
+                            
                             <div class="tag-container">
-
-                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 15px;">
-                    <div style="background: rgba(255, 122, 0, 0.04); border: 1px solid rgba(255, 122, 0, 0.2); border-radius: 6px; padding: 8px 12px; display: flex; flex-direction: column; justify-content: center;">
-                        <div style="font-size: 0.7rem; font-weight: bold; color: #FF7A00; letter-spacing: 0.5px; margin-bottom: 2px;">🎫 WEVERSE PRESALE</div>
-                        <div id="presale-timer-container" style="font-size: 1.05rem; font-weight: 800; color: #fff; font-family: monospace;">
-                            <span id="p-timer-days">00</span><span style="font-size: 0.75rem; color: #8a96a3; font-weight:normal; margin-right:4px;">d</span>
-                            <span id="p-timer-hours">00</span><span style="font-size: 0.75rem; color: #8a96a3; font-weight:normal; margin-right:4px;">h</span>
-                            <span id="p-timer-mins">00</span><span style="font-size: 0.75rem; color: #8a96a3; font-weight:normal; margin-right:4px;">m</span>
-                            <span id="p-timer-secs" style="color: #FF7A00;">00</span><span style="font-size: 0.75rem; color: #FF7A00; font-weight:normal;">s</span>
-                        </div>
-                        <div id="presale-live-msg" style="display: none; color: #FF7A00; font-size: 0.8rem; font-weight: bold;">🔥 เปิดขายบัตรรอบ Presale แล้ว!</div>
-                    </div>
-
-                    <div style="background: rgba(255, 0, 43, 0.04); border: 1px solid rgba(255, 0, 43, 0.2); border-radius: 6px; padding: 8px 12px; display: flex; flex-direction: column; justify-content: center;">
-                        <div style="font-size: 0.7rem; font-weight: bold; color: var(--neon-red); letter-spacing: 0.5px; margin-bottom: 2px;">🛸 COUNTDOWN TO SHOWTIME</div>
-                        <div style="font-size: 1.05rem; font-weight: 800; color: #fff; font-family: monospace;">
-                            <span id="timer-days">00</span><span style="font-size: 0.75rem; color: #8a96a3; font-weight:normal; margin-right:4px;">d</span>
-                            <span id="timer-hours">00</span><span style="font-size: 0.75rem; color: #8a96a3; font-weight:normal; margin-right:4px;">h</span>
-                            <span id="timer-mins">00</span><span style="font-size: 0.75rem; color: #8a96a3; font-weight:normal; margin-right:4px;">m</span>
-                            <span id="timer-secs" style="color: var(--neon-red);">00</span><span style="font-size: 0.75rem; color: var(--neon-red); font-weight:normal;">s</span>
+                                <span class="price-badge price-6800">VIP 6,800 ฿</span>
+                                <span class="price-badge price-5500">5,500 ฿</span>
+                                <span class="price-badge price-3800">3,800 ฿</span>
+                                <span class="price-badge price-3500">3,500 ฿</span>
+                                <span class="price-badge price-2800">2,800 ฿</span>
+                                <span class="price-badge price-2500">2,500 ฿</span>
+                            </div>
+                            <br>
+                            <ul class="bullet-list">
+                                <li><strong>จำหน่ายบัตรรอบ Weverse Membership :</strong> วันเสาร์ที่ 1 สิงหาคม เวลา 11.00 น. - 21.59 น.</li>
+                                <li><strong>จำหน่ายบัตรรอบ General Sale :</strong> วันอาทิตย์ที่ 2 สิงหาคม ตั้งแต่เวลา 11.00 น. เป็นต้นไป</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
