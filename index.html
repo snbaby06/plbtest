@@ -2,479 +2,416 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PLAVE KEEP IT MANIC - จำลองกดบัตร</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PLAVE KEEP IT MANIC - IMPACT ARENA</title>
     <style>
         * {
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Tahoma, sans-serif;
             margin: 0;
             padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: #0d0f12;
-            color: #e0e6ed;
+            background-color: #060709;
+            color: #e2e8f0;
+            padding-bottom: 30px;
         }
 
         header {
-            background-color: #b30000;
+            background: linear-gradient(180deg, #b30000 0%, #7a0000 100%);
             color: white;
-            padding: 15px;
+            padding: 12px;
             text-align: center;
-            font-size: 22px;
+            font-size: 16px;
             font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         }
 
         .container {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 25px;
-            background: #1a1d24;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 500px; /* บังคับขนาดให้พอดีกับหน้าจอมือถือมาตรฐาน */
+            margin: 0 auto;
+            padding: 15px;
         }
 
-        .step-panel {
-            display: none;
-        }
-
-        .step-panel.active {
-            display: block;
-        }
+        .step-panel { display: none; }
+        .step-panel.active { display: block; }
 
         h2 {
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #b30000;
+            font-size: 18px;
+            margin-bottom: 15px;
             color: #ff4d4d;
             text-align: center;
         }
 
-        /* หน้าคิว */
-        .queue-container {
+        /* ระบบคิว */
+        .queue-box {
             text-align: center;
-            padding: 40px;
+            padding: 40px 20px;
+            background: #11141a;
+            border-radius: 12px;
+            margin-top: 50px;
         }
         .spinner {
-            border: 8px solid #2d323f;
-            border-top: 8px solid #b30000;
+            border: 5px solid #2d323f;
+            border-top: 5px solid #b30000;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             animation: spin 1s linear infinite;
             margin: 20px auto;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* ================= ผังที่นั่งแบบอิมแพ็คเสมือนจริง ================= */
+        .arena-map {
+            background: #11141b;
+            border-radius: 16px;
+            padding: 15px 10px;
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
         }
 
-        /* สไตล์หน้าเลือกผังโซน (อิงอิมแพ็คอารีน่า) */
-        .stage {
+        .stage-box {
             background: #ffffff;
-            color: #000;
+            color: #000000;
             text-align: center;
-            padding: 15px;
-            font-weight: bold;
-            font-size: 20px;
-            margin: 0 auto 25px auto;
-            border-radius: 4px;
-            max-width: 600px;
-            box-shadow: 0 0 15px rgba(255,255,255,0.2);
+            padding: 8px;
+            font-weight: 900;
+            font-size: 14px;
+            letter-spacing: 2px;
+            width: 50%;
+            margin: 0 auto 20px auto;
+            border-radius: 2px;
+            box-shadow: 0 0 15px rgba(255,255,255,0.3);
         }
 
-        .layout-container {
+        /* ตารางผังจัดตำแหน่งตามภาพจริง */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 4px;
+            width: 100%;
+        }
+
+        /* สไตล์ปุ่มโซน */
+        .z-btn {
+            border: none;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 10px 2px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .zone-row {
-            display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 10px;
-        }
-
-        .zone-btn {
-            padding: 15px 10px;
-            font-size: 14px;
-            font-weight: bold;
-            border: 1px solid rgba(0,0,0,0.2);
-            border-radius: 6px;
             cursor: pointer;
-            transition: transform 0.15s, box-shadow 0.15s;
-            text-align: center;
-            min-width: 75px;
+            transition: transform 0.1s;
+            min-height: 42px;
         }
-        .zone-btn:hover:not(:disabled) {
-            transform: scale(1.05);
-            box-shadow: 0 0 12px rgba(255,255,255,0.1);
-        }
-        .zone-btn:disabled {
-            background-color: #3a3f4d !important;
-            color: #777 !important;
-            cursor: not-allowed;
-            text-decoration: line-through;
-        }
+        .z-btn span { font-size: 7px; opacity: 0.8; margin-top: 1px; font-weight: normal; }
+        .z-btn:active { transform: scale(0.92); }
 
-        /* รหัสสีตามผังราคาคอนเสิร์ต PLAVE */
-        .p-6800 { background-color: #ff0000; color: #fff; } /* แดง */
-        .p-5500 { background-color: #ff8000; color: #fff; } /* ส้ม */
-        .p-3800 { background-color: #ffcc00; color: #000; } /* เหลืองเข้ม */
-        .p-3500 { background-color: #ffffcc; color: #000; } /* เหลืองอ่อน */
-        .p-2800 { background-color: #33ccff; color: #000; } /* ฟ้า */
-        .p-2500 { background-color: #0066cc; color: #fff; } /* น้ำเงิน */
-        .non-clickable { background-color: #444; color: #aaa; cursor: not-allowed; } /* กล้อง / FOH */
+        /* สีตามสเปกผังราคา */
+        .c-6800 { background-color: #ff0000; color: #fff; }
+        .c-5500 { background-color: #ff8000; color: #fff; }
+        .c-3800 { background-color: #ffcc00; color: #000; }
+        .c-3500 { background-color: #ffffcc; color: #000; }
+        .c-2800 { background-color: #33ccff; color: #000; }
+        .c-2500 { background-color: #0066cc; color: #fff; }
+        .c-dark { background-color: #22252c; color: #666; font-size: 8px; cursor: not-allowed; }
 
-        /* หน้าเลือกที่นั่งภายในโซน */
-        .seating-area {
+        /* จัดตำแหน่ง Grid ให้โอบล้อมตามผังจริง (U-Shape) */
+        .grid-layout .z-btn:nth-child(1) { grid-column: 1; }
+        
+        /* สรุปราคาแถบสีด้านล่างผัง */
+        .price-legend {
             display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            gap: 8px;
-            max-width: 500px;
-            margin: 20px auto 30px auto;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-top: 15px;
+            background: #171b26;
+            padding: 10px;
+            border-radius: 8px;
         }
-        .seat {
-            width: 100%;
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 11px;
+            gap: 5px;
+        }
+        .color-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        /* หน้าเลือกที่นั่งเดี่ยว */
+        .seats-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 6px;
+            margin: 20px 0;
+        }
+        .seat-dot {
+            background-color: #2eb85c;
             padding-top: 100%;
             position: relative;
-            background-color: #28a745;
             border-radius: 4px;
-            cursor: pointer;
         }
-        .seat.sold {
-            background-color: #444;
-            cursor: not-allowed;
-        }
-        .seat.selected {
-            background-color: #ffc107;
-            border: 2px solid #fff;
-        }
-        .seat-label {
+        .seat-dot.taken { background-color: #393f4d; cursor: not-allowed; }
+        .seat-dot.chosen { background-color: #f9b115; box-shadow: 0 0 8px #f9b115; }
+        .seat-num {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            color: white;
-            font-size: 11px;
-            font-weight: bold;
+            font-size: 10px; font-weight: bold; color: white;
         }
 
-        /* ปุ่มหลักระบบ */
-        .btn-action {
-            background-color: #b30000;
+        .info-card {
+            background: #171b26;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 4px solid #b30000;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ปุ่มกด */
+        .btn-main {
+            background: #b30000;
             color: white;
-            padding: 14px 25px;
             border: none;
-            border-radius: 6px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            display: block;
             width: 100%;
-            margin-top: 25px;
-            box-shadow: 0 4px 10px rgba(179,0,0,0.3);
-        }
-        .btn-action:hover { background-color: #e60000; }
-        
-        .timer-box {
-            background-color: #fff3cd;
-            color: #856404;
-            padding: 12px;
-            border-radius: 6px;
-            text-align: center;
-            font-weight: bold;
-            margin-bottom: 25px;
+            padding: 14px;
             font-size: 16px;
-        }
-
-        .summary-box {
-            background: #252a34; 
-            padding: 20px; 
+            font-weight: bold;
             border-radius: 8px;
-            border-left: 5px solid #b30000;
-            margin-top: 20px;
+            margin-top: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(179,0,0,0.3);
+        }
+        .btn-main:active { background: #8a0000; }
+
+        .timer-tag {
+            background: #fff3cd;
+            color: #856404;
+            text-align: center;
+            padding: 8px;
+            font-weight: bold;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 13px;
         }
     </style>
 </head>
 <body>
 
-<header>PLAVE 1st WORLD TOUR [KEEP IT MANIC] IN BANGKOK - SIMULATOR</header>
+<header>PLAVE 1st WORLD TOUR [KEEP IT MANIC] IN BKK</header>
 
 <div class="container">
 
-    <!-- STEP 1: หน้าแรกกดคิว -->
+    <!-- STEP 1: หน้าแรก -->
     <div id="step-home" class="step-panel active">
-        <h2 style="border: none;">WELCOME TO IMPACT ARENA</h2>
-        <div style="text-align: center; margin: 20px 0; line-height: 1.8;">
-            <p style="font-size: 18px; color: #ff4d4d; font-weight: bold;">วันแสดง: 2026. 10. 10 (SAT)</p>
-            <p>ระบบนี้จำลองความเร็วและการแย่งชิงผังที่นั่งจริงของ อิมแพ็ค อารีน่า</p>
-            <p style="color: #aaa; font-size: 14px;">(จำกัดสิทธิ์การกดสูงสุด 4 ที่นั่งต่อ 1 บัญชีผู้ใช้งาน)</p>
+        <div class="info-card" style="border:none; text-align:center;">
+            <h3 style="color:#fff; margin-bottom:10px;">IMPACT ARENA SIMULATOR</h3>
+            <p style="color:#aaa; font-size:13px;">ระบบจำลองการกดบัตรคอนเสิร์ตรองรับขนาดหน้าจอมือถือเต็มรูปแบบ</p>
         </div>
-        <button class="btn-action" onclick="startQueue()">กดเพื่อรับคิวเข้าซื้อบัตร</button>
+        <button class="btn-main" onclick="goQueue()">เข้าสู่หน้าจอรอบรับคิวทั่วไป</button>
     </div>
 
-    <!-- STEP 2: หน้ารอคิวถอยหลังสุ่ม -->
+    <!-- STEP 2: รอคิว -->
     <div id="step-queue" class="step-panel">
-        <div class="queue-container">
-            <h2>กำลังเข้าสู่ระบบจัดคิวอิเล็กทรอนิกส์</h2>
+        <div class="queue-box">
+            <h2>กำลังรอสัญญาณเข้าสู่ระบบ</h2>
             <div class="spinner"></div>
-            <p style="font-size: 16px;">กรุณาอย่ารีเฟรชหน้าจอหรือกดปิด ระบบกำลังนำท่านไปยังหน้าผังการเลือกซื้อบัตร</p>
-            <p style="margin-top: 15px; color: #ffcc00; font-size: 18px; font-weight: bold;">จำนวนคิวรอหน้าท่าน: <span id="queue-count">2,450</span> คิว</p>
+            <p style="font-size:13px; color:#94a3b8;">กรุณาอย่าออกจากหน้านี้ ระบบกำลังจัดสรรคิวเข้าสู่ผังที่นั่ง</p>
+            <p style="margin-top:15px; color:#ffcc00; font-weight:bold;">คิวก่อนหน้าท่าน: <span id="q-num">1,840</span></p>
         </div>
     </div>
 
-    <!-- STEP 3: หน้าเลือกผังโซน (Impact Arena คอนเสิร์ต PLAVE) -->
+    <!-- STEP 3: หน้าผังอิมแพ็คเสมือนจริง -->
     <div id="step-zone" class="step-panel">
-        <h2>กรุณาเลือกโซนที่นั่งคอนเสิร์ต</h2>
-        <div class="stage">STAGE (เวทีแสดง)</div>
-        
-        <div class="layout-container">
-            <!-- แถวที่ 1 โซนติดเวทีและกล้อง -->
-            <div class="zone-row">
-                <button class="zone-btn p-5500" onclick="selectZone('A1', 5500)">A1<br>5,500</button>
-                <button class="zone-btn p-6800" onclick="selectZone('A2', 6800)">A2<br>6,800</button>
-                <button class="zone-btn p-6800" onclick="selectZone('A3', 6800)">A3<br>6,800</button>
-                <button class="zone-btn p-5500" onclick="selectZone('A4', 5500)">A4<br>5,500</button>
-            </div>
+        <h2>เลือกโซนที่นั่งของคุณ</h2>
+        <div class="arena-map">
+            <div class="stage-box">STAGE</div>
             
-            <!-- แถวพิเศษ กล้องขนาบข้างแถวแรก -->
-            <div class="zone-row">
-                <button class="zone-btn non-clickable" disabled>JIM<br>CAMERA</button>
-                <button class="zone-btn p-5500" onclick="selectZone('A1-Lower', 5500)">A1<br>5,500</button>
-                <button class="zone-btn p-6800" onclick="selectZone('B2', 6800)">B2<br>6,800</button>
-                <button class="zone-btn p-6800" onclick="selectZone('B3', 6800)">B3<br>6,800</button>
-                <button class="zone-btn p-5500" onclick="selectZone('B4', 5500)">B4<br>5,500</button>
-                <button class="zone-btn non-clickable" disabled>JIM<br>CAMERA</button>
-            </div>
+            <div class="grid-layout">
+                <!-- แถวที่ 1: หน้าสุดติดเวที -->
+                <button class="z-btn c-5500" onclick="selZ('A1',5500)">A1</button>
+                <button class="z-btn c-6800" style="grid-column: span 2;" onclick="selZ('A2',6800)">A2</button>
+                <button class="z-btn c-6800" style="grid-column: span 2;" onclick="selZ('A3',6800)">A3</button>
+                <button class="z-btn c-5500" onclick="selZ('A4',5500)">A4</button>
+                <button class="z-btn c-3800" onclick="selZ('C',3800)">C</button>
+                <button class="z-btn c-3800" onclick="selZ('S',3800)">S</button>
 
-            <!-- ชั้น 3 (Level 3 - ปีกซ้ายและขวา + หลังคอนโทรล FOH) -->
-            <div class="zone-row">
-                <button class="zone-btn p-5500" onclick="selectZone('SC', 5500)">SC</button>
-                <button class="zone-btn p-5500" onclick="selectZone('SD', 5500)">SD</button>
-                <button class="zone-btn p-5500" onclick="selectZone('B1', 5500)">B1</button>
-                <button class="zone-btn non-clickable" style="min-width:120px;" disabled>FOH (Sound)</button>
-                <button class="zone-btn p-5500" onclick="selectZone('SM', 5500)">SM</button>
-                <button class="zone-btn p-5500" onclick="selectZone('SL', 5500)">SL</button>
-                <button class="zone-btn p-5500" onclick="selectZone('SK', 5500)">SK</button>
-            </div>
-            
-            <!-- โซนท้ายชั้น 3 และ ชั้น 4 ด้านหน้า (3,800 / 6,800 แดงล่าง) -->
-            <div class="zone-row">
-                <button class="zone-btn p-5500" onclick="selectZone('SE', 5500)">SE</button>
-                <button class="zone-btn p-5500" onclick="selectZone('SF', 5500)">SF</button>
-                <button class="zone-btn p-6800" onclick="selectZone('SG', 6800)">SG</button>
-                <button class="zone-btn p-6800" onclick="selectZone('SH', 6800)">SH</button>
-                <button class="zone-btn p-6800" onclick="selectZone('SI', 6800)">SI</button>
-                <button class="zone-btn p-5500" onclick="selectZone('SJ', 5500)">SJ</button>
-            </div>
+                <!-- แถวที่ 2: กล้อง และโซนถัดมา -->
+                <button class="z-btn c-dark" disabled>CAM</button>
+                <button class="z-btn c-6800" style="grid-column: span 2;" onclick="selZ('B2',6800)">B2</button>
+                <button class="z-btn c-6800" style="grid-column: span 2;" onclick="selZ('B3',6800)">B3</button>
+                <button class="z-btn c-dark" disabled>CAM</button>
+                <button class="z-btn c-3800" onclick="selZ('D',3800)">D</button>
+                <button class="z-btn c-3800" onclick="selZ('R',3800)">R</button>
 
-            <!-- ชั้น 4 (Level 4 - บัตรนั่งรอบนอก 3,800 / 3,500 / 2,800 / 2,500) -->
-            <div class="zone-row" style="flex-wrap: wrap; max-width: 650px; margin: 0 auto;">
-                <button class="zone-btn p-3800" onclick="selectZone('C', 3800)">C</button>
-                <button class="zone-btn p-3800" onclick="selectZone('D', 3800)">D</button>
-                <button class="zone-btn p-3800" onclick="selectZone('E', 3800)">E</button>
-                <button class="zone-btn p-3500" onclick="selectZone('F', 3500)">F</button>
-                <button class="zone-btn p-3500" onclick="selectZone('G', 3500)">G</button>
-                <button class="zone-btn p-3500" onclick="selectZone('H', 3500)">H</button>
-                <button class="zone-btn p-3500" onclick="selectZone('I', 3500)">I</button>
-                <button class="zone-btn p-3500" onclick="selectZone('J', 3500)">J</button>
-                <button class="zone-btn p-3500" onclick="selectZone('K', 3500)">K</button>
-                <button class="zone-btn p-3500" onclick="selectZone('L', 3500)">L</button>
-                <button class="zone-btn p-3500" onclick="selectZone('M', 3500)">M</button>
-                <button class="zone-btn p-3500" onclick="selectZone('N', 3500)">N</button>
-                <button class="zone-btn p-3500" onclick="selectZone('O', 3500)">O</button>
-                <button class="zone-btn p-3500" onclick="selectZone('P', 3500)">P</button>
-                <button class="zone-btn p-3800" onclick="selectZone('Q', 3800)">Q</button>
-                <button class="zone-btn p-3800" onclick="selectZone('R', 3800)">R</button>
-                <button class="zone-btn p-3800" onclick="selectZone('S', 3800)">S</button>
+                <!-- แถวที่ 3: Level 3 ปีกซ้ายขวา และ FOH -->
+                <button class="z-btn c-5500" onclick="selZ('SC',5500)">SC</button>
+                <button class="z-btn c-5500" onclick="selZ('SD',5500)">SD</button>
+                <button class="z-btn c-5500" onclick="selZ('B1',5500)">B1</button>
+                <div class="z-btn c-dark" style="grid-column: span 2;">FOH</div>
+                <button class="z-btn c-5500" onclick="selZ('SM',5500)">SM</button>
+                <button class="z-btn c-3800" onclick="selZ('E',3800)">E</button>
+                <button class="z-btn c-3800" onclick="selZ('Q',3800)">Q</button>
+
+                <!-- แถวที่ 4: โค้งล้อมรอบ FOH -->
+                <button class="z-btn c-5500" onclick="selZ('SE',5500)">SE</button>
+                <button class="z-btn c-5500" onclick="selZ('SF',5500)">SF</button>
+                <button class="z-btn c-6800" onclick="selZ('SG',6800)">SG</button>
+                <button class="z-btn c-6800" onclick="selZ('SH',6800)">SH</button>
+                <button class="z-btn c-6800" onclick="selZ('SI',6800)">SI</button>
+                <button class="z-btn c-5500" onclick="selZ('SJ',5500)">SJ</button>
+                <button class="z-btn c-5500" onclick="selZ('SL',5500)">SL</button>
+                <button class="z-btn c-5500" onclick="selZ('SK',5500)">SK</button>
+
+                <!-- แถวที่ 5: บัตรนั่งชั้นบนสุดแถวโค้งนอก (3500) -->
+                <button class="z-btn c-3500" onclick="selZ('F',3500)">F</button>
+                <button class="z-btn c-3500" onclick="selZ('G',3500)">G</button>
+                <button class="z-btn c-3500" onclick="selZ('H',3500)">H</button>
+                <button class="z-btn c-3500" onclick="selZ('I',3500)">I</button>
+                <button class="z-btn c-3500" onclick="selZ('J',3500)">J</button>
+                <button class="z-btn c-3500" onclick="selZ('K',3500)">K</button>
+                <button class="z-btn c-3500" onclick="selZ('L',3500)">L</button>
+                <button class="z-btn c-3500" onclick="selZ('M',3500)">M</button>
+
+                <!-- แถวพิเศษ: ท้ายสุดปีกนอก (2800 / 2500 ด้านบนสุดผัง) -->
+                <button class="z-btn c-3500" style="grid-column: 2;" onclick="selZ('N',3500)">N</button>
+                <button class="z-btn c-3500" style="grid-column: 3;" onclick="selZ('O',3500)">O</button>
+                <button class="z-btn c-3500" style="grid-column: 6;" onclick="selZ('P',3500)">P</button>
+                <button class="z-btn c-2800" style="grid-column: 7;" onclick="selZ('Top-Sky',2800)">โซนปีก 2,800</button>
+                <button class="z-btn c-2500" style="grid-column: 8;" onclick="selZ('Doi-2500',2500)">โซนบน 2,500</button>
             </div>
         </div>
-        
-        <p style="text-align:center; font-size:12px; color:#777; margin-top:20px;">*หมายเหตุ: โซน C, D, E, Q, R, S ขอบบนและขอบล่างจะเป็นราคาไล่ระดับตามผังสีจริง (ฟ้า 2,800 / น้ำเงิน 2,500) ระบบจะสุ่มให้เลือกในหน้าถัดไป</p>
+
+        <!-- รายละเอียดแถบสีราคากดบัตร -->
+        <div class="price-legend">
+            <div class="legend-item"><div class="color-dot c-6800"></div>6,800</div>
+            <div class="legend-item"><div class="color-dot c-5500"></div>5,500</div>
+            <div class="legend-item"><div class="color-dot c-3800"></div>3,800</div>
+            <div class="legend-item"><div class="color-dot c-3500"></div>3,500</div>
+            <div class="legend-item"><div class="color-dot c-2800"></div>2,800</div>
+            <div class="legend-item"><div class="color-dot c-2500"></div>2,500</div>
+        </div>
     </div>
 
-    <!-- STEP 4: หน้าเลือกที่นั่งย่อย -->
+    <!-- STEP 4: หน้าเลือกที่นั่งภายในโซน -->
     <div id="step-seats" class="step-panel">
-        <h2>โซน <span id="selected-zone-title">-</span> : กรุณาเลือกเลขที่นั่ง</h2>
-        <p style="margin-bottom: 15px; text-align: center; font-size:14px; color:#aaa;">🟩 ว่าง | 🟥 มีคนจองแล้ว | 🟨 ที่นั่งที่คุณเลือก</p>
-        
-        <div class="seating-area" id="seating-map">
-            <!-- รันที่นั่งผ่าน JavaScript -->
-        </div>
+        <h2>โซนย่อย: <span id="z-title">-</span></h2>
+        <div class="seats-grid" id="seats-box"></div>
 
-        <div class="summary-box">
-            <p>บัตรโซน: <span id="display-zone-info" style="font-weight:bold; color:#ff4d4d;">-</span></p>
-            <p>ที่นั่งที่เลือก: <span id="display-seats" style="font-weight:bold; color:#ffcc00;">ยังไม่ได้เลือก</span></p>
-            <p>ราคาต่อที่นั่ง: <span id="display-unit-price" style="font-weight:bold;">0</span> บาท</p>
-            <p style="font-size: 18px; margin-top: 5px;">ราคารวมทั้งหมด: <span id="display-price" style="font-weight:bold; color:#ff4d4d; font-size:22px;">0</span> บาท</p>
+        <div class="info-card">
+            <p>ที่นั่งเลือกแล้ว: <span id="lbl-seats" style="color:#ffcc00; font-weight:bold;">ยังไม่ได้เลือก</span></p>
+            <p>ราคารวมชำระ: <span id="lbl-total" style="color:#ff4d4d; font-weight:bold; font-size:18px;">0</span> บาท</p>
         </div>
 
         <div style="display:flex; gap:10px;">
-            <button class="btn-action" style="background-color:#444;" onclick="switchStep('step-zone')">ย้อนกลับเลือกโซน</button>
-            <button class="btn-action" onclick="goToPayment()">ยืนยันการเลือกที่นั่ง</button>
+            <button class="btn-main" style="background:#475569;" onclick="changeStep('step-zone')">เลือกโซนใหม่</button>
+            <button class="btn-main" onclick="goPay()">ยืนยันที่นั่ง</button>
         </div>
     </div>
 
-    <!-- STEP 5: หน้าสรุปชำระเงินบีบคั้นหัวใจ -->
-    <div id="step-payment" class="step-panel">
-        <div class="timer-box">⏰ กรุณาทำรายการภายในเวลา <span id="timer">10:00</span> นาที มิฉะนั้นระบบจะคืนตั๋วสู่คิวหลัก</div>
-        <h2>รายการสั่งซื้อของคุณสำเร็จ (Holding)</h2>
+    <!-- STEP 5: ชำระเงินบีบคั้นหัวใจ -->
+    <div id="step-pay" class="step-panel">
+        <div class="timer-tag">⏰ เวลาทำรายการที่เหลือ <span id="clock">10:00</span> นาที</div>
+        <h2>ชำระเงินเพื่อล็อกตั๋ว</h2>
         
-        <div class="summary-box" style="line-height: 2.2; border-left-color: #28a745;">
-            <p><strong>การแสดง:</strong> PLAVE 1st WORLD TOUR [KEEP IT MANIC] IN BANGKOK</p>
-            <p><strong>สถานที่:</strong> IMPACT ARENA, MUANG THONG THANI</p>
-            <p><strong>โซนที่นั่ง:</strong> <span id="summary-zone"></span></p>
-            <p><strong>เลขที่นั่ง:</strong> <span id="summary-seats"></span></p>
-            <p style="font-size: 20px;"><strong>ยอดสุทธิที่ต้องชำระ:</strong> <span id="summary-price" style="color:#ff4d4d; font-weight:bold; font-size:24px;"></span> บาท</p>
+        <div class="info-card" style="line-height:2;">
+            <p><strong>คอนเสิร์ต:</strong> PLAVE KEEP IT MANIC IN BKK</p>
+            <p><strong>โซนที่นั่ง:</strong> <span id="p-zone"></span></p>
+            <p><strong>เลขที่นั่ง:</strong> <span id="p-seats"></span></p>
+            <p style="font-size:16px; border-top:1px dashed #444; margin-top:10px; padding-top:10px;">
+                <strong>ยอดสุทธิ:</strong> <span id="p-total" style="color:#ff4d4d; font-weight:bold;"></span> บาท
+            </p>
         </div>
-        
-        <button class="btn-action" style="background-color: #28a745; box-shadow: 0 4px 10px rgba(40,167,69,0.3);" onclick="completeBooking()">ชำระเงินเสร็จสิ้น (กดสำเร็จแล้ว!)</button>
+
+        <button class="btn-main" style="background:#22c55e;" onclick="finish()">ชำระเงินเสร็จสิ้น</button>
     </div>
 
 </div>
 
 <script>
-    let currentZone = '';
-    let zonePrice = 0;
-    let selectedSeats = [];
-    let countdownTimer;
+    let sZone = ''; let sPrice = 0; let mySeats = []; let countClock;
 
-    function switchStep(stepId) {
-        document.querySelectorAll('.step-panel').forEach(panel => {
-            panel.classList.remove('active');
-        });
-        document.getElementById(stepId).classList.add('active');
+    function changeStep(id) {
+        document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
     }
 
-    // จำลองระบบแถวคิวไทยทิกเก็ต
-    function startQueue() {
-        switchStep('step-queue');
-        let queueCount = Math.floor(Math.random() * 3500) + 1500; // สุ่มคนรอกด 1,500 - 5,000 คน
-        const countElement = document.getElementById('queue-count');
-        
-        let interval = setInterval(() => {
-            queueCount -= Math.floor(Math.random() * 250) + 50; // คิวจะค่อยๆ ลดลงทีละนิด
-            if (queueCount <= 0) {
-                queueCount = 0;
-                clearInterval(interval);
-                switchStep('step-zone'); 
-            }
-            countElement.innerText = queueCount.toLocaleString();
-        }, 600);
+    function goQueue() {
+        changeStep('step-queue');
+        let q = Math.floor(Math.random() * 2000) + 500;
+        let t = setInterval(() => {
+            q -= Math.floor(Math.random() * 150) + 50;
+            if(q <= 0) { q=0; clearInterval(t); changeStep('step-zone'); }
+            document.getElementById('q-num').innerText = q.toLocaleString();
+        }, 500);
     }
 
-    // เมื่อกดเลือกโซนจากผังอิมแพ็ค
-    function selectZone(zoneName, basePrice) {
-        currentZone = zoneName;
-        zonePrice = basePrice;
-        selectedSeats = [];
-        document.getElementById('selected-zone-title').innerText = zoneName;
-        document.getElementById('display-zone-info').innerText = zoneName;
-        document.getElementById('display-unit-price').innerText = basePrice.toLocaleString();
+    function selZ(name, price) {
+        sZone = name; sPrice = price; mySeats = [];
+        document.getElementById('z-title').innerText = name + " (" + price.toLocaleString() + " THB)";
         
-        generateSeats();
-        switchStep('step-seats');
-    }
-
-    // จำลองสถานะที่นั่งในโซนนั้นๆ (สุ่มที่นั่งเต็ม/ว่าง แย่งกันกด)
-    function generateSeats() {
-        const mapContainer = document.getElementById('seating-map');
-        mapContainer.innerHTML = '';
-        
-        // อิมแพ็คโซนย่อยๆ สมมุติให้มี 50 ที่นั่งต่อหนึ่งการเปิดหน้าจอ
-        for (let i = 1; i <= 50; i++) {
-            const seat = document.createElement('div');
-            seat.classList.add('seat');
-            
-            // สุ่มโอกาสตั๋วหลุด/โดนแย่งกดไปแล้วสูงถึง 65% บีบคั้นสุดๆ
-            const isSold = Math.random() < 0.65; 
-            if (isSold) {
-                seat.classList.add('sold');
+        let box = document.getElementById('seats-box'); box.innerHTML = '';
+        for(let i=1; i<=24; i++) {
+            let dot = document.createElement('div');
+            dot.className = 'seat-dot';
+            let taken = Math.random() < 0.7; // โอกาสโดนแย่งกด 70% พลิกแพลงความไว
+            if(taken) {
+                dot.classList.add('taken');
+            } else {
+                dot.onclick = () => {
+                    if(dot.classList.contains('chosen')) {
+                        dot.classList.remove('chosen');
+                        mySeats = mySeats.filter(n => n !== i);
+                    } else {
+                        if(mySeats.length >= 4) { alert('จำกัดตั๋วไม่เกิน 4 ใบ'); return; }
+                        dot.classList.add('chosen'); mySeats.push(i);
+                    }
+                    document.getElementById('lbl-seats').innerText = mySeats.length ? mySeats.map(n=>"No."+n).join(', ') : "ยังไม่ได้เลือก";
+                    document.getElementById('lbl-total').innerText = (mySeats.length * sPrice).toLocaleString();
+                };
             }
-
-            seat.innerHTML = `<span class="seat-label">${i}</span>`;
-            
-            if (!isSold) {
-                seat.onclick = () => toggleSeat(seat, i);
-            }
-            
-            mapContainer.appendChild(seat);
+            dot.innerHTML = `<span class="seat-num">${i}</span>`;
+            box.appendChild(dot);
         }
-        updateSeatSelectionDisplay();
+        changeStep('step-seats');
     }
 
-    // ตรวจสอบและเปลี่ยนสถานะการคลิกที่นั่ง
-    function toggleSeat(seatElement, seatNumber) {
-        if (seatElement.classList.contains('selected')) {
-            seatElement.classList.remove('selected');
-            selectedSeats = selectedSeats.filter(num => num !== seatNumber);
-        } else {
-            if (selectedSeats.length >= 4) {
-                alert('ระบบจำกัดให้เลือกได้ไม่เกิน 4 ที่นั่งต่อการทำรายการซื้อ');
-                return;
-            }
-            seatElement.classList.add('selected');
-            selectedSeats.push(seatNumber);
-        }
-        updateSeatSelectionDisplay();
-    }
-
-    function updateSeatSelectionDisplay() {
-        if(selectedSeats.length === 0) {
-            document.getElementById('display-seats').innerText = "ยังไม่ได้เลือกที่นั่ง";
-            document.getElementById('display-price').innerText = 0;
-        } else {
-            document.getElementById('display-seats').innerText = selectedSeats.map(s => `แถวคอน-${s}`).join(', ');
-            document.getElementById('display-price').innerText = (selectedSeats.length * zonePrice).toLocaleString();
-        }
-    }
-
-    // ตรวจสอบก่อนข้ามไปจ่ายตังค์
-    function goToPayment() {
-        if (selectedSeats.length === 0) {
-            alert('โปรดเลือกที่นั่งที่ยังว่าง (สีเขียว) บนผังอย่างน้อย 1 ที่นั่งครับ');
-            return;
-        }
+    function goPay() {
+        if(!mySeats.length) { alert('กรุณาเลือกที่นั่งสัญลักษณ์สีเขียวอย่างน้อย 1 ที่ก่อนครับ'); return; }
+        document.getElementById('p-zone').innerText = sZone;
+        document.getElementById('p-seats').innerText = mySeats.map(n=>"เบอร์ "+n).join(', ');
+        document.getElementById('p-total').innerText = (mySeats.length * sPrice).toLocaleString();
+        changeStep('step-pay');
         
-        document.getElementById('summary-zone').innerText = currentZone;
-        document.getElementById('summary-seats').innerText = selectedSeats.map(s => `เบอร์ ${s}`).join(', ');
-        document.getElementById('summary-price').innerText = (selectedSeats.length * zonePrice).toLocaleString();
-        
-        switchStep('step-payment');
-        startTimer(600); // จับเวลาถอยหลังชำระเงินภายใน 10 นาที
-    }
-
-    function startTimer(duration) {
-        let timer = duration, minutes, seconds;
-        clearInterval(countdownTimer);
-        
-        countdownTimer = setInterval(() => {
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
-
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-
-            document.getElementById('timer').innerText = minutes + ":" + seconds;
-
-            if (--timer < 0) {
-                clearInterval(countdownTimer);
-                alert('หมดเวลาชำระเงิน! ที่นั่งหลุดกลับคืนผังระบบหลักแล้วครับ');
-                switchStep('step-zone');
-            }
+        let sec = 600; clearInterval(countClock);
+        countClock = setInterval(() => {
+            sec--;
+            let m = Math.floor(sec/60); let s = sec%60;
+            document.getElementById('clock').innerText = (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
+            if(sec<=0) { clearInterval(countClock); alert('หมดเวลาระบบตัดที่นั่งหลุด!'); changeStep('step-zone'); }
         }, 1000);
     }
 
-    function completeBooking() {
-        clearInterval(countdownTimer);
-        alert('💙💜💗❤️🖤\nยินดีด้วยครับ! คุณจองบัตรคอนเสิร์ต PLAVE สำเร็จแล้ว!\nเตรียมตัวไปโบกแท่งไฟที่อิมแพ็คอารีน่าได้เลย!');
-        location.reload(); // เคลียร์ค่ากลับหน้าแรก
+    function finish() {
+        clearInterval(countClock);
+        alert('🎉 ยินดีด้วยครับ! คุณแย่งชิงและกดบัตร PLAVE [KEEP IT MANIC] สำเร็จแล้ว!');
+        location.reload();
     }
 </script>
 
