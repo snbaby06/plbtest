@@ -36,12 +36,11 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* ระบบ CSS Overlay เพื่อแก้ปัญหาจุดจิ้มไม่ตรงบนมือถือ */
+        /* แผงครอบรูปภาพแมพผังคอนเสิร์ต */
         .arena-image-container { 
             position: relative; 
             background: #000000; 
             border-radius: 12px; 
-            padding: 0; 
             width: 100%;
             overflow: hidden;
         }
@@ -51,15 +50,16 @@
             display: block;
         }
         
-        /* ปุ่มล่องหนสำหรับกดเลือกโซนแบบรองรับ Responsive หน้าจอ */
+        /* 🛠️ ปรับตำแหน่งปุ่ม Overlay ล่องหนให้ตรงตามจุดในรูป */
         .zone-btn {
             position: absolute;
-            background: rgba(255, 255, 255, 0.0); /* ปรับเป็น 0.1 หรือ 0.2 ชั่วคราวได้ถ้าต้องการดูตำแหน่งปุ่ม */
+            background: rgba(255, 255, 255, 0.0); /* ปรับเป็น 0.2 ชั่วคราวได้เพื่อดูตำแหน่งปุ่ม */
             cursor: pointer;
             border: none;
+            border-radius: 3px;
         }
 
-        /* หน้าเก้าอี้ภายใน: แผงผังเก้าอี้เรียงชิดกัน */
+        /* หน้าเก้าอี้ภายใน */
         .seats-rows-container { background: #11141b; padding: 15px 10px; border-radius: 12px; margin: 20px 0; max-height: 420px; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; }
         .seat-row { display: flex; align-items: center; width: 100%; background: transparent; padding: 2px 0; }
         
@@ -84,7 +84,6 @@
 
 <div class="container">
 
-    <!-- สเต็ป 1: หน้าแรกเสมือนจริง -->
     <div id="step-home" class="step-panel active">
         <div class="box-panel" style="margin-top:40px;">
             <h3 style="color:#fff; margin-bottom:12px;">WELCOME TO LIVE SIMULATOR</h3>
@@ -93,7 +92,6 @@
         <button class="btn-main" onclick="goQueue()">คลิกเพื่อต่อแถวรับคิว</button>
     </div>
 
-    <!-- สเต็ป 1.5: หน้ารอคิวจำลอง -->
     <div id="step-queue" class="step-panel">
         <div class="box-panel">
             <h2>กำลังจัดลำดับคิวเข้าสู่ระบบ</h2>
@@ -102,7 +100,6 @@
         </div>
     </div>
 
-    <!-- สเต็ป 2: ยืนยันสิทธิ์เมมเบอร์ -->
     <div id="step-member" class="step-panel">
         <div class="box-panel">
             <h2 style="color: #ffcc00;">🔒 MEMBER VERIFICATION</h2>
@@ -114,63 +111,58 @@
         </div>
     </div>
 
-    <!-- สเต็ป 3: หน้าผังรวมระบบจุดจิ้มเปอร์เซ็นต์ (แก้ปัญหาจิ้มไม่ตรงชัวร์) -->
     <div id="step-zone" class="step-panel">
         <h2>เลือกโซนที่นั่งของคุณ</h2>
         <div class="arena-image-container">
             <img src="IMG_5999.png" class="arena-map-img" alt="PLAVE BKK Seat Map">
             
-            <!-- โซนสีแดง 6,800 -->
-            <button class="zone-btn" style="top:22%; left:27%; width:8%; height:32%;" onclick="selZ('A2', '#ff0000')"></button>
-            <button class="zone-btn" style="top:22%; left:35%; width:8%; height:32%;" onclick="selZ('A3', '#ff0000')"></button>
-            <button class="zone-btn" style="top:41%; left:27%; width:8%; height:14%;" onclick="selZ('B2', '#ff0000')"></button>
-            <button class="zone-btn" style="top:41%; left:35%; width:8%; height:14%;" onclick="selZ('B3', '#ff0000')"></button>
-            <button class="zone-btn" style="top:60%; left:24%; width:6%; height:7%;" onclick="selZ('SG', '#ff0000')"></button>
-            <button class="zone-btn" style="top:60%; left:31%; width:7%; height:7%;" onclick="selZ('SH', '#ff0000')"></button>
-            <button class="zone-btn" style="top:60%; left:39%; width:6%; height:7%;" onclick="selZ('SI', '#ff0000')"></button>
+            <button class="zone-btn" style="top: 15%; left: 34%; width: 11%; height: 18%;" onclick="selZ('A2')"></button>
+            <button class="zone-btn" style="top: 15%; left: 45%; width: 11%; height: 18%;" onclick="selZ('A3')"></button>
+            <button class="zone-btn" style="top: 33%; left: 34%; width: 11%; height: 15%;" onclick="selZ('B2')"></button>
+            <button class="zone-btn" style="top: 33%; left: 45%; width: 11%; height: 15%;" onclick="selZ('B3')"></button>
 
-            <!-- โซนสีส้ม 5,500 -->
-            <button class="zone-btn" style="top:22%; left:22%; width:5%; height:10%;" onclick="selZ('A1', '#ff7d00')"></button>
-            <button class="zone-btn" style="top:32%; left:22%; width:5%; height:10%;" onclick="selZ('A1', '#ff7d00')"></button>
-            <button class="zone-btn" style="top:42%; left:22%; width:5%; height:14%;" onclick="selZ('B1', '#ff7d00')"></button>
-            <button class="zone-btn" style="top:22%; left:43%; width:5%; height:19%;" onclick="selZ('A4', '#ff7d00')"></button>
-            <button class="zone-btn" style="top:41%; left:43%; width:5%; height:5%;" onclick="selZ('B4', '#ff7d00')"></button>
-            
-            <button class="zone-btn" style="top:25%; left:16%; width:6%; height:9%;" onclick="selZ('SC', '#ff7d00')"></button>
-            <button class="zone-btn" style="top:35%; left:16%; width:6%; height:9%;" onclick="selZ('SD', '#ff7d00')"></button>
-            <button class="zone-btn" style="top:45%; left:16%; width:6%; height:9%;" onclick="selZ('SE', '#ff7d00')"></button>
-            <button class="zone-btn" style="top:55%; left:19%; width:6%; height:8%;" onclick="selZ('SF', '#ff7d00')"></button>
-            
-            <button class="zone-btn" style="top:25%; left:48%; width:6%; height:9%;" onclick="selZ('SM', '#ff7d00')"></button>
-            <button class="zone-btn" style="top:35%; left:48%; width:6%; height:9%;" onclick="selZ('SL', '#ff7d00')"></button>
-            <button class="zone-btn" style="top:45%; left:48%; width:6%; height:9%;" onclick="selZ('SK', '#ff7d00')"></button>
-            <button class="zone-btn" style="top:55%; left:44%; width:6%; height:8%;" onclick="selZ('SJ', '#ff7d00')"></button>
+            <button class="zone-btn" style="top: 56%; left: 31%; width: 7%; height: 10%;" onclick="selZ('SG')"></button>
+            <button class="zone-btn" style="top: 56%; left: 38%; width: 9%; height: 10%;" onclick="selZ('SH')"></button>
+            <button class="zone-btn" style="top: 56%; left: 47%; width: 7%; height: 10%;" onclick="selZ('SI')"></button>
 
-            <!-- โซนชั้น 3 ดอยกลาง C, D, E, Q, R, S -->
-            <button class="zone-btn" style="top:27%; left:8%; width:7%; height:8%;" onclick="selZ('C', '#ffe27d')"></button>
-            <button class="zone-btn" style="top:35%; left:8%; width:7%; height:9%;" onclick="selZ('D', '#ffe27d')"></button>
-            <button class="zone-btn" style="top:45%; left:8%; width:7%; height:9%;" onclick="selZ('E', '#ffe27d')"></button>
-            <button class="zone-btn" style="top:27%; left:54%; width:7%; height:8%;" onclick="selZ('S', '#ffe27d')"></button>
-            <button class="zone-btn" style="top:35%; left:54%; width:7%; height:9%;" onclick="selZ('R', '#ffe27d')"></button>
-            <button class="zone-btn" style="top:45%; left:54%; width:7%; height:9%;" onclick="selZ('Q', '#ffe27d')"></button>
+            <button class="zone-btn" style="top: 15%; left: 24%; width: 10%; height: 18%;" onclick="selZ('A1')"></button>
+            <button class="zone-btn" style="top: 15%; left: 56%; width: 10%; height: 18%;" onclick="selZ('A4')"></button>
+            <button class="zone-btn" style="top: 33%; left: 24%; width: 10%; height: 15%;" onclick="selZ('B1')"></button>
+            <button class="zone-btn" style="top: 33%; left: 56%; width: 10%; height: 15%;" onclick="selZ('B4')"></button>
 
-            <!-- โซนชั้น 4 โค้งดอยสูงสุด F ถึง P -->
-            <button class="zone-btn" style="top:54%; left:6%; width:7%; height:8%;" onclick="selZ('F', '#6fc5e8')"></button>
-            <button class="zone-btn" style="top:63%; left:9%; width:7%; height:8%;" onclick="selZ('G', '#6fc5e8')"></button>
-            <button class="zone-btn" style="top:70%; left:13%; width:7%; height:8%;" onclick="selZ('H', '#6fc5e8')"></button>
-            <button class="zone-btn" style="top:75%; left:19%; width:7%; height:8%;" onclick="selZ('I', '#6fc5e8')"></button>
-            <button class="zone-btn" style="top:76%; left:25%; width:7%; height:8%;" onclick="selZ('J', '#6fc5e8')"></button>
-            <button class="zone-btn" style="top:77%; left:32%; width:5%; height:8%;" onclick="selZ('K', '#6fc5e8')"></button>
-            <button class="zone-btn" style="top:77%; left:37%; width:5%; height:8%;" onclick="selZ('L', '#6fc5e8')"></button>
-            <button class="zone-btn" style="top:76%; left:42%; width:7%; height:8%;" onclick="selZ('M', '#6fc5e8')"></button>
-            <button class="zone-btn" style="top:75%; left:48%; width:7%; height:8%;" onclick="selZ('N', '#6fc5e8')"></button>
-            <button class="zone-btn" style="top:70%; left:54%; width:7%; height:8%;" onclick="selZ('O', '#6fc5e8')"></button>
-            <button class="zone-btn" style="top:63%; left:58%; width:7%; height:8%;" onclick="selZ('P', '#6fc5e8')"></button>
+            <button class="zone-btn" style="top: 15%; left: 16%; width: 8%; height: 9%;" onclick="selZ('SC')"></button>
+            <button class="zone-btn" style="top: 24%; left: 16%; width: 8%; height: 9%;" onclick="selZ('SD')"></button>
+            <button class="zone-btn" style="top: 33%; left: 16%; width: 8%; height: 9%;" onclick="selZ('SE')"></button>
+            <button class="zone-btn" style="top: 42%; left: 19%; width: 8%; height: 10%;" onclick="selZ('SF')"></button>
+
+            <button class="zone-btn" style="top: 15%; left: 66%; width: 8%; height: 9%;" onclick="selZ('SM')"></button>
+            <button class="zone-btn" style="top: 24%; left: 66%; width: 8%; height: 9%;" onclick="selZ('SL')"></button>
+            <button class="zone-btn" style="top: 33%; left: 66%; width: 8%; height: 9%;" onclick="selZ('SK')"></button>
+            <button class="zone-btn" style="top: 42%; left: 63%; width: 8%; height: 10%;" onclick="selZ('SJ')"></button>
+
+            <button class="zone-btn" style="top: 15%; left: 7%; width: 9%; height: 9%;" onclick="selZ('C')"></button>
+            <button class="zone-btn" style="top: 24%; left: 7%; width: 9%; height: 9%;" onclick="selZ('D')"></button>
+            <button class="zone-btn" style="top: 33%; left: 7%; width: 9%; height: 9%;" onclick="selZ('E')"></button>
+
+            <button class="zone-btn" style="top: 15%; left: 74%; width: 9%; height: 9%;" onclick="selZ('S')"></button>
+            <button class="zone-btn" style="top: 24%; left: 74%; width: 9%; height: 9%;" onclick="selZ('R')"></button>
+            <button class="zone-btn" style="top: 33%; left: 74%; width: 9%; height: 9%;" onclick="selZ('Q')"></button>
+
+            <button class="zone-btn" style="top: 44%; left: 6%; width: 8%; height: 10%;" onclick="selZ('F')"></button>
+            <button class="zone-btn" style="top: 54%; left: 9%; width: 8%; height: 10%;" onclick="selZ('G')"></button>
+            <button class="zone-btn" style="top: 64%; left: 13%; width: 8%; height: 10%;" onclick="selZ('H')"></button>
+            <button class="zone-btn" style="top: 72%; left: 19%; width: 8%; height: 10%;" onclick="selZ('I')"></button>
+            <button class="zone-btn" style="top: 76%; left: 27%; width: 8%; height: 10%;" onclick="selZ('J')"></button>
+            <button class="zone-btn" style="top: 78%; left: 35%; width: 7%; height: 10%;" onclick="selZ('K')"></button>
+            <button class="zone-btn" style="top: 78%; left: 43%; width: 7%; height: 10%;" onclick="selZ('L')"></button>
+            <button class="zone-btn" style="top: 76%; left: 51%; width: 8%; height: 10%;" onclick="selZ('M')"></button>
+            <button class="zone-btn" style="top: 72%; left: 59%; width: 8%; height: 10%;" onclick="selZ('N')"></button>
+            <button class="zone-btn" style="top: 64%; left: 65%; width: 8%; height: 10%;" onclick="selZ('O')"></button>
+            <button class="zone-btn" style="top: 54%; left: 70%; width: 8%; height: 10%;" onclick="selZ('P')"></button>
         </div>
         <p style="text-align: center; color: #64748b; font-size: 12px; margin-top: 15px;">* จิ้มเลือกตำแหน่งโซนที่ต้องการบนรูปภาพผังเพื่อเข้าสู่หน้าเลือกเก้าอี้</p>
     </div>
 
-    <!-- สเต็ป 3.5: หน้าผังเก้าอี้ภายใน (ปรับลดจำนวนแถวบนดอยให้สั้นสมจริง) -->
     <div id="step-seats" class="step-panel">
         <h2>โซนย่อย: <span id="z-title" style="color:#ffcc00;">-</span></h2>
         
@@ -187,10 +179,9 @@
         </div>
     </div>
 
-    <!-- สเต็ป 4: ข้อมูลบัตรคอนเสิร์ต -->
     <div id="step-name" class="step-panel">
         <div class="box-panel">
-            <h2 style="color: #ffcc00;">📝 TICKET HOLDER INFO</h2>
+            <h2>📝 TICKET HOLDER INFO</h2>
             <div class="input-group">
                 <label for="ticket-name">ชื่อ - นามสกุล ผู้เข้าชม (ภาษาอังกฤษตัวพิมพ์ใหญ่)</label>
                 <input type="text" id="ticket-name" placeholder="FIRSTNAME LASTNAME" autocomplete="off">
@@ -199,7 +190,6 @@
         </div>
     </div>
 
-    <!-- สเต็ป 5: หน้าจ่ายเงินจำลองนับถอยหลัง -->
     <div id="step-pay" class="step-panel">
         <div class="timer-tag">⏰ เวลาทำรายการจ่ายเงินที่เหลืออยู่ <span id="clock">10:00</span></div>
         <h2 style="color:#22c55e;">🎉 บล็อกที่นั่งในระบบสำเร็จ!</h2>
@@ -240,7 +230,8 @@
         }
     }
 
-    function selZ(zoneName, zoneColor) {
+    // 🛠️ ปรับปรุงระบบเช็คราคาและสีเก้าอี้ตรงๆ รายโซนเพื่อแก้ราคาไม่ตรง
+    function selZ(zoneName) {
         sZone = zoneName; selectedSeats = [];
         document.getElementById('z-title').innerText = zoneName;
         document.getElementById('lbl-seats').innerText = "ยังไม่ได้เลือก";
@@ -248,64 +239,62 @@
         
         let box = document.getElementById('seats-box'); box.innerHTML = '';
 
-        const is6800 = ['A2','A3','B2','B3','SG','SH','SI'].includes(zoneName);
-        const is5500 = ['A1','A4','B1','B4','SC','SD','SE','SF','SJ','SK','SL','SM'].includes(zoneName);
-        const isDoiZone_Tier1 = ['C','D','E','Q','R','S'].includes(zoneName); // โซนดอยชั้น 3 (3,800 / 3,500)
-        const isDoiZone_Tier2 = ['F','G','H','I','J','K','L','M','N','O','P'].includes(zoneName); // โซนดอยชั้น 4 (2,800 / 2,500)
+        let rowCount = 12; // แถวเริ่มต้นมาตรฐาน
+        let basePrice = 5500;
+        let seatColor = '#ff7d00';
 
-        let rowConfigs = [];
-
-        if (is6800) {
-            // โซนหน้าคอนเสิร์ต 12 แถวมาตรฐาน
-            for(let i=1; i<=12; i++) rowConfigs.push({ rowName: 'Row-'+String.fromCharCode(64+i), price: 6800, color: '#ff0000' });
-        } else if (is5500) {
-            for(let i=1; i<=12; i++) rowConfigs.push({ rowName: 'Row-'+String.fromCharCode(64+i), price: 5500, color: '#ff7d00' });
-        } else if (isDoiZone_Tier1) {
-            // 🚨 แก้ไข: ลดแถวดอยชั้น 3 เหลือ 6 แถวให้สั้นสมจริง
-            for(let i=1; i<=6; i++) {
-                let p = (i <= 3) ? 3800 : 3500;
-                let c = (i <= 3) ? '#ffe27d' : '#fffccd';
-                rowConfigs.push({ rowName: 'Row-'+String.fromCharCode(64+i), price: p, color: c });
-            }
-        } else if (isDoiZone_Tier2) {
-            // 🚨 แก้ไข: ลดแถวดอยสูงสุดชั้น 4 เหลือ 5 แถวให้สั้นสมจริง
-            for(let i=1; i<=5; i++) {
-                let p = (i <= 3) ? 2800 : 2500;
-                let c = (i <= 3) ? '#6fc5e8' : '#0066cc';
-                rowConfigs.push({ rowName: 'Row-'+String.fromCharCode(64+i), price: p, color: c });
-            }
+        // แยกเช็คตามรายโซนจริง 100% ป้องกันราคาสลับกัน
+        if (['A2','A3','B2','B3','SG','SH','SI'].includes(zoneName)) {
+            basePrice = 6800;
+            seatColor = '#ff0000';
+            rowCount = 12;
+        } else if (['A1','A4','B1','B4','SC','SD','SE','SF','SJ','SK','SL','SM'].includes(zoneName)) {
+            basePrice = 5500;
+            seatColor = '#ff7d00';
+            rowCount = 12;
+        } else if (['C','D','E','Q','R','S'].includes(zoneName)) {
+            // โซนดอยชั้น 3 ราคา 3,800 บาท (ลดเหลือ 5 แถวให้สมจริง)
+            basePrice = 3800;
+            seatColor = '#ffe27d';
+            rowCount = 5;
+        } else if (['F','G','H','I','J','K','L','M','N','O','P'].includes(zoneName)) {
+            // โซนดอยสูงสุดชั้น 4 ราคา 2,800 บาท (ลดเหลือ 5 แถวให้สมจริง)
+            basePrice = 2800;
+            seatColor = '#6fc5e8';
+            rowCount = 5;
         }
 
-        rowConfigs.forEach(cfg => {
+        // วนลูปสร้างแถวตามจำนวนจริงของแต่ละโซน
+        for(let i=1; i<=rowCount; i++) {
             let rowDiv = document.createElement('div');
             rowDiv.className = 'seat-row';
             
             let lbl = document.createElement('div');
             lbl.className = 'row-label';
-            lbl.innerText = cfg.rowName;
+            lbl.innerText = 'Row-' + String.fromCharCode(64+i);
             rowDiv.appendChild(lbl);
 
             let gridDiv = document.createElement('div');
             gridDiv.className = 'row-seats-grid';
 
-            for(let s=1; s<=10; s++) { // เพิ่มความกว้างแถวละ 10 ที่นั่งตามสเปกที่กระชับขึ้น
+            for(let s=1; s<=10; s++) { 
                 let dot = document.createElement('div');
                 dot.className = 'seat-dot';
                 dot.innerText = s;
-                dot.style.backgroundColor = cfg.color;
+                dot.style.backgroundColor = seatColor;
                 
                 if(Math.random() < 0.45) { 
                     dot.classList.add('taken');
                 } else {
                     dot.onclick = () => {
-                        let seatId = `${cfg.rowName}-${s}`;
+                        let seatId = 'Row-' + String.fromCharCode(64+i) + '-' + s;
                         if(dot.classList.contains('chosen')) {
                             dot.classList.remove('chosen');
                             selectedSeats = selectedSeats.filter(item => item.id !== seatId);
                         } else {
                             if(selectedSeats.length >= 4) { alert('จำกัดเลือกสูงสุด 4 ที่นั่งครับ'); return; }
                             dot.classList.add('chosen');
-                            selectedSeats.push({ id: seatId, price: cfg.price });
+                            selectedSeats.push({ id: seatId, price: basePrice });
                         }
                         let total = selectedSeats.reduce((sum, item) => sum + item.price, 0);
                         document.getElementById('lbl-seats').innerText = selectedSeats.length ? selectedSeats.map(i=>i.id).join(', ') : "ยังไม่ได้เลือก";
@@ -316,7 +305,7 @@
             }
             rowDiv.appendChild(gridDiv);
             box.appendChild(rowDiv);
-        });
+        }
 
         changeStep('step-seats');
     }
