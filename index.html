@@ -50,7 +50,7 @@
             display: flex; align-items: center; justify-content: center; cursor: pointer; min-height: 44px;
         }
         
-        /* สีโซนราคา */
+        /* สีโซนราคาตามรูปภาพ */
         .bg-6800 { background-color: #ff0000; color: #fff; }
         .bg-5500 { background-color: #ff6600; color: #fff; }
         .bg-3800 { background-color: #ffcc00; color: #000; }
@@ -67,7 +67,7 @@
         .seat-dot {
             width: 24px; height: 24px; border-radius: 4px; display: flex; align-items: center; 
             justify-content: center; font-size: 9px; font-weight: bold; color: white; cursor: pointer;
-            background-color: #22c55e; /* สีเขียว = ว่าง */
+            background-color: #22c55e;
         }
         .seat-dot.chosen { background-color: #eab308 !important; color: black; box-shadow: 0 0 8px #eab308; }
         .seat-dot.taken { background-color: #334155 !important; color: #64748b; cursor: not-allowed; }
@@ -164,8 +164,6 @@
                 <button class="z-btn bg-3500" style="grid-column: 2;" onclick="selZ('N')">N</button>
                 <button class="z-btn bg-3500" style="grid-column: 3;" onclick="selZ('O')">O</button>
                 <button class="z-btn bg-3500" style="grid-column: 6;" onclick="selZ('P')">P</button>
-                <button class="z-btn bg-2800" style="grid-column: 7;" onclick="selZ('C')">ปีก 2.8k</button>
-                <button class="z-btn bg-2500" style="grid-column: 8;" onclick="selZ('F')">บน 2.5k</button>
             </div>
         </div>
     </div>
@@ -193,7 +191,7 @@
         </div>
     </div>
 
-    <!-- สเต็ป 4: ใส่ชื่อผู้จอง (ด่านใหม่ตามคำขอ!) -->
+    <!-- สเต็ป 4: ใส่ชื่อผู้จอง -->
     <div id="step-name" class="step-panel">
         <div class="box-panel">
             <h2 style="color: #ffcc00;">📝 TICKET HOLDER INFO</h2>
@@ -208,7 +206,7 @@
         </div>
     </div>
 
-    <!-- สเต็ป 5: หน้าจ่ายเงินสรุปยอดทั้งหมด -->
+    <!-- สเต็ป 5: หน้าจ่ายเงิน -->
     <div id="step-pay" class="step-panel">
         <div class="timer-tag">⏰ เวลาทำรายการจ่ายเงินที่เหลืออยู่ <span id="clock">10:00</span></div>
         <h2 style="color:#22c55e;">🎉 บล็อกตั๋วสำเร็จเรียบร้อย!</h2>
@@ -253,7 +251,7 @@
         }
     }
 
-    // STEP 3: สร้างผังเก้าอี้และเลเยอร์ราคาตามสั่ง
+    // STEP 3: คำนวณจำนวนแถวเก้าอี้ตามระดับชั้น (Layer) และระดับราคาจริง
     function selZ(zoneName) {
         sZone = zoneName; selectedSeats = [];
         document.getElementById('z-title').innerText = zoneName;
@@ -261,63 +259,89 @@
         document.getElementById('lbl-total').innerText = "0";
         
         let box = document.getElementById('seats-box'); box.innerHTML = '';
-        let setup = [];
+        
+        let targetPrice = 0;
+        let totalRows = 0;
 
-        if(['A1','A4','B1','B4'].includes(zoneName)) {
-            setup.push({ price: 5500, rows: 5, color: '#ff6600' });
-        } else if(['A2','A3','B2','B3'].includes(zoneName)) {
-            setup.push({ price: 6800, rows: 6, color: '#ff0000' });
-        } else if(['SC','SD','SE','SF','SJ','SK','SL','SM'].includes(zoneName)) {
-            setup.push({ price: 5500, rows: 5, color: '#ff6600' });
-        } else if(['SG','SH','SI'].includes(zoneName)) {
-            setup.push({ price: 6800, rows: 6, color: '#ff0000' });
+        // แยกตรวจกลุ่มตามกรอบชั้น 1, ชั้น 2 และ ชั้น 3 จากภาพโจทย์
+        const layer1 = ['A1','A2','A3','A4','B1','B2','B3'];
+        const layer2 = ['SC','SD','SE','SF','SG','SH','SI','SJ','SK','SL','SM'];
+        const zone3_8k = ['C','D','E','Q','R','S']; // บล็อกรอบนอกราคาบนสุด
+        const zone2_5k = ['F','G','H','I','J','K','L','M','N','O','P']; // บล็อกรอบนอกด้านล่างสุด
+
+        if (layer1.includes(zoneName)) {
+            // ชั้น 1 มี 10 แถว
+            totalRows = 10;
+            targetPrice = ['A2','A3','B2','B3'].includes(zoneName) ? 6800 : 5500;
+            
+        } else if (layer2.includes(zoneName)) {
+            // ชั้น 2 มี 8 แถว
+            totalRows = 8;
+            targetPrice = ['SG','SH','SI'].includes(zoneName) ? 6800 : 5500;
+            
         } else {
-            setup.push({ price: 3800, rows: 8, isStand: true }); 
-            setup.push({ price: 3500, rows: 4, isStand: true }); 
-            if(['C','D','E','Q','R','S'].includes(zoneName)) setup.push({ price: 2800, rows: 2, isStand: true });
-            if(['F','G','H','I','J','K','L','M','N','O','P'].includes(zoneName)) setup.push({ price: 2500, rows: 1, isStand: true });
+            // ชั้น 3 มีตรรกะลดหลั่นลงมาตามตำแหน่งแถว
+            if (zone3_8k.includes(zoneName)) {
+                // ส่วนของบล็อกชั้น 3 ด้านบน (มีทั้ง 3800, 3500, 2800)
+                // จำลองโครงสร้างแถวต่อกันใน 1 บล็อก: 3,800(10แถว) -> 3,500(5แถว) -> 2,800(2แถว)
+                createTierRows(box, 3800, 10, 65); // แถว A-J
+                createTierRows(box, 3500, 5, 75);  // แถว K-O
+                createTierRows(box, 2800, 2, 80);  // แถว P-Q
+                changeStep('step-seats');
+                return;
+            } else if (zone2_5k.includes(zoneName)) {
+                // บล็อกชั้น 3 ด้านล่างสุด (มีกลุ่ม 3,500(5แถว) -> 2,500(1แถว))
+                createTierRows(box, 3500, 5, 65);  // แถว A-E
+                createTierRows(box, 2500, 1, 70);  // แถว F
+                changeStep('step-seats');
+                return;
+            }
         }
 
-        let rowCharCount = 65; 
-        setup.forEach(tier => {
-            for(let r=1; r<=tier.rows; r++) {
-                let rowDiv = document.createElement('div');
-                rowDiv.className = 'seat-row';
-                let label = document.createElement('div');
-                label.className = 'row-label';
-                label.innerText = String.fromCharCode(rowCharCount) + r;
-                rowDiv.appendChild(label);
-                
-                for(let s=1; s<9; s++) {
-                    let dot = document.createElement('div');
-                    dot.className = 'seat-dot';
-                    dot.innerText = s;
-                    
-                    if(Math.random() < 0.40) {
-                        dot.classList.add('taken');
-                    } else {
-                        dot.onclick = () => {
-                            let seatId = `${label.innerText}-${s}`;
-                            if(dot.classList.contains('chosen')) {
-                                dot.classList.remove('chosen');
-                                selectedSeats = selectedSeats.filter(item => item.id !== seatId);
-                            } else {
-                                if(selectedSeats.length >= 4) { alert('เลือกได้ไม่เกิน 4 ที่นั่งครับ'); return; }
-                                dot.classList.add('chosen');
-                                selectedSeats.push({ id: seatId, price: tier.price });
-                            }
-                            let total = selectedSeats.reduce((sum, item) => sum + item.price, 0);
-                            document.getElementById('lbl-seats').innerText = selectedSeats.length ? selectedSeats.map(i=>i.id).join(', ') : "ยังไม่ได้เลือก";
-                            document.getElementById('lbl-total').innerText = total.toLocaleString();
-                        };
-                    }
-                    rowDiv.appendChild(dot);
-                }
-                box.appendChild(rowDiv);
-            }
-            rowCharCount += tier.rows;
-        });
+        // สำหรับชั้น 1 และ ชั้น 2 ที่เป็นราคาเดี่ยวทั้งโซน
+        createTierRows(box, targetPrice, totalRows, 65);
         changeStep('step-seats');
+    }
+
+    // ฟังก์ชันช่วยสร้างแถวเก้าอี้
+    function createTierRows(container, price, rowsCount, startCharNode) {
+        let rowCharCount = startCharNode;
+        for(let r=1; r<=rowsCount; r++) {
+            let rowDiv = document.createElement('div');
+            rowDiv.className = 'seat-row';
+            let label = document.createElement('div');
+            label.className = 'row-label';
+            label.innerText = String.fromCharCode(rowCharCount) + r;
+            rowDiv.appendChild(label);
+            
+            for(let s=1; s<=8; s++) {
+                let dot = document.createElement('div');
+                dot.className = 'seat-dot';
+                dot.innerText = s;
+                
+                // สุ่มที่นั่งเต็ม 40%
+                if(Math.random() < 0.40) {
+                    dot.classList.add('taken');
+                } else {
+                    dot.onclick = () => {
+                        let seatId = `${label.innerText}-${s}`;
+                        if(dot.classList.contains('chosen')) {
+                            dot.classList.remove('chosen');
+                            selectedSeats = selectedSeats.filter(item => item.id !== seatId);
+                        } else {
+                            if(selectedSeats.length >= 4) { alert('เลือกได้ไม่เกิน 4 ที่นั่งครับ'); return; }
+                            dot.classList.add('chosen');
+                            selectedSeats.push({ id: seatId, price: price });
+                        }
+                        let total = selectedSeats.reduce((sum, item) => sum + item.price, 0);
+                        document.getElementById('lbl-seats').innerText = selectedSeats.length ? selectedSeats.map(i=>i.id).join(', ') : "ยังไม่ได้เลือก";
+                        document.getElementById('lbl-total').innerText = total.toLocaleString();
+                    };
+                }
+                rowDiv.appendChild(dot);
+            }
+            container.appendChild(rowDiv);
+        }
     }
 
     // STEP 3.5: ระบบกดชน (Seat Concurrency Crash) 50%
@@ -329,13 +353,11 @@
             selZ(sZone);
             return;
         }
-
-        // ถ้ารอดระบบกดชน จะหลุดมาสเต็ปถัดไปคือให้ "กรอกชื่อ"
         document.getElementById('ticket-name').value = '';
         changeStep('step-name');
     }
 
-    // STEP 4: ระบบตรวจสอบการใส่ชื่อผู้จอง
+    // STEP 4: ตรวจสอบการใส่ชื่อผู้จอง
     function submitName() {
         let nameInput = document.getElementById('ticket-name').value.trim();
         if(nameInput === '') {
@@ -344,7 +366,6 @@
         }
         buyerName = nameInput.toUpperCase();
         
-        // ย้ายข้อมูลไปสเต็ปสุดท้าย (จ่ายเงิน)
         let total = selectedSeats.reduce((sum, item) => sum + item.price, 0);
         document.getElementById('p-name').innerText = buyerName;
         document.getElementById('p-zone').innerText = sZone;
