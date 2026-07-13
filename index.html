@@ -36,51 +36,28 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* หน้าผังรวม: ดีไซน์ใหม่ให้สมมาตรและล้อมรอบตามรูปผังจริง */
-        .arena-container { background: #11141b; border-radius: 16px; padding: 20px 10px; display: flex; flex-direction: column; gap: 14px; }
-        .stage-box {
-            background: #ffffff; color: #000000; text-align: center; padding: 10px; font-weight: 900;
-            font-size: 16px; letter-spacing: 4px; width: 55%; margin: 0 auto 5px auto; border-radius: 2px;
+        /* หน้าผังรวม: ใช้รูปผังจริงเป็นพื้นฐานครอบตัวเลือก */
+        .arena-image-container { 
+            position: relative; 
+            background: #11141b; 
+            border-radius: 16px; 
+            padding: 10px; 
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
-        
-        /* จัดเลย์เอาต์แผนผังแยกปีกซ้าย กลาง ปีกขวา */
-        .layout-main { display: flex; gap: 6px; justify-content: center; }
-        .side-wing { display: flex; flex-direction: column; gap: 5px; width: 42px; }
-        .center-block { display: flex; flex-direction: column; gap: 5px; flex-grow: 1; max-width: 280px; }
-        
-        .row-block { display: flex; gap: 5px; width: 100%; }
-        .foh-box {
-            background: #475569; color: white; text-align: center; padding: 6px;
-            font-size: 11px; font-weight: bold; border-radius: 3px; letter-spacing: 1px; margin: 2px 0;
+        .arena-map-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
         }
-        
-        /* สแตนด์โค้งครึ่งวงกลมด้านล่าง (ชั้น 3 โซน F-P) */
-        .layout-bottom-curve { display: flex; flex-direction: column; gap: 5px; margin-top: 5px; }
-        .curve-row-1 { display: flex; gap: 4px; justify-content: center; }
-        .curve-row-2 { display: flex; gap: 4px; justify-content: center; padding: 0 15px; }
 
-        /* ปุ่มเลือกโซนปรับแต่งสีตามผังราคาจริง */
-        .z-btn {
-            border: none; border-radius: 4px; font-size: 11px; font-weight: bold;
-            display: flex; align-items: center; justify-content: center; cursor: pointer; 
-            height: 38px; flex-top: 1; flex-basis: 0; flex-grow: 1; transition: transform 0.1s;
-        }
-        .z-btn:active { transform: scale(0.95); }
-        
-        /* สีตามระดับราคาในใบประกาศ */
-        .c-6800 { background-color: #ff0000; color: #fff; }    /* แดง */
-        .c-5500 { background-color: #ff6600; color: #fff; }    /* ส้ม */
-        .c-3800 { background-color: #ffcc00; color: #000; }    /* เหลืองเข้ม */
-        .c-3500 { background-color: #fff2a3; color: #000; }    /* ครีมเหลือง */
-        .c-2800 { background-color: #4cd2ff; color: #000; }    /* ฟ้า */
-        .c-2500 { background-color: #0066cc; color: #fff; }    /* น้ำเงิน */
-
-        /* หน้าเก้าอี้ภายใน: ปรับให้เก้าอี้ทุกแถวอยู่ชิดติดกันเป็นแผงเดียวแบบหน้าแอปจริง */
+        /* หน้าเก้าอี้ภายใน: เก้าอี้ทุกแถวอยู่ชิดติดกันเป็นแผงเดียวแบบหน้าแอปจริง */
         .seats-rows-container { background: #11141b; padding: 15px 10px; border-radius: 12px; margin: 20px 0; max-height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; }
         .seat-row { display: flex; align-items: center; width: 100%; background: transparent; padding: 2px 0; }
         
-        /* ชื่อแถวไว้ตรงมุมข้างซ้ายพอเรียบๆ */
-        .row-label { width: 50px; font-size: 11px; font-weight: bold; color: #64748b; text-align: left; padding-left: 2px; }
+        /* ป้ายบอกชื่อแถวที่มุมข้างซ้าย */
+        .row-label { width: 55px; font-size: 12px; font-weight: bold; color: #64748b; text-align: left; padding-left: 2px; }
         .row-seats-grid { display: flex; flex-grow: 1; justify-content: space-between; gap: 4px; }
         
         .seat-dot {
@@ -132,98 +109,51 @@
         </div>
     </div>
 
-    <!-- สเต็ป 3: หน้าผังรวมโครงสร้างโฉมใหม่ จัดบล็อกสมมาตรล้อมเวทีเหมือนจริง -->
+    <!-- สเต็ป 3: หน้าผังรวมโฉมใหม่ - ดึงรูปภาพผังคอนเสิร์ตมาจิ้มเลือกโซนได้โดยตรงแบบหน้าเว็บจริง -->
     <div id="step-zone" class="step-panel">
         <h2>เลือกโซนที่นั่งของคุณ</h2>
-        <div class="arena-container">
-            <div class="stage-box">STAGE</div>
+        <div class="arena-image-container">
+            <!-- ⚠️ แนะนำให้เปลี่ยน src ตัวนี้เป็นที่อยู่ลิงก์รูปภาพผังคอนเสิร์ตจริงของพี่ได้เลยครับ -->
+            <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=600" usemap="#stage-map" class="arena-map-img" alt="Concert Seat Map">
             
-            <div class="layout-main">
-                <!-- ปีกซ้ายสุด ชั้น 4 (โซน C, D, E) -->
-                <div class="side-wing">
-                    <button class="z-btn c-3800" onclick="selZ('C')">C</button>
-                    <button class="z-btn c-3800" onclick="selZ('D')">D</button>
-                    <button class="z-btn c-3800" onclick="selZ('E')">E</button>
-                </div>
+            <!-- กำหนดจุดพิกัดจุดสัมผัสสำหรับจิ้มโซนต่างๆ บนตัวรูปภาพผังจริง -->
+            <map name="stage-map">
+                <!-- สัดส่วนพิกัดจำลองบนรูปภาพ (ปรับเป้าหมายสัมผัสกระจายทั่วผัง) -->
+                <area shape="rect" coords="170,120,220,200" alt="A2" href="javascript:void(0);" onclick="selZ('A2')">
+                <area shape="rect" coords="221,120,270,200" alt="A3" href="javascript:void(0);" onclick="selZ('A3')">
+                <area shape="rect" coords="170,201,220,280" alt="B2" href="javascript:void(0);" onclick="selZ('B2')">
+                <area shape="rect" coords="221,201,270,280" alt="B3" href="javascript:void(0);" onclick="selZ('B3')">
                 
-                <!-- บล็อกกลาง (ชั้น 1 และ ชั้น 2 โอบล้อม) -->
-                <div class="center-block">
-                    <!-- แถวที่ 1 ของบล็อกกลาง -->
-                    <div class="row-block">
-                        <button class="z-btn c-5500" onclick="selZ('SC')">SC</button>
-                        <button class="z-btn c-5500" onclick="selZ('A1')">A1</button>
-                        <button class="z-btn c-6800" style="flex-grow:2;" onclick="selZ('A2')">A2</button>
-                        <button class="z-btn c-6800" style="flex-grow:2;" onclick="selZ('A3')">A3</button>
-                        <button class="z-btn c-5500" onclick="selZ('A4')">A4</button>
-                        <button class="z-btn c-5500" onclick="selZ('SM')">SM</button>
-                    </div>
-                    <!-- แถวที่ 2 ของบล็อกกลาง -->
-                    <div class="row-block">
-                        <button class="z-btn c-5500" onclick="selZ('SD')">SD</button>
-                        <button class="z-btn c-5500" onclick="selZ('B1')">B1</button>
-                        <button class="z-btn c-6800" style="flex-grow:2;" onclick="selZ('B2')">B2</button>
-                        <button class="z-btn c-6800" style="flex-grow:2;" onclick="selZ('B3')">B3</button>
-                        <button class="z-btn c-5500" onclick="selZ('B4')">B4</button>
-                        <button class="z-btn c-5500" onclick="selZ('SL')">SL</button>
-                    </div>
-                    <!-- แถวที่ 3 ของบล็อกกลาง -->
-                    <div class="row-block">
-                        <button class="z-btn c-5500" onclick="selZ('SE')">SE</button>
-                        <button class="z-btn c-5500" onclick="selZ('SF')">SF</button>
-                        <div class="z-btn" style="visibility:hidden;"></div>
-                        <div class="z-btn" style="visibility:hidden;"></div>
-                        <button class="z-btn c-5500" onclick="selZ('SJ')">SJ</button>
-                        <button class="z-btn c-5500" onclick="selZ('SK')">SK</button>
-                    </div>
-                    
-                    <!-- พื้นที่ควบคุมเทคนิคกลางลาน -->
-                    <div class="foh-box">FOH</div>
-                    
-                    <!-- แถวท้ายบล็อกกลาง ชั้น 2 ความละเอียดสูง -->
-                    <div class="row-block">
-                        <div class="z-btn" style="visibility:hidden;"></div>
-                        <button class="z-btn c-6800" onclick="selZ('SG')">SG</button>
-                        <button class="z-btn c-6800" style="flex-grow:2;" onclick="selZ('SH')">SH</button>
-                        <button class="z-btn c-6800" onclick="selZ('SI')">SI</button>
-                        <div class="z-btn" style="visibility:hidden;"></div>
-                    </div>
-                </div>
+                <area shape="rect" coords="120,120,169,180" alt="A1" href="javascript:void(0);" onclick="selZ('A1')">
+                <area shape="rect" coords="271,120,320,180" alt="A4" href="javascript:void(0);" onclick="selZ('A4')">
+                <area shape="rect" coords="120,181,169,250" alt="B1" href="javascript:void(0);" onclick="selZ('B1')">
+                <area shape="rect" coords="271,181,320,250" alt="B4" href="javascript:void(0);" onclick="selZ('B4')">
+
+                <area shape="rect" coords="60,120,119,180" alt="C" href="javascript:void(0);" onclick="selZ('C')">
+                <area shape="rect" coords="60,181,119,240" alt="D" href="javascript:void(0);" onclick="selZ('D')">
+                <area shape="rect" coords="60,241,119,300" alt="E" href="javascript:void(0);" onclick="selZ('E')">
                 
-                <!-- ปีกขวาสุด ชั้น 4 (โซน S, R, Q) -->
-                <div class="side-wing">
-                    <button class="z-btn c-3800" onclick="selZ('S')">S</button>
-                    <button class="z-btn c-3800" onclick="selZ('R')">R</button>
-                    <button class="z-btn c-3800" onclick="selZ('Q')">Q</button>
-                </div>
-            </div>
-            
-            <!-- สแตนด์โค้งวงแหวนรอบนอกสุดด้านล่าง ชั้น 3 (โซน F ถึง P ครบถ้วนตามผังจริง) -->
-            <div class="layout-bottom-curve">
-                <div class="curve-row-1">
-                    <button class="z-btn c-2800" onclick="selZ('F')">F</button>
-                    <button class="z-btn c-2800" onclick="selZ('G')">G</button>
-                    <button class="z-btn c-2800" onclick="selZ('H')">H</button>
-                    <button class="z-btn c-2800" onclick="selZ('I')">I</button>
-                    <button class="z-btn c-2800" onclick="selZ('J')">J</button>
-                    <button class="z-btn c-2800" onclick="selZ('K')">K</button>
-                    <button class="z-btn c-2800" onclick="selZ('L')">L</button>
-                    <button class="z-btn c-2800" onclick="selZ('M')">M</button>
-                </div>
-                <div class="curve-row-2">
-                    <button class="z-btn c-2800" onclick="selZ('N')">N</button>
-                    <button class="z-btn c-2800" onclick="selZ('O')">O</button>
-                    <button class="z-btn c-2800" onclick="selZ('P')">P</button>
-                </div>
-            </div>
-            
+                <area shape="rect" coords="321,120,380,180" alt="S" href="javascript:void(0);" onclick="selZ('S')">
+                <area shape="rect" coords="321,181,380,240" alt="R" href="javascript:void(0);" onclick="selZ('R')">
+                <area shape="rect" coords="321,241,380,300" alt="Q" href="javascript:void(0);" onclick="selZ('Q')">
+
+                <!-- โซนชั้น 2 และ 3 ส่วนล่างโอบโค้ง -->
+                <area shape="circle" coords="150,330,20" alt="SG" href="javascript:void(0);" onclick="selZ('SG')">
+                <area shape="circle" coords="220,340,25" alt="SH" href="javascript:void(0);" onclick="selZ('SH')">
+                <area shape="circle" coords="290,330,20" alt="SI" href="javascript:void(0);" onclick="selZ('SI')">
+                
+                <!-- รองรับคลิกโซนอื่นๆ รอบนอก (Fallback หากจิ้มพื้นที่รอบๆ) -->
+                <area shape="default" alt="MainMap" href="javascript:void(0);" onclick="alert('จิ้มเลือกโซนที่ต้องการบนรูปภาพผังเพื่อเข้าสู่หน้าเลือกเก้าอี้')">
+            </map>
         </div>
+        <p style="text-align: center; color: #64748b; font-size: 12px; margin-top: 10px;">* จิ้มเลือกตำแหน่งโซนที่ต้องการบนรูปภาพผังจริงได้เลย</p>
     </div>
 
-    <!-- สเต็ป 3.5: หน้าแสดงผังเก้าอี้ภายในโซนย่อย (เก้าอี้ชิดกัน ตรรกะราคาถูกต้องแม่นยำ) -->
+    <!-- สเต็ป 3.5: หน้าผังเก้าอี้ภายใน (แถวเรียงชิดติดกัน บอกชื่อแถวด้านซ้าย) -->
     <div id="step-seats" class="step-panel">
         <h2>โซนย่อย: <span id="z-title" style="color:#ffcc00;">-</span></h2>
         
-        <!-- แผงผังเก้าอี้รวมชิดติดกัน -->
+        <!-- แผงผังเก้าอี้รวมชิดติดกันยาวลงไป -->
         <div class="seats-rows-container" id="seats-box"></div>
 
         <div class="info-card">
@@ -267,6 +197,7 @@
 <script>
     let sZone = ''; let selectedSeats = []; let countClock; let buyerName = '';
 
+    // ฟังก์ชันเปลี่ยนหน้าสเต็ป
     function changeStep(id) {
         document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
         document.getElementById(id).classList.add('active');
@@ -274,9 +205,9 @@
 
     function goQueue() {
         changeStep('step-queue');
-        let q = Math.floor(Math.random() * 50) + 20;
+        let q = Math.floor(Math.random() * 40) + 15;
         let t = setInterval(() => {
-            q -= Math.floor(Math.random() * 12) + 6;
+            q -= Math.floor(Math.random() * 10) + 5;
             if(q <= 0) { q=0; clearInterval(t); changeStep('step-member'); }
             document.getElementById('q-num').innerText = q;
         }, 250);
@@ -290,6 +221,7 @@
         }
     }
 
+    // ฟังก์ชันสร้างระบบเก้าอี้และผูกตรรกะราคาจริงตามแต่ละโซนที่เลือกจากรูปภาพ
     function selZ(zoneName) {
         sZone = zoneName; selectedSeats = [];
         document.getElementById('z-title').innerText = zoneName;
@@ -298,7 +230,7 @@
         
         let box = document.getElementById('seats-box'); box.innerHTML = '';
 
-        // แยกกลุ่มเช็คประเภทโซนตามผังประกาศทางการจริง
+        // จัดกลุ่มโซนเช็คราคาตามเงื่อนไขลายมือบนผังประกาศหลัก
         const isLayer1_6800 = ['A2','A3','B2','B3'].includes(zoneName);
         const isLayer1_5500 = ['A1','A4','B1','B4'].includes(zoneName);
         const isLayer2_6800 = ['SG','SH','SI'].includes(zoneName);
@@ -308,7 +240,7 @@
 
         let rowConfigs = [];
 
-        // คำนวณแถวและแบ่งราคาแบบครึ่งต่อครึ่งตามเงื่อนไขลายมือเป๊ะๆ
+        // คำนวณปริมาณแถวและเฉดราคาแบบลดหลั่นครึ่งต่อครึ่งตามกฎ
         if (isLayer1_6800) {
             for(let i=1; i<=12; i++) rowConfigs.push({ rowName: 'Row-'+String.fromCharCode(64+i), price: 6800 });
         } else if (isLayer1_5500) {
@@ -319,7 +251,6 @@
             for(let i=1; i<=10; i++) rowConfigs.push({ rowName: 'Row-'+String.fromCharCode(64+i), price: 5500 });
         } 
         else if (isLayer3_Group1) {
-            // โซน C-S ทั้งหมด 15 แถว: ครึ่งแรก 3,800 / ครึ่งถัดมา 3,500 / ท้ายสุดน้อยกว่าครึ่งนึงเป็น 2,800
             for(let i=1; i<=15; i++) {
                 let p = 3800;
                 if(i > 5 && i <= 10) p = 3500;
@@ -327,13 +258,13 @@
                 rowConfigs.push({ rowName: 'Row-'+i, price: p });
             }
         } else if (isLayer3_Group2) {
-            // โซน F-P ทั้งหมด 12 แถว: ครึ่งแรก 2,800 / ครึ่งน้อยกว่าครึ่งนึงด้านท้าย 2,500
             for(let i=1; i<=12; i++) {
                 let p = (i <= 6) ? 2800 : 2500;
                 rowConfigs.push({ rowName: 'Row-'+i, price: p });
             }
         }
 
+        // วนลูปวาดแถวเก้าอี้แบบติดกันเป็นแพ
         rowConfigs.forEach(cfg => {
             let rowDiv = document.createElement('div');
             rowDiv.className = 'seat-row';
@@ -351,7 +282,7 @@
                 dot.className = 'seat-dot';
                 dot.innerText = s;
                 
-                if(Math.random() < 0.40) {
+                if(Math.random() < 0.45) { // สุ่มสถานะเก้าอี้ถูกจองแล้ว
                     dot.classList.add('taken');
                 } else {
                     dot.onclick = () => {
@@ -380,8 +311,8 @@
 
     function goCrashTest() {
         if(!selectedSeats.length) { alert('❌ กรุณาเลือกที่นั่งก่อนไปต่อครับ'); return; }
-        if (Math.random() < 0.20) {
-            alert('🚨 [ระบบกดชนกัน] มีผู้อื่นกดตัดหน้าชิงที่นั่งไปก่อนในเสี้ยววินาที ที่นั่งหลุดแล้วครับ!');
+        if (Math.random() < 0.15) {
+            alert('🚨 [ระบบชน] ที่นั่งนี้ถูกเลือกไปพร้อมกับผู้ใช้รายอื่นในเสี้ยววินาที ระบบกำลังรีเฟรชผังใหม่!');
             selZ(sZone);
             return;
         }
@@ -390,7 +321,7 @@
 
     function submitName() {
         let nameInput = document.getElementById('ticket-name').value.trim();
-        if(nameInput === '') { alert('❌ กรุณากรอกชื่อจริง-นามสกุลภาษาอังกฤษด้วยครับ'); return; }
+        if(nameInput === '') { alert('❌ กรุณากรอกชื่อ-นามสกุลภาษาอังกฤษด้วยครับ'); return; }
         buyerName = nameInput.toUpperCase();
         
         let total = selectedSeats.reduce((sum, item) => sum + item.price, 0);
@@ -409,13 +340,13 @@
             sec--;
             let m = Math.floor(sec/60); let s = sec%60;
             document.getElementById('clock').innerText = (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
-            if(sec<=0) { clearInterval(countClock); alert('หมดเวลาทำรายการตั๋วถูกปล่อยคืนเข้าระบบ'); location.reload(); }
+            if(sec<=0) { clearInterval(countClock); alert('หมดเวลาทำรายการ ตั๋วถูกปล่อยคืนเข้าระบบ'); location.reload(); }
         }, 1000);
     }
 
     function finish() {
         clearInterval(countClock);
-        alert(`🎉 เสร็จสิ้นการจำลอง! คุณจองบัตรคอนเสิร์ตสำเร็จแล้วครับ`);
+        alert(`🎉 จำลองเสร็จสมบูรณ์! บล็อกและบันทึกตั๋วโซน ${sZone} สำเร็จเรียบร้อยครับ`);
         location.reload();
     }
 </script>
