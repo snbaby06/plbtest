@@ -11,7 +11,7 @@
             margin: 0; padding: 0;
             -webkit-tap-highlight-color: transparent;
         }
-        body { background-color: #000000; color: #e2e8f0; padding-bottom: 30px; }
+        body { background-color: #0b0f17; color: #e2e8f0; padding-bottom: 30px; }
         header {
             background: linear-gradient(180deg, #b30000 0%, #7a0000 100%);
             color: white; padding: 15px; text-align: center; font-size: 15px; font-weight: bold;
@@ -23,46 +23,44 @@
         h2 { font-size: 18px; margin-bottom: 15px; color: #e2e8f0; text-align: center; }
 
         .box-panel { background: #11141a; padding: 25px 20px; border-radius: 12px; border: 1px solid #334155; text-align: center; margin-top: 20px; }
-        .input-group { margin: 20px 0; text-align: left; }
-        .input-group label { display: block; font-size: 14px; color: #cbd5e1; margin-bottom: 8px; text-align: center; }
-        .input-group input {
-            width: 100%; padding: 14px; background: #1e293b; border: 2px solid #475569; border-radius: 8px;
-            color: #fff; font-size: 20px; text-align: center; font-weight: bold; outline: none;
+        
+        /* 🏛️ โครงสร้างจำลองฮอลล์อิมแพคอารีน่า (Interactive CSS Layout) */
+        .stage {
+            width: 80%; margin: 10px auto 25px auto; background: #e2e8f0; color: #000;
+            text-align: center; padding: 8px; font-weight: bold; border-radius: 4px;
+            box-shadow: 0 0 15px rgba(255,255,255,0.2); font-size: 14px;
         }
         
-        .spinner {
-            border: 5px solid #2d323f; border-top: 5px solid #b30000; border-radius: 50%;
-            width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 20px auto;
+        .hall-layout {
+            display: flex; flex-direction: column; gap: 12px; background: #141822;
+            padding: 15px 10px; border-radius: 12px; border: 1px solid #232936;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* แผงครอบรูปภาพแมพผังคอนเสิร์ต */
-        .arena-image-container { 
-            position: relative; 
-            background: #000000; 
-            border-radius: 12px; 
-            width: 100%;
-            overflow: hidden;
-        }
-        .arena-map-img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+        .layout-row { display: flex; justify-content: center; gap: 6px; width: 100%; }
         
-        /* 🛠️ ปรับตำแหน่งปุ่ม Overlay ล่องหนให้ตรงตามจุดในรูป */
-        .zone-btn {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.0); /* ปรับเป็น 0.2 ชั่วคราวได้เพื่อดูตำแหน่งปุ่ม */
-            cursor: pointer;
-            border: none;
-            border-radius: 3px;
+        /* สไตล์ปุ่มแต่ละโซน */
+        .z-block {
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; font-weight: bold; color: #fff; border: none;
+            border-radius: 5px; cursor: pointer; transition: all 0.2s;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
         }
+        .z-block:active { transform: scale(0.95); }
 
-        /* หน้าเก้าอี้ภายใน */
+        /* สีและราคาระบบฟิกซ์แยกชัดเจน */
+        .p-6800 { background: #dc2626; border: 1px solid #ef4444; } /* แดง */
+        .p-5500 { background: #f97316; border: 1px solid #fb923c; } /* ส้ม */
+        .p-3800 { background: #eab308; border: 1px solid #fde047; color: #000; text-shadow: none; } /* เหลือง */
+        .p-2800 { background: #0ea5e9; border: 1px solid #38bdf8; } /* ฟ้า */
+
+        /* คำอธิบายสีผังคอนเสิร์ตด้านล่าง */
+        .legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 15px; font-size: 11px; }
+        .legend-item { display: flex; align-items: center; gap: 4px; }
+        .legend-color { width: 12px; height: 12px; border-radius: 3px; }
+
+        /* ระบบหน้าเก้าอี้ภายใน */
         .seats-rows-container { background: #11141b; padding: 15px 10px; border-radius: 12px; margin: 20px 0; max-height: 420px; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; }
         .seat-row { display: flex; align-items: center; width: 100%; background: transparent; padding: 2px 0; }
-        
         .row-label { width: 55px; font-size: 12px; font-weight: bold; color: #64748b; text-align: left; padding-left: 2px; }
         .row-seats-grid { display: flex; flex-grow: 1; justify-content: space-between; gap: 4px; }
         
@@ -76,6 +74,9 @@
         .info-card { background: #171b26; padding: 15px; border-radius: 10px; margin-top: 15px; border-left: 4px solid #b30000; font-size: 14px; line-height: 1.7; }
         .btn-main { background: #b30000; color: white; border: none; width: 100%; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 8px; margin-top: 15px; cursor: pointer; }
         .timer-tag { background: #fff3cd; color: #856404; text-align: center; padding: 10px; font-weight: bold; border-radius: 6px; margin-bottom: 20px; }
+        .input-group { margin: 20px 0; text-align: left; }
+        .input-group label { display: block; font-size: 14px; color: #cbd5e1; margin-bottom: 8px; text-align: center; }
+        .input-group input { width: 100%; padding: 14px; background: #1e293b; border: 2px solid #475569; border-radius: 8px; color: #fff; font-size: 20px; text-align: center; font-weight: bold; outline: none; }
     </style>
 </head>
 <body>
@@ -87,7 +88,7 @@
     <div id="step-home" class="step-panel active">
         <div class="box-panel" style="margin-top:40px;">
             <h3 style="color:#fff; margin-bottom:12px;">WELCOME TO LIVE SIMULATOR</h3>
-            <p style="color:#94a3b8; font-size:14px;">ระบบจำลองกดบัตรเสมือนจริงตามสเปกผัง 100%</p>
+            <p style="color:#94a3b8; font-size:14px;">ระบบจำลองฮอลล์ Impact Arena 100% เสมือนจริง</p>
         </div>
         <button class="btn-main" onclick="goQueue()">คลิกเพื่อต่อแถวรับคิว</button>
     </div>
@@ -112,59 +113,87 @@
     </div>
 
     <div id="step-zone" class="step-panel">
-        <h2>เลือกโซนที่นั่งของคุณ</h2>
-        <div class="arena-image-container">
-            <img src="IMG_5999.png" class="arena-map-img" alt="PLAVE BKK Seat Map">
+        <h2>เลือกโซนเข้าชมผังที่นั่งจริง</h2>
+        
+        <div class="stage">STAGE (เวทีคอนเสิร์ต)</div>
+
+        <div class="hall-layout">
             
-            <button class="zone-btn" style="top: 15%; left: 34%; width: 11%; height: 18%;" onclick="selZ('A2')"></button>
-            <button class="zone-btn" style="top: 15%; left: 45%; width: 11%; height: 18%;" onclick="selZ('A3')"></button>
-            <button class="zone-btn" style="top: 33%; left: 34%; width: 11%; height: 15%;" onclick="selZ('B2')"></button>
-            <button class="zone-btn" style="top: 33%; left: 45%; width: 11%; height: 15%;" onclick="selZ('B3')"></button>
+            <div class="layout-row">
+                <button class="z-block p-2800" style="width: 23%; height: 32px;" onclick="selZ('F')">F</button>
+                <button class="z-block p-2800" style="width: 50%; height: 32px;" onclick="selZ('K')">K (ดอยสูงสุดหลัง)</button>
+                <button class="z-block p-2800" style="width: 23%; height: 32px;" onclick="selZ('P')">P</button>
+            </div>
 
-            <button class="zone-btn" style="top: 56%; left: 31%; width: 7%; height: 10%;" onclick="selZ('SG')"></button>
-            <button class="zone-btn" style="top: 56%; left: 38%; width: 9%; height: 10%;" onclick="selZ('SH')"></button>
-            <button class="zone-btn" style="top: 56%; left: 47%; width: 7%; height: 10%;" onclick="selZ('SI')"></button>
+            <div class="layout-row">
+                <button class="z-block p-2800" style="width: 14%; height: 32px;" onclick="selZ('G')">G</button>
+                <button class="z-block p-2800" style="width: 14%; height: 32px;" onclick="selZ('H')">H</button>
+                <button class="z-block p-2800" style="width: 18%; height: 32px;" onclick="selZ('I')">I</button>
+                <button class="z-block p-2800" style="width: 18%; height: 32px;" onclick="selZ('J')">J</button>
+                <button class="z-block p-2800" style="width: 18%; height: 32px;" onclick="selZ('L')">L</button>
+                <button class="z-block p-2800" style="width: 18%; height: 32px;" onclick="selZ('M')">M</button>
+                <button class="z-block p-2800" style="width: 14%; height: 32px;" onclick="selZ('N')">N</button>
+                <button class="z-block p-2800" style="width: 14%; height: 32px;" onclick="selZ('O')">O</button>
+            </div>
 
-            <button class="zone-btn" style="top: 15%; left: 24%; width: 10%; height: 18%;" onclick="selZ('A1')"></button>
-            <button class="zone-btn" style="top: 15%; left: 56%; width: 10%; height: 18%;" onclick="selZ('A4')"></button>
-            <button class="zone-btn" style="top: 33%; left: 24%; width: 10%; height: 15%;" onclick="selZ('B1')"></button>
-            <button class="zone-btn" style="top: 33%; left: 56%; width: 10%; height: 15%;" onclick="selZ('B4')"></button>
+            <div class="layout-row" style="margin-top: 5px;">
+                <button class="z-block p-3800" style="width: 15%; height: 35px;" onclick="selZ('C')">C</button>
+                <button class="z-block p-3800" style="width: 15%; height: 35px;" onclick="selZ('D')">D</button>
+                <button class="z-block p-3800" style="width: 18%; height: 35px;" onclick="selZ('E')">E</button>
+                <div style="width: 14%;"></div> <button class="z-block p-3800" style="width: 18%; height: 35px;" onclick="selZ('Q')">Q</button>
+                <button class="z-block p-3800" style="width: 15%; height: 35px;" onclick="selZ('R')">R</button>
+                <button class="z-block p-3800" style="width: 15%; height: 35px;" onclick="selZ('S')">S</button>
+            </div>
 
-            <button class="zone-btn" style="top: 15%; left: 16%; width: 8%; height: 9%;" onclick="selZ('SC')"></button>
-            <button class="zone-btn" style="top: 24%; left: 16%; width: 8%; height: 9%;" onclick="selZ('SD')"></button>
-            <button class="zone-btn" style="top: 33%; left: 16%; width: 8%; height: 9%;" onclick="selZ('SE')"></button>
-            <button class="zone-btn" style="top: 42%; left: 19%; width: 8%; height: 10%;" onclick="selZ('SF')"></button>
+            <div class="layout-row" style="margin-top: 5px;">
+                <div style="display: flex; flex-direction: column; gap: 4px; width: 22%;">
+                    <button class="z-block p-5500" style="height: 28px;" onclick="selZ('SC')">SC</button>
+                    <button class="z-block p-5500" style="height: 28px;" onclick="selZ('SD')">SD</button>
+                    <button class="z-block p-5500" style="height: 28px;" onclick="selZ('SE')">SE</button>
+                    <button class="z-block p-5500" style="height: 28px;" onclick="selZ('SF')">SF</button>
+                </div>
 
-            <button class="zone-btn" style="top: 15%; left: 66%; width: 8%; height: 9%;" onclick="selZ('SM')"></button>
-            <button class="zone-btn" style="top: 24%; left: 66%; width: 8%; height: 9%;" onclick="selZ('SL')"></button>
-            <button class="zone-btn" style="top: 33%; left: 66%; width: 8%; height: 9%;" onclick="selZ('SK')"></button>
-            <button class="zone-btn" style="top: 42%; left: 63%; width: 8%; height: 10%;" onclick="selZ('SJ')"></button>
+                <div style="display: flex; flex-direction: column; gap: 4px; width: 52%; background: #0c0e14; padding: 6px; border-radius: 6px; border: 1px dashed #475569;">
+                    <div class="layout-row">
+                        <button class="z-block p-5500" style="width: 23%; height: 32px;" onclick="selZ('A1')">A1</button>
+                        <button class="z-block p-6800" style="width: 25%; height: 32px;" onclick="selZ('A2')">A2</button>
+                        <button class="z-block p-6800" style="width: 25%; height: 32px;" onclick="selZ('A3')">A3</button>
+                        <button class="z-block p-5500" style="width: 23%; height: 32px;" onclick="selZ('A4')">A4</button>
+                    </div>
+                    <div class="layout-row">
+                        <button class="z-block p-5500" style="width: 23%; height: 32px;" onclick="selZ('B1')">B1</button>
+                        <button class="z-block p-6800" style="width: 25%; height: 32px;" onclick="selZ('B2')">B2</button>
+                        <button class="z-block p-6800" style="width: 25%; height: 32px;" onclick="selZ('B3')">B3</button>
+                        <button class="z-block p-5500" style="width: 23%; height: 32px;" onclick="selZ('B4')">B4</button>
+                    </div>
+                    <div class="layout-row">
+                        <button class="z-block p-6800" style="width: 32%; height: 28px;" onclick="selZ('SG')">SG</button>
+                        <button class="z-block p-6800" style="width: 32%; height: 28px;" onclick="selZ('SH')">SH</button>
+                        <button class="z-block p-6800" style="width: 32%; height: 28px;" onclick="selZ('SI')">SI</button>
+                    </div>
+                </div>
 
-            <button class="zone-btn" style="top: 15%; left: 7%; width: 9%; height: 9%;" onclick="selZ('C')"></button>
-            <button class="zone-btn" style="top: 24%; left: 7%; width: 9%; height: 9%;" onclick="selZ('D')"></button>
-            <button class="zone-btn" style="top: 33%; left: 7%; width: 9%; height: 9%;" onclick="selZ('E')"></button>
+                <div style="display: flex; flex-direction: column; gap: 4px; width: 22%;">
+                    <button class="z-block p-5500" style="height: 28px;" onclick="selZ('SM')">SM</button>
+                    <button class="z-block p-5500" style="height: 28px;" onclick="selZ('SL')">SL</button>
+                    <button class="z-block p-5500" style="height: 28px;" onclick="selZ('SK')">SK</button>
+                    <button class="z-block p-5500" style="height: 28px;" onclick="selZ('SJ')">SJ</button>
+                </div>
+            </div>
 
-            <button class="zone-btn" style="top: 15%; left: 74%; width: 9%; height: 9%;" onclick="selZ('S')"></button>
-            <button class="zone-btn" style="top: 24%; left: 74%; width: 9%; height: 9%;" onclick="selZ('R')"></button>
-            <button class="zone-btn" style="top: 33%; left: 74%; width: 9%; height: 9%;" onclick="selZ('Q')"></button>
-
-            <button class="zone-btn" style="top: 44%; left: 6%; width: 8%; height: 10%;" onclick="selZ('F')"></button>
-            <button class="zone-btn" style="top: 54%; left: 9%; width: 8%; height: 10%;" onclick="selZ('G')"></button>
-            <button class="zone-btn" style="top: 64%; left: 13%; width: 8%; height: 10%;" onclick="selZ('H')"></button>
-            <button class="zone-btn" style="top: 72%; left: 19%; width: 8%; height: 10%;" onclick="selZ('I')"></button>
-            <button class="zone-btn" style="top: 76%; left: 27%; width: 8%; height: 10%;" onclick="selZ('J')"></button>
-            <button class="zone-btn" style="top: 78%; left: 35%; width: 7%; height: 10%;" onclick="selZ('K')"></button>
-            <button class="zone-btn" style="top: 78%; left: 43%; width: 7%; height: 10%;" onclick="selZ('L')"></button>
-            <button class="zone-btn" style="top: 76%; left: 51%; width: 8%; height: 10%;" onclick="selZ('M')"></button>
-            <button class="zone-btn" style="top: 72%; left: 59%; width: 8%; height: 10%;" onclick="selZ('N')"></button>
-            <button class="zone-btn" style="top: 64%; left: 65%; width: 8%; height: 10%;" onclick="selZ('O')"></button>
-            <button class="zone-btn" style="top: 54%; left: 70%; width: 8%; height: 10%;" onclick="selZ('P')"></button>
         </div>
-        <p style="text-align: center; color: #64748b; font-size: 12px; margin-top: 15px;">* จิ้มเลือกตำแหน่งโซนที่ต้องการบนรูปภาพผังเพื่อเข้าสู่หน้าเลือกเก้าอี้</p>
+
+        <div class="legend">
+            <div class="legend-item"><div class="legend-color" style="background:#dc2626;"></div> 🔴 6,800 บาท</div>
+            <div class="legend-item"><div class="legend-color" style="background:#f97316;"></div> 🟠 5,500 บาท</div>
+            <div class="legend-item"><div class="legend-color" style="background:#eab308;"></div> 🟡 3,800 บาท</div>
+            <div class="legend-item"><div class="legend-color" style="background:#0ea5e9;"></div> 🔵 2,800 บาท</div>
+        </div>
+        <p style="text-align: center; color: #64748b; font-size: 11px; margin-top: 15px;">* จิ้มบนกล่องบล็อกโซนด้านบนที่พี่ต้องการเพื่อสุ่มผังเก้าอี้และคำนวณราคาได้ทันทีครับ</p>
     </div>
 
     <div id="step-seats" class="step-panel">
-        <h2>โซนย่อย: <span id="z-title" style="color:#ffcc00;">-</span></h2>
+        <h2>โซนย่อยที่คุณเลือก: <span id="z-title" style="color:#ffcc00;">-</span></h2>
         
         <div class="seats-rows-container" id="seats-box"></div>
 
@@ -174,7 +203,7 @@
         </div>
         
         <div style="display:flex; gap:10px; margin-top:15px;">
-            <button class="btn-main" style="background:#475569; margin:0;" onclick="changeStep('step-zone')">ย้อนกลับ</button>
+            <button class="btn-main" style="background:#475569; margin:0;" onclick="changeStep('step-zone')">ย้อนกลับไปหน้าผัง</button>
             <button class="btn-main" style="background:#22c55e; margin:0;" onclick="goCrashTest()">ยืนยันที่นั่ง</button>
         </div>
     </div>
@@ -195,7 +224,7 @@
         <h2 style="color:#22c55e;">🎉 บล็อกที่นั่งในระบบสำเร็จ!</h2>
         <div class="info-card" style="line-height:2.2;">
             <p><strong>ชื่อบนบัตร:</strong> <span id="p-name" style="color:#fff; font-weight:bold;"></span></p>
-            <p><strong>โซน:</strong> <span id="p-zone" style="color:#ffcc00; font-weight:bold;"></span></p>
+            <p><strong>โซนฮอลล์:</strong> <span id="p-zone" style="color:#ffcc00; font-weight:bold;"></span></p>
             <p><strong>ที่นั่งคัดสรร:</strong> <span id="p-seats" style="color:#ffcc00; font-weight:bold;"></span></p>
             <p><strong>ยอดชำระสุทธิ:</strong> <span id="p-total" style="color:#ff4d4d; font-weight:bold; font-size:20px;"></span> บาท</p>
         </div>
@@ -230,7 +259,7 @@
         }
     }
 
-    // 🛠️ ปรับปรุงระบบเช็คราคาและสีเก้าอี้ตรงๆ รายโซนเพื่อแก้ราคาไม่ตรง
+    // ฟังก์ชันสร้างหน้าเก้าอี้และฟิกซ์ราคาแยกขาดแต่ละไอดีโซน ถูกต้อง 100%
     function selZ(zoneName) {
         sZone = zoneName; selectedSeats = [];
         document.getElementById('z-title').innerText = zoneName;
@@ -239,32 +268,30 @@
         
         let box = document.getElementById('seats-box'); box.innerHTML = '';
 
-        let rowCount = 12; // แถวเริ่มต้นมาตรฐาน
+        let rowCount = 8; 
         let basePrice = 5500;
-        let seatColor = '#ff7d00';
+        let seatColor = '#f97316';
 
-        // แยกเช็คตามรายโซนจริง 100% ป้องกันราคาสลับกัน
+        // 🔒 ระบบล็อกสเปกราคาและจํานวนแถวของแต่ละระดับแบบ 100% ป้องกันสลับกัน
         if (['A2','A3','B2','B3','SG','SH','SI'].includes(zoneName)) {
             basePrice = 6800;
-            seatColor = '#ff0000';
-            rowCount = 12;
+            seatColor = '#dc2626';
+            rowCount = 8;
         } else if (['A1','A4','B1','B4','SC','SD','SE','SF','SJ','SK','SL','SM'].includes(zoneName)) {
             basePrice = 5500;
-            seatColor = '#ff7d00';
-            rowCount = 12;
+            seatColor = '#f97316';
+            rowCount = 8;
         } else if (['C','D','E','Q','R','S'].includes(zoneName)) {
-            // โซนดอยชั้น 3 ราคา 3,800 บาท (ลดเหลือ 5 แถวให้สมจริง)
             basePrice = 3800;
-            seatColor = '#ffe27d';
-            rowCount = 5;
+            seatColor = '#eab308';
+            rowCount = 5; // ดอยแถวสั้นลงให้เหมาะกับชั้น 3 ลาดชัน
         } else if (['F','G','H','I','J','K','L','M','N','O','P'].includes(zoneName)) {
-            // โซนดอยสูงสุดชั้น 4 ราคา 2,800 บาท (ลดเหลือ 5 แถวให้สมจริง)
             basePrice = 2800;
-            seatColor = '#6fc5e8';
-            rowCount = 5;
+            seatColor = '#0ea5e9';
+            rowCount = 5; // ดอยสูงสุดชั้น 4 
         }
 
-        // วนลูปสร้างแถวตามจำนวนจริงของแต่ละโซน
+        // วนลูปสร้างแผงตารางเก้าอี้
         for(let i=1; i<=rowCount; i++) {
             let rowDiv = document.createElement('div');
             rowDiv.className = 'seat-row';
@@ -313,7 +340,7 @@
     function goCrashTest() {
         if(!selectedSeats.length) { alert('❌ กรุณาเลือกที่นั่งก่อนไปต่อครับ'); return; }
         if (Math.random() < 0.10) {
-            alert('🚨 [ระบบชน] มีผู้ใช้รายอื่นกดสิทธิ์เลือกที่นั่งนี้ไปก่อนในเสี้ยววินาที ระบบกำลังรีเฟรชผังโซนใหม่!');
+            alert('🚨 [ระบบชน] มีผู้ใช้รายอื่นสอยตัดหน้าไปเสี้ยววินาที ระบบกำลังรีเฟรชที่นั่งใหม่!');
             selZ(sZone);
             return;
         }
@@ -322,12 +349,12 @@
 
     function submitName() {
         let nameInput = document.getElementById('ticket-name').value.trim();
-        if(nameInput === '') { alert('❌ กรุณากรอกชื่อ-นามสกุลภาษาอังกฤษด้วยครับ'); return; }
+        if(nameInput === '') { alert('❌ กรุณากรอกชื่อสลักบัตรภาษาอังกฤษด้วยครับ'); return; }
         buyerName = nameInput.toUpperCase();
         
         let total = selectedSeats.reduce((sum, item) => sum + item.price, 0);
         document.getElementById('p-name').innerText = buyerName;
-        document.getElementById('p-zone').innerText = sZone;
+        document.getElementById('p-zone').innerText = 'Zone ' + sZone;
         document.getElementById('p-seats').innerText = selectedSeats.map(i=>i.id).join(', ');
         document.getElementById('p-total').innerText = total.toLocaleString();
         
@@ -341,13 +368,13 @@
             sec--;
             let m = Math.floor(sec/60); let s = sec%60;
             document.getElementById('clock').innerText = (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
-            if(sec<=0) { clearInterval(countClock); alert('หมดเวลาทำรายการ ตั๋วถูกปล่อยคืนเข้าระบบ'); location.reload(); }
+            if(sec<=0) { clearInterval(countClock); alert('หมดเวลาทำรายการ บัตรเด้งหลุดเข้าระบบ'); location.reload(); }
         }, 1000);
     }
 
     function finish() {
         clearInterval(countClock);
-        alert(`🎉 จำลองเสร็จสมบูรณ์! ระบบได้บันทึกตั๋วโซน ${sZone} ของคุณเรียบร้อยครับ`);
+        alert(`🎉 จำลองเสร็จเรียบร้อย! สั่งซื้อตั๋วโซน ${sZone} สำเร็จครับพี่`);
         location.reload();
     }
 </script>
