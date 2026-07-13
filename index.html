@@ -17,10 +17,11 @@
             color: white; padding: 15px; text-align: center; font-size: 15px; font-weight: bold;
             box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         }
-        .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 12px; }
+        .container { width: 100%; max-width: 500px; margin: 0 auto; padding: 12px; }
         .step-panel { display: none; }
         .step-panel.active { display: block; }
-        h2 { font-size: 18px; margin-bottom: 15px; color: #e2e8f0; text-align: center; }
+        h2 { font-size: 17px; margin-bottom: 5px; color: #e2e8f0; text-align: center; font-weight: bold; }
+        .sub-title { text-align: center; font-size: 12px; color: #94a3b8; margin-bottom: 15px; }
 
         .box-panel { background: #11141a; padding: 25px 20px; border-radius: 12px; border: 1px solid #334155; text-align: center; margin-top: 20px; }
         .input-group { margin: 20px 0; text-align: left; }
@@ -36,125 +37,187 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* ==================== โครงสร้างผังจำลองกดปุ่ม (INTERACTIVE MAP CSS) ==================== */
-        .interactive-stage-container {
-            background: #000;
+        /* ==================== ARENA NEW NEW LAYOUT (IMPACT EXACT MAP) ==================== */
+        .arena-wrapper {
+            background-color: #05070b;
             border-radius: 16px;
-            padding: 20px 10px;
-            border: 1px solid #232936;
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 20px 10px 35px 10px;
+            border: 1px solid #1e293b;
+            margin-bottom: 15px;
+            overflow: hidden;
         }
         
-        .stage-banner {
-            background: #fff;
-            color: #000;
-            width: 60%;
+        .arena {
+            display: grid;
+            grid-template-columns: 1.1fr 1.5fr 1.1fr;
+            width: 100%;
+            max-width: 460px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .stage {
+            grid-column: 1 / span 3;
+            background: #ffffff;
+            color: #000000;
             text-align: center;
             padding: 8px;
             font-weight: bold;
-            font-size: 16px;
-            letter-spacing: 4px;
-            margin-bottom: 20px;
+            font-size: 15px;
+            letter-spacing: 5px;
             border-radius: 4px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px rgba(255,255,255,0.2);
         }
 
-        /* การจัดกรอบแบบสนามอิมแพ็ค */
-        .arena-layout {
-            width: 100%;
+        /* โซนปีกซ้าย (C, D, E และ SC, SD, SE, SF) ทำการ Skew และ Rotate สไตล์ฮอลล์จริง */
+        .left-wing {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            align-items: center;
+            transform: rotate(6deg) skewY(12deg);
+            transform-origin: top right;
+            padding-right: 5px;
+            margin-top: 5px;
         }
 
-        /* แถวที่นั่งต่างๆ */
-        .arena-row {
+        /* โซนตรงกลางหลุม (ชั้น 1) A1-A4, B1-B4 */
+        .floor {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+            z-index: 10;
+        }
+        .floor-row {
+            display: flex;
+            gap: 4px;
             width: 100%;
-            gap: 6px;
+            justify-content: center;
         }
 
-        /* สไตล์ปุ่มของแต่ละโซน */
-        .zone-btn {
+        /* โซนปีกขวา (S, R, Q และ SM, SL, SK, SJ) สเกลสะท้อนฝั่งซ้าย */
+        .right-wing {
             display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transform: rotate(-6deg) skewY(-12deg);
+            transform-origin: top left;
+            padding-left: 5px;
+            margin-top: 5px;
+        }
+
+        /* โซนฐานล่างเกือกม้า (ท้ายฮอลล์) โค้งรับขอบล่าง */
+        .lower {
+            grid-column: 1 / span 3;
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: center;
+        }
+        .lower-row {
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            width: 100%;
+        }
+
+        /* ป้ายบอกระดับชั้น Level 3 / Level 4 บริเวณปีกซ้าย-ขวา */
+        .level-tag-l, .level-tag-r {
+            position: absolute;
+            top: 10px;
+            font-size: 9px;
+            color: #475569;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        .level-tag-l { left: 5px; text-align: left; }
+        .level-tag-r { right: 5px; text-align: right; }
+
+        /* บล็อกเหลี่ยมที่นั่งบนแผนผัง (Z-BLOCK) */
+        .z-block {
+            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 11px;
-            font-weight: bold;
-            color: #fff;
+            font-size: 10px;
+            font-weight: 900;
             border-radius: 4px;
             cursor: pointer;
-            transition: transform 0.1s, opacity 0.2s;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            transition: all 0.1s ease;
             border: 1px solid rgba(0,0,0,0.3);
-            min-height: 35px;
+            min-height: 32px;
+            width: 100%;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.3);
         }
-        .zone-btn:active { transform: scale(0.92); }
-        .zone-btn:hover { opacity: 0.9; }
+        .z-block:active { transform: scale(0.92); filter: brightness(1.2); }
+        
+        /* ตกแต่งย่อยในบล็อกที่ซ้อนระดับราคา (ชั้น 3-4 ในบล็อกเดียว) */
+        .z-block span { font-size: 8px; opacity: 0.8; font-weight: normal; }
 
-        /* คลาสสีกำหนดตามราคาจริงในรูปภาพ */
-        .p-6800 { background-color: #ef4444; color: #fff; } /* แดง */
-        .p-5500 { background-color: #f97316; color: #fff; } /* ส้มแสด */
-        .p-3800 { background-color: #eab308; color: #000; text-shadow: none; } /* เหลืองเข้ม */
-        .p-3500 { background-color: #fde047; color: #000; text-shadow: none; } /* เหลืองครีม */
+        /* สำหรับบล็อกกล้องหรือส่วนที่ห้ามจอง */
+        .bg-cam { background: #1e293b !important; color: #475569 !important; font-size: 8px; cursor: not-allowed; text-shadow: none; box-shadow: none; }
 
-        /* ขนาดความกว้างแบบยืดหยุ่นในแต่ละโซนเพื่อให้เหมือนบล็อกในผัง */
-        .w-small { width: 35px; }
-        .w-medium { width: 45px; }
-        .w-large { width: 60px; }
-        .w-xlarge { width: 75px; }
-
-        /* ตัวระบุกล้อง/FOH (กดไม่ได้) */
-        .non-clickable {
-            background: #1e293b;
-            color: #64748b;
-            border: 1px solid #334155;
-            font-size: 9px;
-            cursor: not-allowed;
-            text-shadow: none;
-        }
-
-        /* คำอธิบายสีกราฟิกด้านล่างผัง */
-        .pricing-legend {
-            background: #fff;
-            color: #000;
-            border-radius: 8px;
-            padding: 12px;
-            width: 180px;
-            margin-top: 15px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        .legend-item {
+        /* คอนเซปต์กลุ่มก้อนโซนซ้อนชั้นตามราคาใหม่เป๊ะๆ */
+        .composite-zone {
             display: flex;
-            align-items: center;
-            margin-bottom: 6px;
-            gap: 8px;
+            flex-direction: column;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.4);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+            width: 100%;
         }
-        .legend-item:last-child { margin-bottom: 0; }
-        .color-box { width: 30px; height: 15px; border-radius: 2px; }
+        .sub-tier {
+            padding: 6px 2px;
+            text-align: center;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(0,0,0,0.15);
+        }
+        .sub-tier:last-child { border-bottom: none; }
+        .sub-tier:active { filter: brightness(1.3); }
 
-        /* ==================================================================== */
+        /* รหัสสีใหม่แมปปิ้งตรงจุด IMPACT */
+        .c-6800 { background-color: #ff1e1e !important; color: #ffffff !important; }
+        .c-5500 { background-color: #ff8a00 !important; color: #ffffff !important; }
+        .c-3800 { background-color: #ffd65b !important; color: #000000 !important; }
+        .c-3500 { background-color: #fff4b3 !important; color: #000000 !important; }
+        .c-2800 { background-color: #63c5ea !important; color: #000000 !important; }
+        .c-2500 { background-color: #0b73d8 !important; color: #ffffff !important; }
 
-        /* โครงสร้างหน้าเลือกที่นั่งภายใน */
-        .seats-rows-container { background: #11141b; padding: 15px 10px; border-radius: 12px; margin: 20px 0; max-height: 420px; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; }
-        .seat-row { display: flex; align-items: center; width: 100%; background: transparent; padding: 2px 0; }
-        .row-label { width: 55px; font-size: 12px; font-weight: bold; color: #64748b; text-align: left; padding-left: 2px; }
-        .row-seats-grid { display: flex; flex-grow: 1; justify-content: space-between; gap: 4px; }
+        /* ตารางแดชบอร์ดราคาด้านล่างผัง */
+        .price-table {
+            background: #11141a;
+            border: 1px solid #232936;
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .price-item { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: bold; }
+        .color-dot { width: 16px; height: 16px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.4); }
+
+        /* หน้าเลือกที่นั่ง Grid */
+        .seats-rows-container { background: #11141b; padding: 15px 8px; border-radius: 12px; margin: 15px 0; max-height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
+        .seat-row { display: flex; align-items: center; width: 100%; padding: 1px 0; }
+        .row-label { width: 50px; font-size: 11px; font-weight: bold; color: #64748b; }
+        .row-seats-grid { display: flex; flex-grow: 1; justify-content: space-between; gap: 3px; }
         
         .seat-dot {
-            width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; 
-            justify-content: center; font-size: 11px; font-weight: bold; color: white; cursor: pointer;
+            width: 26px; height: 26px; border-radius: 4px; display: flex; align-items: center; 
+            justify-content: center; font-size: 10px; font-weight: bold; cursor: pointer;
         }
-        .seat-dot.chosen { background-color: #ffffff !important; color: black; box-shadow: 0 0 10px #ffffff; border: 1px solid #ffffff !important; }
-        .seat-dot.taken { background-color: #2d3748 !important; color: #4a5568; cursor: not-allowed; border: none !important; }
+        .seat-dot.chosen { background-color: #ffffff !important; color: #000000 !important; box-shadow: 0 0 12px #ffffff; border: 1px solid #ffffff !important; }
+        .seat-dot.taken { background-color: #232936 !important; color: #4b5563 !important; cursor: not-allowed; border: none !important; }
 
-        .info-card { background: #171b26; padding: 15px; border-radius: 10px; margin-top: 15px; border-left: 4px solid #b30000; font-size: 14px; line-height: 1.7; }
-        .btn-main { background: #b30000; color: white; border: none; width: 100%; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 8px; margin-top: 15px; cursor: pointer; }
+        .info-card { background: #171b26; padding: 15px; border-radius: 10px; margin-top: 15px; border-left: 4px solid #b30000; font-size: 14px; line-height: 1.8; }
+        .btn-main { background: #b30000; color: white; border: none; width: 100%; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 8px; margin-top: 15px; cursor: pointer; }
         .timer-tag { background: #fff3cd; color: #856404; text-align: center; padding: 10px; font-weight: bold; border-radius: 6px; margin-bottom: 20px; }
     </style>
 </head>
@@ -164,14 +227,16 @@
 
 <div class="container">
 
+    <!-- STEP 1: HOME -->
     <div id="step-home" class="step-panel active">
         <div class="box-panel" style="margin-top:40px;">
             <h3 style="color:#fff; margin-bottom:12px;">WELCOME TO LIVE SIMULATOR</h3>
-            <p style="color:#94a3b8; font-size:14px;">ระบบจำลองกดบัตรเสมือนจริงตามสเปกผัง 100%</p>
+            <p style="color:#94a3b8; font-size:14px;">ระบบจำลองกดบัตรอ้างอิงผังอัฒจันทร์ Impact Arena เต็มรูปแบบ</p>
         </div>
         <button class="btn-main" onclick="goQueue()">คลิกเพื่อต่อแถวรับคิว</button>
     </div>
 
+    <!-- STEP 2: QUEUE -->
     <div id="step-queue" class="step-panel">
         <div class="box-panel">
             <h2>กำลังจัดลำดับคิวเข้าสู่ระบบ</h2>
@@ -180,6 +245,7 @@
         </div>
     </div>
 
+    <!-- STEP 3: MEMBER VERIFICATION -->
     <div id="step-member" class="step-panel">
         <div class="box-panel">
             <h2 style="color: #ffcc00;">🔒 MEMBER VERIFICATION</h2>
@@ -191,125 +257,183 @@
         </div>
     </div>
 
-    <!-- หน้าเลือกโซนที่แก้ไขให้กดจิ้มบนผัง CSS ได้โดยตรง -->
+    <!-- STEP 4: NEW HTML ARENA MAP -->
     <div id="step-zone" class="step-panel">
-        <h2 style="margin-bottom: 5px;">เลือกโซนที่นั่งของคุณ</h2>
-        <p style="text-align:center; font-size:12px; color:#94a3b8; margin-bottom:15px;">แตะเลือกโซนสีบนผังด้านล่างนี้เพื่อเข้าสู่ที่นั่งเสมือนจริง</p>
+        <h2>เลือกโซนที่นั่งของคุณ</h2>
+        <div class="sub-title">สัมผัสบล็อกหรือริ้วแถบสีตามระดับชั้นโถงอัฒจันทร์เพื่อจองที่นั่ง</div>
         
-        <div class="interactive-stage-container">
-            <div class="stage-banner">STAGE</div>
-
-            <div class="arena-layout">
+        <div class="arena-wrapper">
+            <div class="arena">
                 
-                <!-- แถวที่ 1: บัตรหลุม/นั่งหน้าเวทีชั้นล่าง -->
-                <div class="arena-row">
-                    <div class="zone-btn p-5500 w-small" onclick="selZ('A1')">A1</div>
-                    <div class="zone-btn p-6800 w-large" onclick="selZ('A2')">A2</div>
-                    <div class="zone-btn p-6800 w-large" onclick="selZ('A3')">A3</div>
-                    <div class="zone-btn p-5500 w-small" onclick="selZ('A4')">A4</div>
+                <div class="level-tag-l">Level 4 ➔<br>Level 3 ➔</div>
+                <div class="level-tag-r">System ➔<br>Tiers ➔</div>
+
+                <!-- 1. STAGE -->
+                <div class="stage">STAGE</div>
+
+                <!-- 2. LEFT WING (ฝั่งซ้ายเอียงสไตล์ IMPACT) -->
+                <div class="left-wing">
+                    <!-- โซนภายนอกสุดแบ่ง Tiers ตามความสูงจริง (C, D, E) -->
+                    <!-- โซน C (บนสุด 2500 -> 2800 -> 3500 -> ล่างสุดของโซน 3800) -->
+                    <div class="composite-zone">
+                        <div class="sub-tier c-2500" onclick="selZ('C', 2500)">C <span>2500</span></div>
+                        <div class="sub-tier c-2800" onclick="selZ('C', 2800)">C <span>2800</span></div>
+                        <div class="sub-tier c-3500" onclick="selZ('C', 3500)">C <span>3500</span></div>
+                        <div class="sub-tier c-3800" onclick="selZ('C', 3800)">C <span>3800</span></div>
+                    </div>
+                    <!-- โซน D (บนสุด 2500 -> 2800 -> ล่างสุดของโซน 3500) -->
+                    <div class="composite-zone">
+                        <div class="sub-tier c-2500" onclick="selZ('D', 2500)">D <span>2500</span></div>
+                        <div class="sub-tier c-2800" onclick="selZ('D', 2800)">D <span>2800</span></div>
+                        <div class="sub-tier c-3500" onclick="selZ('D', 3500)">D <span>3500</span></div>
+                    </div>
+                    <!-- โซน E (บนสุด 2500 -> 2800 -> ล่างสุดของโซน 3500) -->
+                    <div class="composite-zone">
+                        <div class="sub-tier c-2500" onclick="selZ('E', 2500)">E <span>2500</span></div>
+                        <div class="sub-tier c-2800" onclick="selZ('E', 2800)">E <span>2800</span></div>
+                        <div class="sub-tier c-3500" onclick="selZ('E', 3500)">E <span>3500</span></div>
+                    </div>
+
+                    <!-- ชั้น Level 3 (ชั้นในถัดมา) มีราคาเดียวคือ 5500 -->
+                    <div class="z-block c-5500" onclick="selZ('SC', 5500)">SC</div>
+                    <div class="z-block c-5500" onclick="selZ('SD', 5500)">SD</div>
+                    <div class="z-block c-5500" onclick="selZ('SE', 5500)">SE</div>
+                    <div class="z-block c-5500" onclick="selZ('SF', 5500)">SF</div>
                 </div>
 
-                <!-- แถวที่ 2: โซนกล้องและโซนชั้นล่างถัดมา -->
-                <div class="arena-row">
-                    <div class="zone-btn non-clickable w-small">CAM</div>
-                    <div class="zone-btn p-6800 w-large" onclick="selZ('B2')">B2</div>
-                    <div class="zone-btn p-6800 w-large" onclick="selZ('B3')">B3</div>
-                    <div class="zone-btn p-5500 w-small" onclick="selZ('B4')">B4</div>
+                <!-- 3. FLOOR (ลานกลางและหลุมหน้าเวที) -->
+                <div class="floor">
+                    <div class="floor-row">
+                        <div class="z-block c-5500" style="height:45px;" onclick="selZ('A1', 5500)">A1</div>
+                        <div class="z-block c-6800" style="height:65px;" onclick="selZ('A2', 6800)">A2</div>
+                        <div class="z-block c-6800" style="height:65px;" onclick="selZ('A3', 6800)">A3</div>
+                        <div class="z-block c-5500" style="height:45px;" onclick="selZ('A4', 5500)">A4</div>
+                    </div>
+                    <!-- บล็อกพิเศษขนาบข้างหลุม -->
+                    <div class="floor-row" style="margin-top: -16px; width: 100%; justify-content: space-between; padding: 0 4px;">
+                        <div class="z-block bg-cam" style="width:28px; min-height:26px; font-size:7px;">CAM</div>
+                        <div class="z-block bg-cam" style="width:28px; min-height:26px; font-size:7px;">CAM</div>
+                    </div>
+                    <div class="floor-row" style="margin-top: 6px;">
+                        <div class="z-block c-5500" style="height:48px;" onclick="selZ('B1', 5500)">B1</div>
+                        <div class="z-block c-6800" style="height:48px;" onclick="selZ('B2', 6800)">B2</div>
+                        <div class="z-block c-6800" style="height:48px;" onclick="selZ('B3', 6800)">B3</div>
+                        <div class="z-block c-5500" style="height:48px;" onclick="selZ('B4', 5500)">B4</div>
+                    </div>
+                    <div class="z-block bg-cam" style="width:90%; min-height:20px; margin-top:8px;">FOH CONTROL</div>
                 </div>
 
-                <!-- แถวที่ 3: โซน B ด้านข้าง และ FOH ตรงกลาง -->
-                <div class="arena-row">
-                    <div class="zone-btn p-5500 w-medium" onclick="selZ('B1')">B1</div>
-                    <div class="zone-btn non-clickable w-xlarge">FOH</div>
-                    <div class="zone-btn non-clickable w-medium">CAM</div>
+                <!-- 4. RIGHT WING (ฝั่งขวาเอียงลู่เข้าหาเวที) -->
+                <div class="right-wing">
+                    <!-- โซน S (บนสุด 2500 -> 2800 -> 3500 -> ล่างสุดของโซน 3800) -->
+                    <div class="composite-zone">
+                        <div class="sub-tier c-2500" onclick="selZ('S', 2500)">S <span>2500</span></div>
+                        <div class="sub-tier c-2800" onclick="selZ('S', 2800)">S <span>2800</span></div>
+                        <div class="sub-tier c-3500" onclick="selZ('S', 3500)">S <span>3500</span></div>
+                        <div class="sub-tier c-3800" onclick="selZ('S', 3800)">S <span>3800</span></div>
+                    </div>
+                    <!-- โซน R (บนสุด 2500 -> 2800 -> ล่างสุดของโซน 3500) -->
+                    <div class="composite-zone">
+                        <div class="sub-tier c-2500" onclick="selZ('R', 2500)">R <span>2500</span></div>
+                        <div class="sub-tier c-2800" onclick="selZ('R', 2800)">R <span>2800</span></div>
+                        <div class="sub-tier c-3500" onclick="selZ('R', 3500)">R <span>3500</span></div>
+                    </div>
+                    <!-- โซน Q (บนสุด 2500 -> 2800 -> ล่างสุดของโซน 3500) -->
+                    <div class="composite-zone">
+                        <div class="sub-tier c-2500" onclick="selZ('Q', 2500)">Q <span>2500</span></div>
+                        <div class="sub-tier c-2800" onclick="selZ('Q', 2800)">Q <span>2800</span></div>
+                        <div class="sub-tier c-3500" onclick="selZ('Q', 3500)">Q <span>3500</span></div>
+                    </div>
+
+                    <!-- ชั้น Level 3 ฝั่งขวา (SM, SL, SK, SJ) -->
+                    <div class="z-block c-5500" onclick="selZ('SM', 5500)">SM</div>
+                    <div class="z-block c-5500" onclick="selZ('SL', 5500)">SL</div>
+                    <div class="z-block c-5500" onclick="selZ('SK', 5500)">SK</div>
+                    <div class="z-block c-5500" onclick="selZ('SJ', 5500)">SJ</div>
                 </div>
 
-                <!-- แถวที่ 4: ชั้น 2 โค้งด้านใน (SC 到 SM) และชั้นล่างท้าย (SG, SH, SI) -->
-                <div class="arena-row" style="margin-top: 5px;">
-                    <div class="zone-btn p-5500 w-small" onclick="selZ('SC')">SC</div>
-                    <div class="zone-btn p-5500 w-small" onclick="selZ('SD')">SD</div>
-                    <div class="zone-btn p-5500 w-small" onclick="selZ('SE')">SE</div>
-                    <div class="zone-btn p-6800 w-small" onclick="selZ('SG')">SG</div>
-                    <div class="zone-btn p-6800 w-small" onclick="selZ('SH')">SH</div>
-                    <div class="zone-btn p-6800 w-small" onclick="selZ('SI')">SI</div>
-                    <div class="zone-btn p-5500 w-small" onclick="selZ('SJ')">SJ</div>
-                    <div class="zone-btn p-5500 w-small" onclick="selZ('SK')">SK</div>
-                    <div class="zone-btn p-5500 w-small" onclick="selZ('SL')">SL</div>
-                    <div class="zone-btn p-5500 w-small" onclick="selZ('SM')">SM</div>
-                </div>
-
-                <!-- แถวที่ 5: ชั้น 2 ปีกข้างล่าง -->
-                <div class="arena-row">
-                    <div class="zone-btn p-5500 w-medium" onclick="selZ('SF')">SF</div>
-                    <div class="zone-btn p-3500 w-small" onclick="selZ('J')">J</div>
-                    <div class="zone-btn p-3500 w-small" onclick="selZ('K')">K</div>
-                    <div class="zone-btn p-3500 w-small" onclick="selZ('L')">L</div>
-                    <div class="zone-btn p-5500 w-medium" onclick="selZ('SJ')">SJ</div>
-                </div>
-
-                <!-- แถวที่ 6: ชั้น 3 วงนอกชั้นบน (C-E และ P-S) -->
-                <div class="arena-row" style="margin-top: 5px;">
-                    <div class="zone-btn p-3800 w-small" onclick="selZ('C')">C</div>
-                    <div class="zone-btn p-3800 w-small" onclick="selZ('D')">D</div>
-                    <div class="zone-btn p-3800 w-small" onclick="selZ('E')">E</div>
-                    <div class="zone-btn p-3500 w-small" onclick="selZ('G')">G</div>
-                    <div class="zone-btn p-3500 w-small" onclick="selZ('H')">H</div>
-                    <div class="zone-btn p-3500 w-small" onclick="selZ('I')">I</div>
-                    <div class="zone-btn p-3500 w-small" onclick="selZ('M')">M</div>
-                    <div class="zone-btn p-3500 w-small" onclick="selZ('N')">N</div>
-                    <div class="zone-btn p-3500 w-small" onclick="selZ('O')">O</div>
-                    <div class="zone-btn p-3800 w-small" onclick="selZ('Q')">Q</div>
-                    <div class="zone-btn p-3800 w-small" onclick="selZ('R')">R</div>
-                    <div class="zone-btn p-3800 w-small" onclick="selZ('S')">S</div>
-                </div>
-
-                <!-- แถวที่ 7: ชั้น 3 ปีกมุมนอกสุดด้านล่าง -->
-                <div class="arena-row">
-                    <div class="zone-btn p-3500 w-medium" onclick="selZ('F')">F</div>
-                    <div class="zone-btn p-3800 w-medium" onclick="selZ('P')">P</div>
+                <!-- 5. LOWER (ท้ายฮอลล์ อัฒจันทร์ทรงเกือกม้าชั้นหลังสุด) -->
+                <div class="lower">
+                    <!-- แถวหน้าสุดของโซนท้ายฮอลล์ (SG, SH, SI) บัตรราคาสูงสุดของอัฒจันทร์ 6800 -->
+                    <div class="lower-row" style="width: 86%;">
+                        <div class="z-block c-6800" onclick="selZ('SG', 6800)">SG</div>
+                        <div class="z-block c-6800" onclick="selZ('SH', 6800)">SH</div>
+                        <div class="z-block c-6800" onclick="selZ('SI', 6800)">SI</div>
+                    </div>
+                    
+                    <!-- โครงสร้างโซนเฉลียงท้ายฮอลล์ ไล่ระดับความสูงแบ่งเป็น 2 ชั้นราคา (2500 บนสุด / 3500 ด้านล่าง) -->
+                    <div class="lower-row">
+                        <!-- โซน F ถึง P -->
+                        <div class="composite-zone" style="width:36px;"><div class="sub-tier c-2500" onclick="selZ('F', 2500)">F</div></div>
+                        <div class="composite-zone" style="width:36px;"><div class="sub-tier c-2500" onclick="selZ('G', 2500)">G</div></div>
+                        
+                        <!-- โซนหลักท้ายฮอลล์แบ่งชั้นซ้อน (2500 อยู่บน / 3500 อยู่ล่าง) -->
+                        <div class="composite-zone" style="width:38px;">
+                            <div class="sub-tier c-2500" onclick="selZ('H', 2500)">H</div>
+                            <div class="sub-tier c-3500" onclick="selZ('H', 3500)">H</div>
+                        </div>
+                        <div class="composite-zone" style="width:38px;">
+                            <div class="sub-tier c-2500" onclick="selZ('I', 2500)">I</div>
+                            <div class="sub-tier c-3500" onclick="selZ('I', 3500)">I</div>
+                        </div>
+                        <div class="composite-zone" style="width:38px;">
+                            <div class="sub-tier c-2500" onclick="selZ('J', 2500)">J</div>
+                            <div class="sub-tier c-3500" onclick="selZ('J', 3500)">J</div>
+                        </div>
+                        <div class="composite-zone" style="width:38px;">
+                            <div class="sub-tier c-2500" onclick="selZ('K', 2500)">K</div>
+                            <div class="sub-tier c-3500" onclick="selZ('K', 3500)">K</div>
+                        </div>
+                        <div class="composite-zone" style="width:38px;">
+                            <div class="sub-tier c-2500" onclick="selZ('L', 2500)">L</div>
+                            <div class="sub-tier c-3500" onclick="selZ('L', 3500)">L</div>
+                        </div>
+                        <div class="composite-zone" style="width:38px;">
+                            <div class="sub-tier c-2500" onclick="selZ('M', 2500)">M</div>
+                            <div class="sub-tier c-3500" onclick="selZ('M', 3500)">M</div>
+                        </div>
+                        <div class="composite-zone" style="width:38px;">
+                            <div class="sub-tier c-2500" onclick="selZ('N', 2500)">N</div>
+                            <div class="sub-tier c-3500" onclick="selZ('N', 3500)">N</div>
+                        </div>
+                        
+                        <div class="composite-zone" style="width:36px;"><div class="sub-tier c-2500" onclick="selZ('O', 2500)">O</div></div>
+                        <div class="composite-zone" style="width:36px;"><div class="sub-tier c-2500" onclick="selZ('P', 2500)">P</div></div>
+                    </div>
                 </div>
 
             </div>
+        </div>
 
-            <!-- กล่องแสดงราคาตามสีดีไซน์ (PRICING) -->
-            <div class="pricing-legend">
-                <div style="text-align:center; margin-bottom:8px; font-size:13px; letter-spacing:2px;">PRICING</div>
-                <div class="legend-item">
-                    <div class="color-box" style="background:#ef4444;"></div>
-                    <span>6,800 <span style="font-size:9px; color:#666;">THB</span></span>
-                </div>
-                <div class="legend-item">
-                    <div class="color-box" style="background:#f97316;"></div>
-                    <span>5,500 <span style="font-size:9px; color:#666;">THB</span></span>
-                </div>
-                <div class="legend-item">
-                    <div class="color-box" style="background:#eab308;"></div>
-                    <span>3,800 <span style="font-size:9px; color:#666;">THB</span></span>
-                </div>
-                <div class="legend-item">
-                    <div class="color-box" style="background:#fde047;"></div>
-                    <span>3,500 <span style="font-size:9px; color:#666;">THB</span></span>
-                </div>
-            </div>
+        <!-- แถบดัชนีบอกสีและราคาตามสเปกใหม่ของคุณ -->
+        <div class="price-table">
+            <div class="price-item"><div class="color-dot c-6800"></div> 6,800 THB</div>
+            <div class="price-item"><div class="color-dot c-5500"></div> 5,500 THB</div>
+            <div class="price-item"><div class="color-dot c-3800"></div> 3,800 THB</div>
+            <div class="price-item"><div class="color-dot c-3500"></div> 3,500 THB</div>
+            <div class="price-item"><div class="color-dot c-2800"></div> 2,800 THB</div>
+            <div class="price-item"><div class="color-dot c-2500"></div> 2,500 THB</div>
         </div>
     </div>
 
+    <!-- STEP 5: SEAT SELECTION SECTOR -->
     <div id="step-seats" class="step-panel">
-        <h2>โซนย่อย: <span id="z-title" style="color:#ffcc00;">-</span></h2>
+        <h2>โซนย่อย: <span id="z-title" style="color:#ffcc00;">-</span> (<span id="z-price">-</span> บาท)</h2>
         
         <div class="seats-rows-container" id="seats-box"></div>
 
         <div class="info-card">
-            <p>ตั๋วที่เลือก: <span id="lbl-seats" style="color:#ffcc00; font-weight:bold;">ยังไม่ได้เลือก</span></p>
-            <p>ราคารวมทั้งหมด: <span id="lbl-total" style="color:#ff4d4d; font-weight:bold; font-size:18px;">0</span> บาท</p>
+            <p>ที่นั่งคัดสรร: <span id="lbl-seats" style="color:#ffcc00; font-weight:bold;">ยังไม่ได้เลือก</span></p>
+            <p>ยอดเงินรวมทั้งหมด: <span id="lbl-total" style="color:#ff4d4d; font-weight:bold; font-size:18px;">0</span> บาท</p>
         </div>
         
         <div style="display:flex; gap:10px; margin-top:15px;">
-            <button class="btn-main" style="background:#475569; margin:0;" onclick="backToZone()">ย้อนกลับ</button>
+            <button class="btn-main" style="background:#475569; margin:0;" onclick="backToZone()">ย้อนกลับผังรวม</button>
             <button class="btn-main" style="background:#22c55e; margin:0;" onclick="goCrashTest()">ยืนยันที่นั่ง</button>
         </div>
     </div>
 
+    <!-- STEP 6: NAME ON TICKET -->
     <div id="step-name" class="step-panel">
         <div class="box-panel">
             <h2>📝 TICKET HOLDER INFO</h2>
@@ -321,13 +445,14 @@
         </div>
     </div>
 
+    <!-- STEP 7: PAYMENT SIMULATION -->
     <div id="step-pay" class="step-panel">
-        <div class="timer-tag">⏰ เวลาทำรายการจ่ายเงินที่เหลืออยู่ <span id="clock">10:00</span></div>
-        <h2 style="color:#22c55e;">🎉 บล็อกที่นั่งในระบบสำเร็จ!</h2>
+        <div class="timer-tag">⏰ เวลาทำรายการจ่ายเงินคงเหลือ <span id="clock">10:00</span></div>
+        <h2 style="color:#22c55e;">🎉 ระบบบล็อกที่นั่งเรียบร้อย!</h2>
         <div class="info-card" style="line-height:2.2;">
             <p><strong>ชื่อบนบัตร:</strong> <span id="p-name" style="color:#fff; font-weight:bold;"></span></p>
-            <p><strong>โซน:</strong> <span id="p-zone" style="color:#ffcc00; font-weight:bold;"></span></p>
-            <p><strong>ที่นั่งคัดสรร:</strong> <span id="p-seats" style="color:#ffcc00; font-weight:bold;"></span></p>
+            <p><strong>โซนอัฒจันทร์:</strong> <span id="p-zone" style="color:#ffcc00; font-weight:bold;"></span></p>
+            <p><strong>ตำแหน่งที่นั่ง:</strong> <span id="p-seats" style="color:#ffcc00; font-weight:bold;"></span></p>
             <p><strong>ยอดชำระสุทธิ:</strong> <span id="p-total" style="color:#ff4d4d; font-weight:bold; font-size:20px;"></span> บาท</p>
         </div>
         <button class="btn-main" style="background:#22c55e;" onclick="finish()">เสร็จสิ้นการจำลอง</button>
@@ -336,7 +461,7 @@
 </div>
 
 <script>
-    let sZone = ''; let selectedSeats = []; let countClock; let buyerName = '';
+    let sZone = ''; let sPrice = 0; let selectedSeats = []; let countClock; let buyerName = '';
 
     function changeStep(id) {
         document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
@@ -345,63 +470,49 @@
 
     function goQueue() {
         changeStep('step-queue');
-        let q = Math.floor(Math.random() * 30) + 10;
+        let q = Math.floor(Math.random() * 25) + 8;
         let t = setInterval(() => {
-            q -= Math.floor(Math.random() * 8) + 4;
+            q -= Math.floor(Math.random() * 5) + 3;
             if(q <= 0) { q=0; clearInterval(t); changeStep('step-member'); }
             document.getElementById('q-num').innerText = q;
-        }, 250);
+        }, 300);
     }
 
     function verifyMember() {
         if (document.getElementById('member-code').value.trim() === '20230312') {
             changeStep('step-zone');
         } else {
-            alert('❌ รหัสผิด! (วันเดบิวต์วง PLAVE คือ 20230312)');
+            alert('❌ รหัสไม่ถูกต้อง! (รหัสผ่านคือวันเดบิวต์วง PLAVE: 20230312)');
         }
     }
 
-    function backToZone() {
-        changeStep('step-zone');
-    }
+    function backToZone() { changeStep('step-zone'); }
 
-    // ฟังก์ชันจัดการราคากับสีปุ่มตอนหลุดเข้าหน้าระบุเก้าอี้เดี่ยว
-    function selZ(zoneName) {
-        sZone = zoneName; selectedSeats = [];
+    // ฟังก์ชันสร้างแถวจุดที่นั่งและแมปปิ้งสีที่นั่งย่อยตามราคาที่กดเลือก
+    function selZ(zoneName, pricePoint) {
+        sZone = zoneName; 
+        sPrice = pricePoint;
+        selectedSeats = [];
+        
         document.getElementById('z-title').innerText = zoneName;
+        document.getElementById('z-price').innerText = pricePoint.toLocaleString();
         document.getElementById('lbl-seats').innerText = "ยังไม่ได้เลือก";
         document.getElementById('lbl-total').innerText = "0";
         
-        let box = document.getElementById('seats-box'); box.innerHTML = '';
+        let box = document.getElementById('seats-box'); 
+        box.innerHTML = '';
 
-        let rowCount = 7; 
-        let basePrice = 3500;
-        let seatColor = '#fde047'; 
+        // แยกแมปปิ้งสีเม็ดที่นั่งในระบบตามจุดราคานั้นๆ
+        let seatColor = '#fff4b3'; 
+        if(pricePoint === 6800) seatColor = '#ff1e1e';
+        else if(pricePoint === 5500) seatColor = '#ff8a00';
+        else if(pricePoint === 3800) seatColor = '#ffd65b';
+        else if(pricePoint === 3500) seatColor = '#fff4b3';
+        else if(pricePoint === 2800) seatColor = '#63c5ea';
+        else if(pricePoint === 2500) seatColor = '#0b73d8';
 
-        // 🔴 กลุ่มสีแดง - 6,800 THB
-        if (['A2','A3','B2','B3','SG','SH','SI'].includes(zoneName)) {
-            basePrice = 6800;
-            seatColor = '#ef4444'; 
-            rowCount = 8;
-        } 
-        // 🟠 กลุ่มสีส้ม - 5,500 THB
-        else if (['A1','A4','B1','B4','SC','SD','SE','SF','SJ','SK','SL','SM'].includes(zoneName)) {
-            basePrice = 5500;
-            seatColor = '#f97316'; 
-            rowCount = 8;
-        } 
-        // 🟡 กลุ่มสีเหลืองเข้ม - 3,800 THB
-        else if (['C','D','E','P','Q','R','S'].includes(zoneName)) {
-            basePrice = 3800;
-            seatColor = '#eab308'; 
-            rowCount = 7;
-        } 
-        // 🟡 กลุ่มสีครีม/เหลืองอ่อน - 3,500 THB
-        else if (['F','G','H','I','J','K','L','M','N','O'].includes(zoneName)) {
-            basePrice = 3500;
-            seatColor = '#fde047'; 
-            rowCount = 6;
-        }
+        let rowCount = 6;
+        if([6800, 5500].includes(pricePoint)) rowCount = 8; // โซนล่างหรือหลุมจะมีแถวลึกกว่า
 
         for(let i=1; i<=rowCount; i++) {
             let rowDiv = document.createElement('div');
@@ -420,15 +531,17 @@
                 dot.className = 'seat-dot';
                 dot.innerText = s;
                 dot.style.backgroundColor = seatColor;
-                dot.style.border = `1px solid ${seatColor}`;
+                dot.style.border = `1px solid rgba(0,0,0,0.2)`;
                 
-                if(['C','D','E','P','Q','R','S','F','G','H','I','J','K','L','M','N','O'].includes(zoneName)) {
-                    dot.style.color = '#000';
+                // สลับสีตัวเลขให้สแกนสายตาง่าย
+                if([3800, 3500, 2800].includes(pricePoint)) {
+                    dot.style.color = '#000000';
                 } else {
-                    dot.style.color = '#fff';
+                    dot.style.color = '#ffffff';
                 }
                 
-                if(Math.random() < 0.45) { 
+                // สุ่มสถานะการถูกจอง (Taken)
+                if(Math.random() < 0.40) { 
                     dot.classList.add('taken');
                 } else {
                     dot.onclick = () => {
@@ -437,9 +550,9 @@
                             dot.classList.remove('chosen');
                             selectedSeats = selectedSeats.filter(item => item.id !== seatId);
                         } else {
-                            if(selectedSeats.length >= 4) { alert('จำกัดเลือกสูงสุด 4 ที่นั่งครับ'); return; }
+                            if(selectedSeats.length >= 4) { alert('ระบบจำกัดจองสูงสุด 4 ที่นั่งต่อรอบทำรายการครับ'); return; }
                             dot.classList.add('chosen');
-                            selectedSeats.push({ id: seatId, price: basePrice });
+                            selectedSeats.push({ id: seatId, price: sPrice });
                         }
                         let total = selectedSeats.reduce((sum, item) => sum + item.price, 0);
                         document.getElementById('lbl-seats').innerText = selectedSeats.length ? selectedSeats.map(i=>i.id).join(', ') : "ยังไม่ได้เลือก";
@@ -451,15 +564,15 @@
             rowDiv.appendChild(gridDiv);
             box.appendChild(rowDiv);
         }
-
         changeStep('step-seats');
     }
 
     function goCrashTest() {
-        if(!selectedSeats.length) { alert('❌ กรุณาเลือกที่นั่งก่อนไปต่อครับ'); return; }
+        if(!selectedSeats.length) { alert('❌ กรุณาจิ้มเลือกตำแหน่งที่นั่งอย่างน้อย 1 ที่นั่งครับ'); return; }
+        // จำลองระบบชน/ตั๋วหลุด (10%)
         if (Math.random() < 0.10) {
-            alert('🚨 [ระบบชน] มีผู้ใช้รายอื่นสอยตัดหน้าไปเสี้ยววินาที ระบบกำลังรีเฟรชที่นั่งใหม่!');
-            selZ(sZone);
+            alert('🚨 [Ticket Conflict] มีผู้ใช้รายอื่นส่งคำขอจองที่นั่งนี้พร้อมคุณในระดับเสี้ยววินาที! กรุณาเลือกที่นั่งใหม่อีกครั้ง');
+            selZ(sZone, sPrice);
             return;
         }
         changeStep('step-name');
@@ -467,12 +580,12 @@
 
     function submitName() {
         let nameInput = document.getElementById('ticket-name').value.trim();
-        if(nameInput === '') { alert('❌ กรุณากรอกชื่อสลักบัตรภาษาอังกฤษด้วยครับ'); return; }
+        if(nameInput === '') { alert('❌ กรุณากรอกชื่อสลักหน้าตั๋วผู้เข้าชมเป็นภาษาอังกฤษด้วยครับ'); return; }
         buyerName = nameInput.toUpperCase();
         
         let total = selectedSeats.reduce((sum, item) => sum + item.price, 0);
         document.getElementById('p-name').innerText = buyerName;
-        document.getElementById('p-zone').innerText = 'Zone ' + sZone;
+        document.getElementById('p-zone').innerText = 'Zone ' + sZone + ' (' + sPrice.toLocaleString() + ' THB)';
         document.getElementById('p-seats').innerText = selectedSeats.map(i=>i.id).join(', ');
         document.getElementById('p-total').innerText = total.toLocaleString();
         
@@ -486,13 +599,13 @@
             sec--;
             let m = Math.floor(sec/60); let s = sec%60;
             document.getElementById('clock').innerText = (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
-            if(sec<=0) { clearInterval(countClock); alert('หมดเวลาทำรายการ บัตรเด้งหลุดเข้าระบบ'); location.reload(); }
+            if(sec<=0) { clearInterval(countClock); alert('หมดเวลาการทำรายการชำระเงิน บัตรของคุณดีดกลับเข้าระบบส่วนกลาง'); location.reload(); }
         }, 1000);
     }
 
     function finish() {
         clearInterval(countClock);
-        alert(`🎉 จำลองเสร็จเรียบร้อย! สั่งซื้อตั๋วโซน ${sZone} สำเร็จครับพี่`);
+        alert(`🎉 เสร็จสิ้นการจำลองเสมือนจริง! คุณจองโซน ${sZone} ทั้งหมด ${selectedSeats.length} ที่นั่งสำเร็จแล้วครับ`);
         location.reload();
     }
 </script>
