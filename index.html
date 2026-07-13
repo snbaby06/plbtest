@@ -11,13 +11,13 @@
             margin: 0; padding: 0;
             -webkit-tap-highlight-color: transparent;
         }
-        body { background-color: #060709; color: #e2e8f0; padding-bottom: 30px; }
+        body { background-color: #000000; color: #e2e8f0; padding-bottom: 30px; }
         header {
             background: linear-gradient(180deg, #b30000 0%, #7a0000 100%);
             color: white; padding: 15px; text-align: center; font-size: 15px; font-weight: bold;
             box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         }
-        .container { width: 100%; max-width: 480px; margin: 0 auto; padding: 12px; }
+        .container { width: 100%; max-width: 500px; margin: 0 auto; padding: 12px; }
         .step-panel { display: none; }
         .step-panel.active { display: block; }
         h2 { font-size: 18px; margin-bottom: 15px; color: #e2e8f0; text-align: center; }
@@ -36,34 +36,30 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* หน้าผังรวม: ใช้รูปผังจริงเป็นพื้นฐานครอบตัวเลือก */
+        /* หน้าผังรวม: จัดวางรูปภาพ IMG_5999.png เป็นตัวเลือกหลัก */
         .arena-image-container { 
             position: relative; 
-            background: #11141b; 
-            border-radius: 16px; 
-            padding: 10px; 
+            background: #000000; 
+            border-radius: 12px; 
+            padding: 5px; 
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
         .arena-map-img {
             width: 100%;
             height: auto;
             display: block;
-            border-radius: 8px;
         }
 
-        /* หน้าเก้าอี้ภายใน: เก้าอี้ทุกแถวอยู่ชิดติดกันเป็นแผงเดียวแบบหน้าแอปจริง */
-        .seats-rows-container { background: #11141b; padding: 15px 10px; border-radius: 12px; margin: 20px 0; max-height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; }
+        /* หน้าเก้าอี้ภายใน: แผงผังเก้าอี้เรียงชิดกัน */
+        .seats-rows-container { background: #11141b; padding: 15px 10px; border-radius: 12px; margin: 20px 0; max-height: 420px; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; }
         .seat-row { display: flex; align-items: center; width: 100%; background: transparent; padding: 2px 0; }
         
-        /* ป้ายบอกชื่อแถวที่มุมข้างซ้าย */
         .row-label { width: 55px; font-size: 12px; font-weight: bold; color: #64748b; text-align: left; padding-left: 2px; }
         .row-seats-grid { display: flex; flex-grow: 1; justify-content: space-between; gap: 4px; }
         
         .seat-dot {
             width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; 
             justify-content: center; font-size: 11px; font-weight: bold; color: white; cursor: pointer;
-            background-color: #22c55e;
         }
         .seat-dot.chosen { background-color: #eab308 !important; color: black; box-shadow: 0 0 8px #eab308; }
         .seat-dot.taken { background-color: #2d3748 !important; color: #4a5568; cursor: not-allowed; }
@@ -109,51 +105,68 @@
         </div>
     </div>
 
-    <!-- สเต็ป 3: หน้าผังรวมโฉมใหม่ - ดึงรูปภาพผังคอนเสิร์ตมาจิ้มเลือกโซนได้โดยตรงแบบหน้าเว็บจริง -->
+    <!-- สเต็ป 3: หน้าผังรวมโฉมใหม่ - จิ้มผังจริงจากรูปภาพ IMG_5999.png ได้โดยตรง -->
     <div id="step-zone" class="step-panel">
         <h2>เลือกโซนที่นั่งของคุณ</h2>
         <div class="arena-image-container">
-            <!-- ⚠️ แนะนำให้เปลี่ยน src ตัวนี้เป็นที่อยู่ลิงก์รูปภาพผังคอนเสิร์ตจริงของพี่ได้เลยครับ -->
-            <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=600" usemap="#stage-map" class="arena-map-img" alt="Concert Seat Map">
+            <!-- ⚠️ พี่นำไฟล์ IMG_5999.png ไปอัปโหลดหรือใส่ไว้ในโฟลเดอร์เดียวกับโค้ดตัวนี้ แล้วแก้ชื่อตรง src ได้เลยครับ -->
+            <img src="IMG_5999.png" usemap="#stage-map" class="arena-map-img" alt="PLAVE BKK Seat Map">
             
-            <!-- กำหนดจุดพิกัดจุดสัมผัสสำหรับจิ้มโซนต่างๆ บนตัวรูปภาพผังจริง -->
+            <!-- ตั้งค่าจุดพิกัดสัมผัส (Image Map) อ้างอิงตามสัดส่วนภาพผังที่พี่ส่งมาล่าสุด -->
             <map name="stage-map">
-                <!-- สัดส่วนพิกัดจำลองบนรูปภาพ (ปรับเป้าหมายสัมผัสกระจายทั่วผัง) -->
-                <area shape="rect" coords="170,120,220,200" alt="A2" href="javascript:void(0);" onclick="selZ('A2')">
-                <area shape="rect" coords="221,120,270,200" alt="A3" href="javascript:void(0);" onclick="selZ('A3')">
-                <area shape="rect" coords="170,201,220,280" alt="B2" href="javascript:void(0);" onclick="selZ('B2')">
-                <area shape="rect" coords="221,201,270,280" alt="B3" href="javascript:void(0);" onclick="selZ('B3')">
-                
-                <area shape="rect" coords="120,120,169,180" alt="A1" href="javascript:void(0);" onclick="selZ('A1')">
-                <area shape="rect" coords="271,120,320,180" alt="A4" href="javascript:void(0);" onclick="selZ('A4')">
-                <area shape="rect" coords="120,181,169,250" alt="B1" href="javascript:void(0);" onclick="selZ('B1')">
-                <area shape="rect" coords="271,181,320,250" alt="B4" href="javascript:void(0);" onclick="selZ('B4')">
+                <!-- โซนสีแดง 6,800 -->
+                <area shape="rect" coords="133,110,172,275" alt="A2" href="javascript:void(0);" onclick="selZ('A2', '#ff0000')">
+                <area shape="rect" coords="173,110,212,275" alt="A3" href="javascript:void(0);" onclick="selZ('A3', '#ff0000')">
+                <area shape="rect" coords="133,205,172,275" alt="B2" href="javascript:void(0);" onclick="selZ('B2', '#ff0000')">
+                <area shape="rect" coords="173,205,212,275" alt="B3" href="javascript:void(0);" onclick="selZ('B3', '#ff0000')">
+                <area shape="rect" coords="120,300,154,335" alt="SG" href="javascript:void(0);" onclick="selZ('SG', '#ff0000')">
+                <area shape="rect" coords="155,300,188,335" alt="SH" href="javascript:void(0);" onclick="selZ('SH', '#ff0000')">
+                <area shape="rect" coords="189,300,223,335" alt="SI" href="javascript:void(0);" onclick="selZ('SI', '#ff0000')">
 
-                <area shape="rect" coords="60,120,119,180" alt="C" href="javascript:void(0);" onclick="selZ('C')">
-                <area shape="rect" coords="60,181,119,240" alt="D" href="javascript:void(0);" onclick="selZ('D')">
-                <area shape="rect" coords="60,241,119,300" alt="E" href="javascript:void(0);" onclick="selZ('E')">
-                
-                <area shape="rect" coords="321,120,380,180" alt="S" href="javascript:void(0);" onclick="selZ('S')">
-                <area shape="rect" coords="321,181,380,240" alt="R" href="javascript:void(0);" onclick="selZ('R')">
-                <area shape="rect" coords="321,241,380,300" alt="Q" href="javascript:void(0);" onclick="selZ('Q')">
+                <!-- โซนสีส้ม 5,500 -->
+                <area shape="rect" coords="107,110,132,138" alt="A1" href="javascript:void(0);" onclick="selZ('A1', '#ff7d00')">
+                <area shape="rect" coords="107,163,132,204" alt="A1" href="javascript:void(0);" onclick="selZ('A1', '#ff7d00')">
+                <area shape="rect" coords="213,110,238,204" alt="A4" href="javascript:void(0);" onclick="selZ('A4', '#ff7d00')">
+                <area shape="rect" coords="107,205,132,275" alt="B1" href="javascript:void(0);" onclick="selZ('B1', '#ff7d00')">
+                <area shape="rect" coords="213,205,238,225" alt="B4" href="javascript:void(0);" onclick="selZ('B4', '#ff7d00')">
+                <area shape="rect" coords="78,127,106,170" alt="SC" href="javascript:void(0);" onclick="selZ('SC', '#ff7d00')">
+                <area shape="rect" coords="78,178,106,221" alt="SD" href="javascript:void(0);" onclick="selZ('SD', '#ff7d00')">
+                <area shape="rect" coords="78,228,106,272" alt="SE" href="javascript:void(0);" onclick="selZ('SE', '#ff7d00')">
+                <area shape="rect" coords="91,277,125,320" alt="SF" href="javascript:void(0);" onclick="selZ('SF', '#ff7d00')">
+                <area shape="rect" coords="239,127,267,170" alt="SM" href="javascript:void(0);" onclick="selZ('SM', '#ff7d00')">
+                <area shape="rect" coords="239,178,267,221" alt="SL" href="javascript:void(0);" onclick="selZ('SL', '#ff7d00')">
+                <area shape="rect" coords="239,228,267,272" alt="SK" href="javascript:void(0);" onclick="selZ('SK', '#ff7d00')">
+                <area shape="rect" coords="216,277,250,320" alt="SJ" href="javascript:void(0);" onclick="selZ('SJ', '#ff7d00')">
 
-                <!-- โซนชั้น 2 และ 3 ส่วนล่างโอบโค้ง -->
-                <area shape="circle" coords="150,330,20" alt="SG" href="javascript:void(0);" onclick="selZ('SG')">
-                <area shape="circle" coords="220,340,25" alt="SH" href="javascript:void(0);" onclick="selZ('SH')">
-                <area shape="circle" coords="290,330,20" alt="SI" href="javascript:void(0);" onclick="selZ('SI')">
-                
-                <!-- รองรับคลิกโซนอื่นๆ รอบนอก (Fallback หากจิ้มพื้นที่รอบๆ) -->
-                <area shape="default" alt="MainMap" href="javascript:void(0);" onclick="alert('จิ้มเลือกโซนที่ต้องการบนรูปภาพผังเพื่อเข้าสู่หน้าเลือกเก้าอี้')">
+                <!-- โซนสีเหลืองเข้ม 3,800 / เหลืองอ่อน 3,500 -->
+                <area shape="rect" coords="41,135,74,170" alt="C" href="javascript:void(0);" onclick="selZ('C', '#ffe27d')">
+                <area shape="rect" coords="41,175,74,220" alt="D" href="javascript:void(0);" onclick="selZ('D', '#ffe27d')">
+                <area shape="rect" coords="41,225,74,270" alt="E" href="javascript:void(0);" onclick="selZ('E', '#ffe27d')">
+                <area shape="rect" coords="271,135,304,170" alt="S" href="javascript:void(0);" onclick="selZ('S', '#ffe27d')">
+                <area shape="rect" coords="271,175,304,220" alt="R" href="javascript:void(0);" onclick="selZ('R', '#ffe27d')">
+                <area shape="rect" coords="271,225,304,270" alt="Q" href="javascript:void(0);" onclick="selZ('Q', '#ffe27d')">
+
+                <!-- โซนสีฟ้า 2,800 / น้ำเงิน 2,500 ชั้นล่างสุดโค้ง -->
+                <area shape="rect" coords="31,273,63,315" alt="F" href="javascript:void(0);" onclick="selZ('F', '#6fc5e8')">
+                <area shape="rect" coords="45,316,79,355" alt="G" href="javascript:void(0);" onclick="selZ('G', '#6fc5e8')">
+                <area shape="rect" coords="68,348,103,388" alt="H" href="javascript:void(0);" onclick="selZ('H', '#6fc5e8')">
+                <area shape="rect" coords="96,373,131,413" alt="I" href="javascript:void(0);" onclick="selZ('I', '#6fc5e8')">
+                <area shape="rect" coords="128,382,162,425" alt="J" href="javascript:void(0);" onclick="selZ('J', '#6fc5e8')">
+                <area shape="rect" coords="163,385,188,425" alt="K" href="javascript:void(0);" onclick="selZ('K', '#6fc5e8')">
+                <area shape="rect" coords="189,385,214,425" alt="L" href="javascript:void(0);" onclick="selZ('L', '#6fc5e8')">
+                <area shape="rect" coords="215,382,249,425" alt="M" href="javascript:void(0);" onclick="selZ('M', '#6fc5e8')">
+                <area shape="rect" coords="246,373,281,413" alt="N" href="javascript:void(0);" onclick="selZ('N', '#6fc5e8')">
+                <area shape="rect" coords="274,348,309,388" alt="O" href="javascript:void(0);" onclick="selZ('O', '#6fc5e8')">
+                <area shape="rect" coords="298,316,332,355" alt="P" href="javascript:void(0);" onclick="selZ('P', '#6fc5e8')">
             </map>
         </div>
-        <p style="text-align: center; color: #64748b; font-size: 12px; margin-top: 10px;">* จิ้มเลือกตำแหน่งโซนที่ต้องการบนรูปภาพผังจริงได้เลย</p>
+        <p style="text-align: center; color: #64748b; font-size: 12px; margin-top: 10px;">* จิ้มเลือกตำแหน่งโซนที่ต้องการบนรูปภาพผังจริงเพื่อเข้าสู่หน้าเลือกเก้าอี้</p>
     </div>
 
-    <!-- สเต็ป 3.5: หน้าผังเก้าอี้ภายใน (แถวเรียงชิดติดกัน บอกชื่อแถวด้านซ้าย) -->
+    <!-- สเต็ป 3.5: หน้าผังเก้าอี้ภายใน (ปรับสีปุ่มตามราคาโซนนั้นๆ) -->
     <div id="step-seats" class="step-panel">
         <h2>โซนย่อย: <span id="z-title" style="color:#ffcc00;">-</span></h2>
         
-        <!-- แผงผังเก้าอี้รวมชิดติดกันยาวลงไป -->
         <div class="seats-rows-container" id="seats-box"></div>
 
         <div class="info-card">
@@ -197,7 +210,6 @@
 <script>
     let sZone = ''; let selectedSeats = []; let countClock; let buyerName = '';
 
-    // ฟังก์ชันเปลี่ยนหน้าสเต็ป
     function changeStep(id) {
         document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
         document.getElementById(id).classList.add('active');
@@ -205,9 +217,9 @@
 
     function goQueue() {
         changeStep('step-queue');
-        let q = Math.floor(Math.random() * 40) + 15;
+        let q = Math.floor(Math.random() * 30) + 10;
         let t = setInterval(() => {
-            q -= Math.floor(Math.random() * 10) + 5;
+            q -= Math.floor(Math.random() * 8) + 4;
             if(q <= 0) { q=0; clearInterval(t); changeStep('step-member'); }
             document.getElementById('q-num').innerText = q;
         }, 250);
@@ -221,8 +233,8 @@
         }
     }
 
-    // ฟังก์ชันสร้างระบบเก้าอี้และผูกตรรกะราคาจริงตามแต่ละโซนที่เลือกจากรูปภาพ
-    function selZ(zoneName) {
+    // สร้างระบบเก้าอี้ภายในตามโซนที่คลิกเลือกจาก Image Map
+    function selZ(zoneName, zoneColor) {
         sZone = zoneName; selectedSeats = [];
         document.getElementById('z-title').innerText = zoneName;
         document.getElementById('lbl-seats').innerText = "ยังไม่ได้เลือก";
@@ -230,41 +242,33 @@
         
         let box = document.getElementById('seats-box'); box.innerHTML = '';
 
-        // จัดกลุ่มโซนเช็คราคาตามเงื่อนไขลายมือบนผังประกาศหลัก
-        const isLayer1_6800 = ['A2','A3','B2','B3'].includes(zoneName);
-        const isLayer1_5500 = ['A1','A4','B1','B4'].includes(zoneName);
-        const isLayer2_6800 = ['SG','SH','SI'].includes(zoneName);
-        const isLayer2_5500 = ['SC','SD','SE','SF','SJ','SK','SL','SM'].includes(zoneName);
-        const isLayer3_Group1 = ['C','D','E','Q','R','S'].includes(zoneName);
-        const isLayer3_Group2 = ['F','G','H','I','J','K','L','M','N','O','P'].includes(zoneName);
+        // จัดกลุ่มราคาตามสีที่ระบุบนภาพ
+        const is6800 = ['A2','A3','B2','B3','SG','SH','SI'].includes(zoneName);
+        const is5500 = ['A1','A4','B1','B4','SC','SD','SE','SF','SJ','SK','SL','SM'].includes(zoneName);
+        const isTierZone_Group1 = ['C','D','E','Q','R','S'].includes(zoneName); // 3,800 -> 3,500 -> 2,800
+        const isTierZone_Group2 = ['F','G','H','I','J','K','L','M','N','O','P'].includes(zoneName); // 2,800 -> 2,500
 
         let rowConfigs = [];
 
-        // คำนวณปริมาณแถวและเฉดราคาแบบลดหลั่นครึ่งต่อครึ่งตามกฎ
-        if (isLayer1_6800) {
-            for(let i=1; i<=12; i++) rowConfigs.push({ rowName: 'Row-'+String.fromCharCode(64+i), price: 6800 });
-        } else if (isLayer1_5500) {
-            for(let i=1; i<=12; i++) rowConfigs.push({ rowName: 'Row-'+String.fromCharCode(64+i), price: 5500 });
-        } else if (isLayer2_6800) {
-            for(let i=1; i<=10; i++) rowConfigs.push({ rowName: 'Row-'+String.fromCharCode(64+i), price: 6800 });
-        } else if (isLayer2_5500) {
-            for(let i=1; i<=10; i++) rowConfigs.push({ rowName: 'Row-'+String.fromCharCode(64+i), price: 5500 });
-        } 
-        else if (isLayer3_Group1) {
+        if (is6800) {
+            for(let i=1; i<=12; i++) rowConfigs.push({ rowName: 'Row-'+String.fromCharCode(64+i), price: 6800, color: '#ff0000' });
+        } else if (is5500) {
+            for(let i=1; i<=12; i++) rowConfigs.push({ rowName: 'Row-'+String.fromCharCode(64+i), price: 5500, color: '#ff7d00' });
+        } else if (isTierZone_Group1) {
             for(let i=1; i<=15; i++) {
-                let p = 3800;
-                if(i > 5 && i <= 10) p = 3500;
-                if(i > 10) p = 2800;
-                rowConfigs.push({ rowName: 'Row-'+i, price: p });
+                let p = 3800; let c = '#ffe27d';
+                if(i > 5 && i <= 10) { p = 3500; c = '#fffccd'; }
+                if(i > 10) { p = 2800; c = '#6fc5e8'; }
+                rowConfigs.push({ rowName: 'Row-'+i, price: p, color: c });
             }
-        } else if (isLayer3_Group2) {
+        } else if (isTierZone_Group2) {
             for(let i=1; i<=12; i++) {
-                let p = (i <= 6) ? 2800 : 2500;
-                rowConfigs.push({ rowName: 'Row-'+i, price: p });
+                let p = 2800; let c = '#6fc5e8';
+                if(i > 6) { p = 2500; c = '#0066cc'; }
+                rowConfigs.push({ rowName: 'Row-'+i, price: p, color: c });
             }
         }
 
-        // วนลูปวาดแถวเก้าอี้แบบติดกันเป็นแพ
         rowConfigs.forEach(cfg => {
             let rowDiv = document.createElement('div');
             rowDiv.className = 'seat-row';
@@ -281,8 +285,9 @@
                 let dot = document.createElement('div');
                 dot.className = 'seat-dot';
                 dot.innerText = s;
+                dot.style.backgroundColor = cfg.color; // เปลี่ยนสีเก้าอี้ตรงตามราคาบนผังจริง
                 
-                if(Math.random() < 0.45) { // สุ่มสถานะเก้าอี้ถูกจองแล้ว
+                if(Math.random() < 0.40) { 
                     dot.classList.add('taken');
                 } else {
                     dot.onclick = () => {
@@ -311,8 +316,8 @@
 
     function goCrashTest() {
         if(!selectedSeats.length) { alert('❌ กรุณาเลือกที่นั่งก่อนไปต่อครับ'); return; }
-        if (Math.random() < 0.15) {
-            alert('🚨 [ระบบชน] ที่นั่งนี้ถูกเลือกไปพร้อมกับผู้ใช้รายอื่นในเสี้ยววินาที ระบบกำลังรีเฟรชผังใหม่!');
+        if (Math.random() < 0.12) {
+            alert('🚨 [ระบบชน] มีผู้ใช้รายอื่นกดสิทธิ์เลือกที่นั่งนี้ไปก่อนในเสี้ยววินาที ระบบกำลังรีเฟรชผังโซนใหม่!');
             selZ(sZone);
             return;
         }
@@ -321,7 +326,7 @@
 
     function submitName() {
         let nameInput = document.getElementById('ticket-name').value.trim();
-        if(nameInput === '') { alert('❌ กรุณากรอกชื่อ-นามสกุลภาษาอังกฤษด้วยครับ'); return; }
+        if(nameInput === '') { alert('❌ กรุณากรอกชื่อ-นามสกุลภาษาอังกฤษตัวเต็มด้วยครับ'); return; }
         buyerName = nameInput.toUpperCase();
         
         let total = selectedSeats.reduce((sum, item) => sum + item.price, 0);
