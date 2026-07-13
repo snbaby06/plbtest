@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PLAVE KEEP IT MANIC - FULL SIMULATOR</title>
+    <title>PLAVE KEEP IT MANIC - SIMULATOR V3</title>
     <style>
         * {
             box-sizing: border-box;
@@ -22,7 +22,6 @@
         .step-panel.active { display: block; }
         h2 { font-size: 18px; margin-bottom: 15px; color: #e2e8f0; text-align: center; }
 
-        /* สไตล์กล่องกรอกข้อมูล / ระบบคิว */
         .box-panel { background: #11141a; padding: 25px 20px; border-radius: 12px; border: 1px solid #334155; text-align: center; margin-top: 20px; }
         .input-group { margin: 20px 0; text-align: left; }
         .input-group label { display: block; font-size: 14px; color: #cbd5e1; margin-bottom: 8px; text-align: center; }
@@ -30,7 +29,6 @@
             width: 100%; padding: 14px; background: #1e293b; border: 2px solid #475569; border-radius: 8px;
             color: #fff; font-size: 20px; text-align: center; font-weight: bold; outline: none;
         }
-        .input-group input:focus { border-color: #ffcc00; }
         
         .spinner {
             border: 5px solid #2d323f; border-top: 5px solid #b30000; border-radius: 50%;
@@ -38,7 +36,7 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* ผังโซนหลักตามรูปเป๊ะๆ */
+        /* ผังโซนหน้าเว็บหลัก ถอดแบบปุ่มตามรูปที่ส่งมา 100% */
         .arena-container { background: #11141b; border-radius: 16px; padding: 20px 10px; }
         .stage-box {
             background: #ffffff; color: #000000; text-align: center; padding: 10px; font-weight: 900;
@@ -50,17 +48,18 @@
             display: flex; align-items: center; justify-content: center; cursor: pointer; min-height: 44px;
         }
         
-        /* สีปุ่มโซน */
-        .bg-6800 { background-color: #ff0000; color: #fff; }
-        .bg-5500 { background-color: #ff6600; color: #fff; }
-        .bg-3800 { background-color: #ffcc00; color: #000; }
-        .bg-3500 { background-color: #fffae6; color: #000; }
+        /* สีปุ่มตามรูปแรก */
+        .bg-orange { background-color: #ff6600; color: #fff; } /* 5,500 */
+        .bg-red { background-color: #ff0000; color: #fff; }    /* 6,800 */
+        .bg-yellow { background-color: #ffcc00; color: #000; } /* ชั้น 3 */
+        .bg-cream { background-color: #fffae6; color: #000; }  /* ชั้น 3 ท้ายผัง */
         .bg-dark { background-color: #1e232d; color: #555860; font-size: 9px; cursor: not-allowed; }
 
-        /* ผังเก้าอี้ภายในโซน */
+        /* ผังเก้าอี้ภายใน */
         .seats-rows-container { background: #11141b; padding: 15px; border-radius: 12px; margin: 20px 0; max-height: 350px; overflow-y: auto; }
-        .seat-row { display: flex; justify-content: center; gap: 6px; margin-bottom: 8px; align-items: center; }
-        .row-label { font-size: 11px; color: #64748b; width: 25px; text-align: center; }
+        .seat-row { display: flex; flex-direction: column; margin-bottom: 12px; background: #171b26; padding: 10px; border-radius: 6px; }
+        .row-header-info { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px; color: #94a3b8; border-bottom: 1px solid #2d3748; padding-bottom: 4px; }
+        .row-seats-grid { display: flex; justify-content: center; gap: 6px; }
         
         .seat-dot {
             width: 24px; height: 24px; border-radius: 4px; display: flex; align-items: center; 
@@ -72,7 +71,6 @@
 
         .info-card { background: #171b26; padding: 15px; border-radius: 10px; margin-top: 15px; border-left: 4px solid #b30000; font-size: 14px; line-height: 1.7; }
         .btn-main { background: #b30000; color: white; border: none; width: 100%; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 8px; margin-top: 15px; cursor: pointer; }
-        .btn-main:active { opacity: 0.8; }
         .timer-tag { background: #fff3cd; color: #856404; text-align: center; padding: 10px; font-weight: bold; border-radius: 6px; margin-bottom: 20px; }
     </style>
 </head>
@@ -82,16 +80,16 @@
 
 <div class="container">
 
-    <!-- สเต็ป 1: รันคิวเข้าเว็บ -->
+    <!-- สเต็ป 1: ต่อคิว -->
     <div id="step-home" class="step-panel active">
         <div class="box-panel" style="margin-top:40px;">
             <h3 style="color:#fff; margin-bottom:12px;">WELCOME TO LIVE SIMULATOR</h3>
-            <p style="color:#94a3b8; font-size:14px;">ระบบจำลองการกดบัตรคอนเสิร์ตแบบเสมือนจริง</p>
+            <p style="color:#94a3b8; font-size:14px;">ระบบจำลองการกดบัตรคอนเสิร์ตเสมือนจริง</p>
         </div>
         <button class="btn-main" onclick="goQueue()">คลิกเพื่อต่อแถวรับคิว</button>
     </div>
 
-    <!-- สเต็ป 1.5: หน้ารอคิว (Loading) -->
+    <!-- สเต็ป 1.5: หน้ารอคิว -->
     <div id="step-queue" class="step-panel">
         <div class="box-panel">
             <h2>กำลังจัดลำดับคิวเข้าสู่ระบบ</h2>
@@ -100,7 +98,7 @@
         </div>
     </div>
 
-    <!-- สเต็ป 2: กรอกเลขเมมเบอร์ (20230312) -->
+    <!-- สเต็ป 2: ยืนยันเมมเบอร์ -->
     <div id="step-member" class="step-panel">
         <div class="box-panel">
             <h2 style="color: #ffcc00;">🔒 MEMBER VERIFICATION</h2>
@@ -112,114 +110,106 @@
         </div>
     </div>
 
-    <!-- สเต็ป 3: หน้าผังโซนหลัก (ดึง B4 กลับมาเรียงสัดส่วนถูกต้องแล้ว) -->
+    <!-- สเต็ป 3: หน้าผังหลักตามรูปภาพหน้าจอแรกแบบ 100% -->
     <div id="step-zone" class="step-panel">
         <h2>เลือกโซนที่นั่งของคุณ</h2>
         <div class="arena-container">
             <div class="stage-box">STAGE</div>
             <div class="grid-layout">
                 <!-- แถวที่ 1 -->
-                <button class="z-btn bg-5500" onclick="selZ('A1')">A1</button>
-                <button class="z-btn bg-6800" style="grid-column: span 2;" onclick="selZ('A2')">A2</button>
-                <button class="z-btn bg-6800" style="grid-column: span 2;" onclick="selZ('A3')">A3</button>
-                <button class="z-btn bg-5500" onclick="selZ('A4')">A4</button>
-                <button class="z-btn bg-3800" onclick="selZ('C')">C</button>
-                <button class="z-btn bg-3800" onclick="selZ('S')">S</button>
+                <button class="z-btn bg-orange" onclick="selZ('A1')">A1</button>
+                <button class="z-btn bg-red" style="grid-column: span 2;" onclick="selZ('A2')">A2</button>
+                <button class="z-btn bg-red" style="grid-column: span 2;" onclick="selZ('A3')">A3</button>
+                <button class="z-btn bg-orange" onclick="selZ('A4')">A4</button>
+                <button class="z-btn bg-yellow" onclick="selZ('C')">C</button>
+                <button class="z-btn bg-yellow" onclick="selZ('S')">S</button>
 
                 <!-- แถวที่ 2 -->
                 <button class="z-btn bg-dark" disabled>CAM</button>
-                <button class="z-btn bg-6800" style="grid-column: span 2;" onclick="selZ('B2')">B2</button>
-                <button class="z-btn bg-6800" style="grid-column: span 2;" onclick="selZ('B3')">B3</button>
+                <button class="z-btn bg-red" style="grid-column: span 2;" onclick="selZ('B2')">B2</button>
+                <button class="z-btn bg-red" style="grid-column: span 2;" onclick="selZ('B3')">B3</button>
                 <button class="z-btn bg-dark" disabled>CAM</button>
-                <button class="z-btn bg-3800" onclick="selZ('D')">D</button>
-                <button class="z-btn bg-3800" onclick="selZ('R')">R</button>
+                <button class="z-btn bg-yellow" onclick="selZ('D')">D</button>
+                <button class="z-btn bg-yellow" onclick="selZ('R')">R</button>
 
                 <!-- แถวที่ 3 -->
-                <button class="z-btn bg-5500" onclick="selZ('SC')">SC</button>
-                <button class="z-btn bg-5500" onclick="selZ('SD')">SD</button>
-                <button class="z-btn bg-5500" onclick="selZ('B1')">B1</button>
+                <button class="z-btn bg-orange" onclick="selZ('SC')">SC</button>
+                <button class="z-btn bg-orange" onclick="selZ('SD')">SD</button>
+                <button class="z-btn bg-orange" onclick="selZ('B1')">B1</button>
                 <div class="z-btn bg-dark" style="grid-column: span 2;">FOH</div>
-                <button class="z-btn bg-5500" onclick="selZ('B4')">B4</button> <!-- ดึง B4 กลับมาตรงนี้ตามผังหน้าเว็บจริง -->
-                <button class="z-btn bg-3800" onclick="selZ('E')">E</button>
-                <button class="z-btn bg-3800" onclick="selZ('Q')">Q</button>
+                <button class="z-btn bg-orange" onclick="selZ('B4')">B4</button>
+                <button class="z-btn bg-yellow" onclick="selZ('E')">E</button>
+                <button class="z-btn bg-yellow" onclick="selZ('Q')">Q</button>
 
                 <!-- แถวที่ 4 -->
-                <button class="z-btn bg-5500" onclick="selZ('SE')">SE</button>
-                <button class="z-btn bg-5500" onclick="selZ('SF')">SF</button>
-                <button class="z-btn bg-6800" onclick="selZ('SG')">SG</button>
-                <button class="z-btn bg-6800" onclick="selZ('SH')">SH</button>
-                <button class="z-btn bg-6800" onclick="selZ('SI')">SI</button>
-                <button class="z-btn bg-5500" onclick="selZ('SJ')">SJ</button>
-                <button class="z-btn bg-5500" onclick="selZ('SL')">SL</button>
-                <button class="z-btn bg-5500" onclick="selZ('SK')">SK</button>
+                <button class="z-btn bg-orange" onclick="selZ('SE')">SE</button>
+                <button class="z-btn bg-orange" onclick="selZ('SF')">SF</button>
+                <button class="z-btn bg-red" onclick="selZ('SG')">SG</button>
+                <button class="z-btn bg-red" onclick="selZ('SH')">SH</button>
+                <button class="z-btn bg-red" onclick="selZ('SI')">SI</button>
+                <button class="z-btn bg-orange" onclick="selZ('SJ')">SJ</button>
+                <button class="z-btn bg-orange" onclick="selZ('SL')">SL</button>
+                <button class="z-btn bg-orange" onclick="selZ('SK')">SK</button>
 
                 <!-- แถวที่ 5 -->
-                <button class="z-btn bg-3500" onclick="selZ('F')">F</button>
-                <button class="z-btn bg-3500" onclick="selZ('G')">G</button>
-                <button class="z-btn bg-3500" onclick="selZ('H')">H</button>
-                <button class="z-btn bg-3500" onclick="selZ('I')">I</button>
-                <button class="z-btn bg-3500" onclick="selZ('J')">J</button>
-                <button class="z-btn bg-3500" onclick="selZ('K')">K</button>
-                <button class="z-btn bg-3500" onclick="selZ('L')">L</button>
-                <button class="z-btn bg-3500" onclick="selZ('M')">M</button>
+                <button class="z-btn bg-cream" onclick="selZ('F')">F</button>
+                <button class="z-btn bg-cream" onclick="selZ('G')">G</button>
+                <button class="z-btn bg-cream" onclick="selZ('H')">H</button>
+                <button class="z-btn bg-cream" onclick="selZ('I')">I</button>
+                <button class="z-btn bg-cream" onclick="selZ('J')">J</button>
+                <button class="z-btn bg-cream" onclick="selZ('K')">K</button>
+                <button class="z-btn bg-cream" onclick="selZ('L')">L</button>
+                <button class="z-btn bg-cream" onclick="selZ('M')">M</button>
 
                 <!-- แถวที่ 6 -->
-                <button class="z-btn bg-3500" style="grid-column: 2;" onclick="selZ('N')">N</button>
-                <button class="z-btn bg-3500" style="grid-column: 3;" onclick="selZ('O')">O</button>
-                <button class="z-btn bg-3500" style="grid-column: 6;" onclick="selZ('P')">P</button>
+                <button class="z-btn bg-cream" style="grid-column: 2;" onclick="selZ('N')">N</button>
+                <button class="z-btn bg-cream" style="grid-column: 3;" onclick="selZ('O')">O</button>
+                <button class="z-btn bg-cream" style="grid-column: 6;" onclick="selZ('P')">P</button>
             </div>
         </div>
     </div>
 
-    <!-- สเต็ป 3.5: หน้าเลือกที่นั่งภายในโซน -->
+    <!-- สเต็ป 3.5: หน้าผังที่นั่งย่อยภายในโซน (แก้ระบบคำนวณแถวและราคาเรียบร้อย) -->
     <div id="step-seats" class="step-panel">
-        <h2>โซน: <span id="z-title" style="color:#ffcc00;">-</span> (<span id="z-price-lbl">-</span> บาท)</h2>
-        
-        <div style="display:flex; justify-content:center; gap:15px; margin: 10px 0; font-size:12px;">
-            <div><span style="display:inline-block; width:12px; height:12px; background:#22c55e; border-radius:2px;"></span> ว่าง</div>
-            <div><span style="display:inline-block; width:12px; height:12px; background:#eab308; border-radius:2px;"></span> เลือกอยู่</div>
-            <div><span style="display:inline-block; width:12px; height:12px; background:#334155; border-radius:2px;"></span> เต็ม</div>
-        </div>
+        <h2>โซนย่อย: <span id="z-title" style="color:#ffcc00;">-</span></h2>
+        <p style="text-align:center; font-size:12px; color:#94a3b8; margin-bottom:10px;">ระบบจะแสดงราคาแยกตามจริงในแต่ละแถวที่ลดหลั่นลงไป</p>
         
         <div class="seats-rows-container" id="seats-box"></div>
 
         <div class="info-card">
-            <p>เก้าอี้ที่เลือก: <span id="lbl-seats" style="color:#ffcc00; font-weight:bold;">ยังไม่ได้เลือก</span></p>
-            <p>ราคารวม: <span id="lbl-total" style="color:#ff4d4d; font-weight:bold; font-size:18px;">0</span> บาท</p>
+            <p>ตั๋วที่เลือก: <span id="lbl-seats" style="color:#ffcc00; font-weight:bold;">ยังไม่ได้เลือก</span></p>
+            <p>ราคารวมทั้งหมด: <span id="lbl-total" style="color:#ff4d4d; font-weight:bold; font-size:18px;">0</span> บาท</p>
         </div>
         
         <div style="display:flex; gap:10px;">
             <button class="btn-main" style="background:#475569;" onclick="changeStep('step-zone')">ย้อนกลับ</button>
-            <button class="btn-main" style="background:#22c55e;" onclick="goCrashTest()">ยืนยันที่นั่ง (เสี่ยงกดชน)</button>
+            <button class="btn-main" style="background:#22c55e;" onclick="goCrashTest()">ยืนยันที่นั่ง (สเตจกดชน)</button>
         </div>
     </div>
 
-    <!-- สเต็ป 4: ใส่ชื่อผู้จอง -->
+    <!-- สเต็ป 4: ข้อมูลบัตร -->
     <div id="step-name" class="step-panel">
         <div class="box-panel">
             <h2 style="color: #ffcc00;">📝 TICKET HOLDER INFO</h2>
-            <p style="font-size: 13px; color: #94a3b8; margin-bottom: 15px;">ระบบผ่านด่านกดชนแล้ว! กรุณากรอกชื่อจริงภาษาอังกฤษให้ตรงกับพาสปอร์ตเพื่อพิมพ์ลงบนบัตร</p>
-            
             <div class="input-group">
                 <label for="ticket-name">ชื่อ - นามสกุล ผู้เข้าชม (ภาษาอังกฤษตัวพิมพ์ใหญ่)</label>
                 <input type="text" id="ticket-name" placeholder="FIRSTNAME LASTNAME" autocomplete="off">
             </div>
-            
-            <button class="btn-main" style="background:#ffcc00; color:#000;" onclick="submitName()">บันทึกชื่อและไปหน้าชำระเงิน</button>
+            <button class="btn-main" style="background:#ffcc00; color:#000;" onclick="submitName()">บันทึกข้อมูลและไปชำระเงิน</button>
         </div>
     </div>
 
-    <!-- สเต็ป 5: หน้าจ่ายเงิน -->
+    <!-- สเต็ป 5: ชำระเงิน -->
     <div id="step-pay" class="step-panel">
         <div class="timer-tag">⏰ เวลาทำรายการจ่ายเงินที่เหลืออยู่ <span id="clock">10:00</span></div>
-        <h2 style="color:#22c55e;">🎉 บล็อกตั๋วสำเร็จเรียบร้อย!</h2>
+        <h2 style="color:#22c55e;">🎉 บล็อกที่นั่งในระบบสำเร็จ!</h2>
         <div class="info-card" style="line-height:2.2;">
-            <p><strong>ชื่อบนบัตร (Holder Name):</strong> <span id="p-name" style="color:#fff; font-weight:bold;"></span></p>
-            <p><strong>โซน (Zone):</strong> <span id="p-zone" style="color:#ffcc00; font-weight:bold;"></span></p>
-            <p><strong>ที่นั่ง (Seats):</strong> <span id="p-seats" style="color:#ffcc00; font-weight:bold;"></span></p>
+            <p><strong>ชื่อบนบัตร:</strong> <span id="p-name" style="color:#fff; font-weight:bold;"></span></p>
+            <p><strong>โซน:</strong> <span id="p-zone" style="color:#ffcc00; font-weight:bold;"></span></p>
+            <p><strong>ที่นั่งคัดสรร:</strong> <span id="p-seats" style="color:#ffcc00; font-weight:bold;"></span></p>
             <p><strong>ยอดชำระสุทธิ:</strong> <span id="p-total" style="color:#ff4d4d; font-weight:bold; font-size:20px;"></span> บาท</p>
         </div>
-        <button class="btn-main" style="background:#22c55e;" onclick="finish()">เสร็จสิ้นการซื้อบัตร</button>
+        <button class="btn-main" style="background:#22c55e;" onclick="finish()">เสร็จสิ้นการจำลอง</button>
     </div>
 
 </div>
@@ -234,24 +224,23 @@
 
     function goQueue() {
         changeStep('step-queue');
-        let q = Math.floor(Math.random() * 400) + 200;
+        let q = Math.floor(Math.random() * 200) + 100;
         let t = setInterval(() => {
-            q -= Math.floor(Math.random() * 35) + 15;
+            q -= Math.floor(Math.random() * 30) + 15;
             if(q <= 0) { q=0; clearInterval(t); changeStep('step-member'); }
             document.getElementById('q-num').innerText = q;
         }, 200);
     }
 
     function verifyMember() {
-        let codeInput = document.getElementById('member-code').value.trim();
-        if (codeInput === '20230312') {
-            alert('✅ สิทธิ์เมมเบอร์ถูกต้อง! กำลังเข้าสู่หน้าผังหลัก');
+        if (document.getElementById('member-code').value.trim() === '20230312') {
             changeStep('step-zone');
         } else {
-            alert('❌ รหัสผิด! (คำใบ้: วันเดบิวต์วง PLAVE)');
+            alert('❌ รหัสผิด! (วันเดบิวต์วง PLAVEคือ 20230312)');
         }
     }
 
+    // ฟังก์ชันสร้างผังแถวที่นั่งแยกตามเงื่อนไขลดหลั่นตามจริงในแต่ละโซน
     function selZ(zoneName) {
         sZone = zoneName; selectedSeats = [];
         document.getElementById('z-title').innerText = zoneName;
@@ -259,86 +248,100 @@
         document.getElementById('lbl-total').innerText = "0";
         
         let box = document.getElementById('seats-box'); box.innerHTML = '';
+
+        // เช็กประเภทโซนกลุ่มหลักเพื่อนำไปรันลูปแถวย่อยภายใน
+        const isLayer1_6800 = ['A2','A3','B2','B3'].includes(zoneName);
+        const isLayer1_5500 = ['A1','A4','B1','B4'].includes(zoneName);
+        const isLayer2_6800 = ['SG','SH','SI'].includes(zoneName);
+        const isLayer2_5500 = ['SC','SD','SE','SF','SJ','SK','SL','SM'].includes(zoneName);
         
-        let targetPrice = 0;
-        let totalRows = 0;
+        // กลุ่มชั้น 3 แยกตรรกะความสูงแถวตามโครงสร้าง
+        const isLayer3_Group1 = ['C','D','E','Q','R','S'].includes(zoneName);
+        const isLayer3_Group2 = ['F','G','H','I','J','K','L','M','N','O','P'].includes(zoneName);
 
-        // ผูกสเปกโซนหลังบ้าน รวมถึงแก้เงื่อนไขให้ B4 ราคา 5,500 บัตรรอบกรอบชั้น 1 มี 10 แถวตรงตัว
-        const l1_6800 = ['A2','A3','B2','B3'];
-        const l1_5500 = ['A1','A4','B1','B4']; // เพิ่ม B4 เข้าระบบราคาตรงนี้ครับ
-        const l2_6800 = ['SG','SH','SI'];
-        const l2_5500 = ['SC','SD','SE','SF','SJ','SK','SL','SM'];
-        const l3_3800 = ['C','D','E','Q','R','S'];
-        const l3_3500 = ['F','G','H','I','J','K','L','M','N','O','P'];
+        // กำหนดลูปสร้างแถวและราคาฝังตัวของแต่ละแถวภายในตัวแปร Array
+        let rowConfigs = [];
 
-        if (l1_6800.includes(zoneName)) {
-            totalRows = 10; targetPrice = 6800;
-        } else if (l1_5500.includes(zoneName)) {
-            totalRows = 10; targetPrice = 5500;
-        } else if (l2_6800.includes(zoneName)) {
-            totalRows = 8; targetPrice = 6800;
-        } else if (l2_5500.includes(zoneName)) {
-            totalRows = 8; targetPrice = 5500;
-        } else if (l3_3800.includes(zoneName)) {
-            totalRows = 10; targetPrice = 3800;
-        } else if (l3_3500.includes(zoneName)) {
-            totalRows = 5; targetPrice = 3500;
+        if (isLayer1_6800) {
+            for(let i=1; i<=10; i++) rowConfigs.push({ rowName: String.fromCharCode(64+i), price: 6800 });
+        } else if (isLayer1_5500) {
+            for(let i=1; i<=10; i++) rowConfigs.push({ rowName: String.fromCharCode(64+i), price: 5500 });
+        } else if (isLayer2_6800) {
+            for(let i=1; i<=8; i++) rowConfigs.push({ rowName: String.fromCharCode(64+i), price: 6800 });
+        } else if (isLayer2_5500) {
+            for(let i=1; i<=8; i++) rowConfigs.push({ rowName: String.fromCharCode(64+i), price: 5500 });
+        } 
+        // ตรรกะชั้น 3 ลดหลั่นทีละครึ่งตามสเปกบรีฟของคุณ
+        else if (isLayer3_Group1) {
+            // 3,800 มี 8 แถว / 3,500 มี 4 แถว / 2,800 มี 2 แถว
+            for(let i=1; i<=8; i++) rowConfigs.push({ rowName: 'Row-'+i, price: 3800 });
+            for(let i=9; i<=12; i++) rowConfigs.push({ rowName: 'Row-'+i, price: 3500 });
+            for(let i=13; i<=14; i++) rowConfigs.push({ rowName: 'Row-'+i, price: 2800 });
+        } else if (isLayer3_Group2) {
+            // 3,800 มี 8 แถว / 3,500 มี 4 แถว / 2,500 มี 1 แถว (เนื่องจากตระกูลกลุ่มสองแถวน้อยกว่าครึ่งของ 2,800)
+            for(let i=1; i<=8; i++) rowConfigs.push({ rowName: 'Row-'+i, price: 3800 });
+            for(let i=9; i<=12; i++) rowConfigs.push({ rowName: 'Row-'+i, price: 3500 });
+            for(let i=13; i<=13; i++) rowConfigs.push({ rowName: 'Row-'+i, price: 2500 });
         }
 
-        document.getElementById('z-price-lbl').innerText = targetPrice.toLocaleString();
-
-        for(let r=1; r<=totalRows; r++) {
+        // วาด UI แถวที่นั่งลงหน้าจอ
+        rowConfigs.forEach(cfg => {
             let rowDiv = document.createElement('div');
             rowDiv.className = 'seat-row';
-            let label = document.createElement('div');
-            label.className = 'row-label';
-            label.innerText = String.fromCharCode(64 + r);
-            rowDiv.appendChild(label);
             
+            let headerDiv = document.createElement('div');
+            headerDiv.className = 'row-header-info';
+            headerDiv.innerHTML = `<span>แถว: <strong>${cfg.rowName}</strong></span> <span style="color:#ffcc00;">ราคา: ${cfg.price.toLocaleString()}.-</span>`;
+            rowDiv.appendChild(headerDiv);
+
+            let gridDiv = document.createElement('div');
+            gridDiv.className = 'row-seats-grid';
+
             for(let s=1; s<=8; s++) {
                 let dot = document.createElement('div');
                 dot.className = 'seat-dot';
                 dot.innerText = s;
                 
-                if(Math.random() < 0.45) {
+                if(Math.random() < 0.40) {
                     dot.classList.add('taken');
                 } else {
                     dot.onclick = () => {
-                        let seatId = `${label.innerText}-${s}`;
+                        let seatId = `${cfg.rowName}-${s}`;
                         if(dot.classList.contains('chosen')) {
                             dot.classList.remove('chosen');
                             selectedSeats = selectedSeats.filter(item => item.id !== seatId);
                         } else {
-                            if(selectedSeats.length >= 4) { alert('เลือกได้ไม่เกิน 4 ที่นั่งครับ'); return; }
+                            if(selectedSeats.length >= 4) { alert('จำกัดกดได้ไม่เกิน 4 ใบต่อตั๋วครับ'); return; }
                             dot.classList.add('chosen');
-                            selectedSeats.push({ id: seatId, price: targetPrice });
+                            selectedSeats.push({ id: seatId, price: cfg.price });
                         }
                         let total = selectedSeats.reduce((sum, item) => sum + item.price, 0);
                         document.getElementById('lbl-seats').innerText = selectedSeats.length ? selectedSeats.map(i=>i.id).join(', ') : "ยังไม่ได้เลือก";
                         document.getElementById('lbl-total').innerText = total.toLocaleString();
                     };
                 }
-                rowDiv.appendChild(dot);
+                gridDiv.appendChild(dot);
             }
+            rowDiv.appendChild(gridDiv);
             box.appendChild(rowDiv);
-        }
+        });
+
         changeStep('step-seats');
     }
 
     function goCrashTest() {
-        if(!selectedSeats.length) { alert('❌ โปรดเลือกเก้าอี้ก่อนกดยืนยันครับ!'); return; }
-        if (Math.random() < 0.50) {
-            alert('🚨 [กดชน!] มีคนตัดหน้าจ่ายตั๋วไปก่อนคุณในเสี้ยววินาที! ที่นั่งหลุดแล้ว รีบเลือกใหม่ด่วน!');
+        if(!selectedSeats.length) { alert('❌ กรุณาเลือกที่นั่งก่อนครับ!'); return; }
+        if (Math.random() < 0.40) {
+            alert('🚨 [กดชนระบบ!] มีผู้อื่นชิงส่งตัดหน้าเสี้ยววิ เก้าอี้หลุดแล้วครับ ลองใหม่อีกทีนะ!');
             selZ(sZone);
             return;
         }
-        document.getElementById('ticket-name').value = '';
         changeStep('step-name');
     }
 
     function submitName() {
         let nameInput = document.getElementById('ticket-name').value.trim();
-        if(nameInput === '') { alert('❌ กรุณากรอกชื่อผู้เข้าชมก่อนไปต่อครับ!'); return; }
+        if(nameInput === '') { alert('❌ กรุณากรอกชื่อด้วยครับ'); return; }
         buyerName = nameInput.toUpperCase();
         
         let total = selectedSeats.reduce((sum, item) => sum + item.price, 0);
@@ -357,13 +360,13 @@
             sec--;
             let m = Math.floor(sec/60); let s = sec%60;
             document.getElementById('clock').innerText = (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
-            if(sec<=0) { clearInterval(countClock); alert('หมดเวลาทำรายการจ่ายเงิน!'); location.reload(); }
+            if(sec<=0) { clearInterval(countClock); alert('Timeout ยึดตั๋วคืนระบบ'); location.reload(); }
         }, 1000);
     }
 
     function finish() {
         clearInterval(countClock);
-        alert(`🎉 ยินดีด้วยครับ! คุณ ${buyerName} กดบัตรคอนเสิร์ตสำเร็จลุล่วงแล้ว!`);
+        alert(`🎉 ยินดีด้วย! คุณเด็ดขาดมาก จองบัตรคอนเสิร์ตสำเร็จแล้วครับ!`);
         location.reload();
     }
 </script>
