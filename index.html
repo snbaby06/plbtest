@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PLAVE KEEP IT MANIC - SIMULATOR V7</title>
+    <title>PLAVE 1st WORLD TOUR [KEEP IT MANIC] IN BKK</title>
     <style>
         * {
             box-sizing: border-box;
@@ -36,32 +36,51 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* หน้าผังรวม: โครงสร้าง Grid บังคับพิกัดไม่มีรูโหว่ */
-        .arena-container { background: #11141b; border-radius: 16px; padding: 15px 8px; display: flex; flex-direction: column; gap: 12px; }
+        /* หน้าผังรวม: ดีไซน์ใหม่ให้สมมาตรและล้อมรอบตามรูปผังจริง */
+        .arena-container { background: #11141b; border-radius: 16px; padding: 20px 10px; display: flex; flex-direction: column; gap: 14px; }
         .stage-box {
             background: #ffffff; color: #000000; text-align: center; padding: 10px; font-weight: 900;
-            font-size: 15px; letter-spacing: 3px; width: 60%; margin: 0 auto; border-radius: 2px;
+            font-size: 16px; letter-spacing: 4px; width: 55%; margin: 0 auto 5px auto; border-radius: 2px;
         }
-        .grid-stadium { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; }
+        
+        /* จัดเลย์เอาต์แผนผังแยกปีกซ้าย กลาง ปีกขวา */
+        .layout-main { display: flex; gap: 6px; justify-content: center; }
+        .side-wing { display: flex; flex-direction: column; gap: 5px; width: 42px; }
+        .center-block { display: flex; flex-direction: column; gap: 5px; flex-grow: 1; max-width: 280px; }
+        
+        .row-block { display: flex; gap: 5px; width: 100%; }
+        .foh-box {
+            background: #475569; color: white; text-align: center; padding: 6px;
+            font-size: 11px; font-weight: bold; border-radius: 3px; letter-spacing: 1px; margin: 2px 0;
+        }
+        
+        /* สแตนด์โค้งครึ่งวงกลมด้านล่าง (ชั้น 3 โซน F-P) */
+        .layout-bottom-curve { display: flex; flex-direction: column; gap: 5px; margin-top: 5px; }
+        .curve-row-1 { display: flex; gap: 4px; justify-content: center; }
+        .curve-row-2 { display: flex; gap: 4px; justify-content: center; padding: 0 15px; }
 
+        /* ปุ่มเลือกโซนปรับแต่งสีตามผังราคาจริง */
         .z-btn {
             border: none; border-radius: 4px; font-size: 11px; font-weight: bold;
-            display: flex; align-items: center; justify-content: center; cursor: pointer; min-height: 36px;
-            width: 100%; transition: transform 0.1s;
+            display: flex; align-items: center; justify-content: center; cursor: pointer; 
+            height: 38px; flex-top: 1; flex-basis: 0; flex-grow: 1; transition: transform 0.1s;
         }
         .z-btn:active { transform: scale(0.95); }
         
-        .bg-orange { background-color: #ff6600; color: #fff; } 
-        .bg-red { background-color: #ff0000; color: #fff; }    
-        .bg-yellow { background-color: #ffcc00; color: #000; } 
-        .bg-cream { background-color: #fffae6; color: #000; }  
+        /* สีตามระดับราคาในใบประกาศ */
+        .c-6800 { background-color: #ff0000; color: #fff; }    /* แดง */
+        .c-5500 { background-color: #ff6600; color: #fff; }    /* ส้ม */
+        .c-3800 { background-color: #ffcc00; color: #000; }    /* เหลืองเข้ม */
+        .c-3500 { background-color: #fff2a3; color: #000; }    /* ครีมเหลือง */
+        .c-2800 { background-color: #4cd2ff; color: #000; }    /* ฟ้า */
+        .c-2500 { background-color: #0066cc; color: #fff; }    /* น้ำเงิน */
 
         /* หน้าเก้าอี้ภายใน: ปรับให้เก้าอี้ทุกแถวอยู่ชิดติดกันเป็นแผงเดียวแบบหน้าแอปจริง */
-        .seats-rows-container { background: #11141b; padding: 15px 10px; border-radius: 12px; margin: 20px 0; max-height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
-        .seat-row { display: flex; align-items: center; width: 100%; background: transparent; padding: 0; margin: 0; }
+        .seats-rows-container { background: #11141b; padding: 15px 10px; border-radius: 12px; margin: 20px 0; max-height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; }
+        .seat-row { display: flex; align-items: center; width: 100%; background: transparent; padding: 2px 0; }
         
         /* ชื่อแถวไว้ตรงมุมข้างซ้ายพอเรียบๆ */
-        .row-label { width: 45px; font-size: 12px; font-weight: bold; color: #94a3b8; text-align: left; padding-left: 2px; }
+        .row-label { width: 50px; font-size: 11px; font-weight: bold; color: #64748b; text-align: left; padding-left: 2px; }
         .row-seats-grid { display: flex; flex-grow: 1; justify-content: space-between; gap: 4px; }
         
         .seat-dot {
@@ -113,73 +132,94 @@
         </div>
     </div>
 
-    <!-- สเต็ป 3: หน้าผังรวมโครงสร้าง Grid 8 คอลัมน์ ล้อมสเตจสมบูรณ์แบบ -->
+    <!-- สเต็ป 3: หน้าผังรวมโครงสร้างโฉมใหม่ จัดบล็อกสมมาตรล้อมเวทีเหมือนจริง -->
     <div id="step-zone" class="step-panel">
         <h2>เลือกโซนที่นั่งของคุณ</h2>
         <div class="arena-container">
             <div class="stage-box">STAGE</div>
             
-            <div class="grid-stadium">
-                <!-- แถวที่ 1 -->
-                <button class="z-btn bg-yellow" onclick="selZ('C')">C</button>
-                <button class="z-btn bg-orange" onclick="selZ('A1')">A1</button>
-                <button class="z-btn bg-red" style="grid-column: span 2;" onclick="selZ('A2')">A2</button>
-                <button class="z-btn bg-red" style="grid-column: span 2;" onclick="selZ('A3')">A3</button>
-                <button class="z-btn bg-orange" onclick="selZ('A4')">A4</button>
-                <button class="z-btn bg-yellow" onclick="selZ('S')">S</button>
-
-                <!-- แถวที่ 2 -->
-                <button class="z-btn bg-yellow" onclick="selZ('D')">D</button>
-                <button class="z-btn bg-orange" onclick="selZ('B1')">B1</button>
-                <button class="z-btn bg-red" style="grid-column: span 2;" onclick="selZ('B2')">B2</button>
-                <button class="z-btn bg-red" style="grid-column: span 2;" onclick="selZ('B3')">B3</button>
-                <button class="z-btn bg-orange" onclick="selZ('B4')">B4</button>
-                <button class="z-btn bg-yellow" onclick="selZ('R')">R</button>
-
-                <!-- แถวที่ 3 -->
-                <button class="z-btn bg-yellow" onclick="selZ('E')">E</button>
-                <button class="z-btn bg-orange" onclick="selZ('SC')">SC</button>
-                <button class="z-btn bg-orange" style="grid-column: span 2;" onclick="selZ('SF')">SF</button>
-                <button class="z-btn bg-orange" style="grid-column: span 2;" onclick="selZ('SJ')">SJ</button>
-                <button class="z-btn bg-orange" onclick="selZ('SM')">SM</button>
-                <button class="z-btn bg-yellow" onclick="selZ('Q')">Q</button>
-
-                <!-- แถวที่ 4 -->
-                <div style="grid-column: span 1;"></div>
-                <button class="z-btn bg-orange" onclick="selZ('SD')">SD</button>
-                <button class="z-btn bg-red" onclick="selZ('SG')">SG</button>
-                <button class="z-btn bg-red" style="grid-column: span 2;" onclick="selZ('SH')">SH</button>
-                <button class="z-btn bg-red" onclick="selZ('SI')">SI</button>
-                <button class="z-btn bg-orange" onclick="selZ('SL')">SL</button>
-                <div style="grid-column: span 1;"></div>
-
-                <!-- แถวที่ 5 -->
-                <div style="grid-column: span 1;"></div>
-                <button class="z-btn bg-orange" onclick="selZ('SE')">SE</button>
-                <div style="grid-column: span 4;"></div>
-                <button class="z-btn bg-orange" onclick="selZ('SK')">SK</button>
-                <div style="grid-column: span 1;"></div>
-
-                <!-- แถวที่ 6 -->
-                <button class="z-btn bg-cream" onclick="selZ('F')">F</button>
-                <button class="z-btn bg-cream" onclick="selZ('G')">G</button>
-                <button class="z-btn bg-cream" onclick="selZ('H')">H</button>
-                <button class="z-btn bg-cream" onclick="selZ('I')">I</button>
-                <button class="z-btn bg-cream" onclick="selZ('J')">J</button>
-                <button class="z-btn bg-cream" onclick="selZ('K')">K</button>
-                <button class="z-btn bg-cream" onclick="selZ('L')">L</button>
-                <button class="z-btn bg-cream" onclick="selZ('M')">M</button>
-
-                <!-- แถวที่ 7 -->
-                <div style="grid-column: span 2;"></div>
-                <button class="z-btn bg-cream" onclick="selZ('N')">N</button>
-                <button class="z-btn bg-cream" style="grid-column: span 2;" onclick="selZ('O')">O</button>
-                <button class="z-btn bg-cream" style="grid-column: span 2;" onclick="selZ('P')">P</button>
+            <div class="layout-main">
+                <!-- ปีกซ้ายสุด ชั้น 4 (โซน C, D, E) -->
+                <div class="side-wing">
+                    <button class="z-btn c-3800" onclick="selZ('C')">C</button>
+                    <button class="z-btn c-3800" onclick="selZ('D')">D</button>
+                    <button class="z-btn c-3800" onclick="selZ('E')">E</button>
+                </div>
+                
+                <!-- บล็อกกลาง (ชั้น 1 และ ชั้น 2 โอบล้อม) -->
+                <div class="center-block">
+                    <!-- แถวที่ 1 ของบล็อกกลาง -->
+                    <div class="row-block">
+                        <button class="z-btn c-5500" onclick="selZ('SC')">SC</button>
+                        <button class="z-btn c-5500" onclick="selZ('A1')">A1</button>
+                        <button class="z-btn c-6800" style="flex-grow:2;" onclick="selZ('A2')">A2</button>
+                        <button class="z-btn c-6800" style="flex-grow:2;" onclick="selZ('A3')">A3</button>
+                        <button class="z-btn c-5500" onclick="selZ('A4')">A4</button>
+                        <button class="z-btn c-5500" onclick="selZ('SM')">SM</button>
+                    </div>
+                    <!-- แถวที่ 2 ของบล็อกกลาง -->
+                    <div class="row-block">
+                        <button class="z-btn c-5500" onclick="selZ('SD')">SD</button>
+                        <button class="z-btn c-5500" onclick="selZ('B1')">B1</button>
+                        <button class="z-btn c-6800" style="flex-grow:2;" onclick="selZ('B2')">B2</button>
+                        <button class="z-btn c-6800" style="flex-grow:2;" onclick="selZ('B3')">B3</button>
+                        <button class="z-btn c-5500" onclick="selZ('B4')">B4</button>
+                        <button class="z-btn c-5500" onclick="selZ('SL')">SL</button>
+                    </div>
+                    <!-- แถวที่ 3 ของบล็อกกลาง -->
+                    <div class="row-block">
+                        <button class="z-btn c-5500" onclick="selZ('SE')">SE</button>
+                        <button class="z-btn c-5500" onclick="selZ('SF')">SF</button>
+                        <div class="z-btn" style="visibility:hidden;"></div>
+                        <div class="z-btn" style="visibility:hidden;"></div>
+                        <button class="z-btn c-5500" onclick="selZ('SJ')">SJ</button>
+                        <button class="z-btn c-5500" onclick="selZ('SK')">SK</button>
+                    </div>
+                    
+                    <!-- พื้นที่ควบคุมเทคนิคกลางลาน -->
+                    <div class="foh-box">FOH</div>
+                    
+                    <!-- แถวท้ายบล็อกกลาง ชั้น 2 ความละเอียดสูง -->
+                    <div class="row-block">
+                        <div class="z-btn" style="visibility:hidden;"></div>
+                        <button class="z-btn c-6800" onclick="selZ('SG')">SG</button>
+                        <button class="z-btn c-6800" style="flex-grow:2;" onclick="selZ('SH')">SH</button>
+                        <button class="z-btn c-6800" onclick="selZ('SI')">SI</button>
+                        <div class="z-btn" style="visibility:hidden;"></div>
+                    </div>
+                </div>
+                
+                <!-- ปีกขวาสุด ชั้น 4 (โซน S, R, Q) -->
+                <div class="side-wing">
+                    <button class="z-btn c-3800" onclick="selZ('S')">S</button>
+                    <button class="z-btn c-3800" onclick="selZ('R')">R</button>
+                    <button class="z-btn c-3800" onclick="selZ('Q')">Q</button>
+                </div>
             </div>
+            
+            <!-- สแตนด์โค้งวงแหวนรอบนอกสุดด้านล่าง ชั้น 3 (โซน F ถึง P ครบถ้วนตามผังจริง) -->
+            <div class="layout-bottom-curve">
+                <div class="curve-row-1">
+                    <button class="z-btn c-2800" onclick="selZ('F')">F</button>
+                    <button class="z-btn c-2800" onclick="selZ('G')">G</button>
+                    <button class="z-btn c-2800" onclick="selZ('H')">H</button>
+                    <button class="z-btn c-2800" onclick="selZ('I')">I</button>
+                    <button class="z-btn c-2800" onclick="selZ('J')">J</button>
+                    <button class="z-btn c-2800" onclick="selZ('K')">K</button>
+                    <button class="z-btn c-2800" onclick="selZ('L')">L</button>
+                    <button class="z-btn c-2800" onclick="selZ('M')">M</button>
+                </div>
+                <div class="curve-row-2">
+                    <button class="z-btn c-2800" onclick="selZ('N')">N</button>
+                    <button class="z-btn c-2800" onclick="selZ('O')">O</button>
+                    <button class="z-btn c-2800" onclick="selZ('P')">P</button>
+                </div>
+            </div>
+            
         </div>
     </div>
 
-    <!-- สเต็ป 3.5: หน้าแสดงผังเก้าอี้ภายในโซนย่อย (ปรับแก้เก้าอี้ชิดกัน มีบอกแถวด้านซ้าย) -->
+    <!-- สเต็ป 3.5: หน้าแสดงผังเก้าอี้ภายในโซนย่อย (เก้าอี้ชิดกัน ตรรกะราคาถูกต้องแม่นยำ) -->
     <div id="step-seats" class="step-panel">
         <h2>โซนย่อย: <span id="z-title" style="color:#ffcc00;">-</span></h2>
         
@@ -258,40 +298,46 @@
         
         let box = document.getElementById('seats-box'); box.innerHTML = '';
 
+        // แยกกลุ่มเช็คประเภทโซนตามผังประกาศทางการจริง
         const isLayer1_6800 = ['A2','A3','B2','B3'].includes(zoneName);
         const isLayer1_5500 = ['A1','A4','B1','B4'].includes(zoneName);
         const isLayer2_6800 = ['SG','SH','SI'].includes(zoneName);
         const isLayer2_5500 = ['SC','SD','SE','SF','SJ','SK','SL','SM'].includes(zoneName);
-        
         const isLayer3_Group1 = ['C','D','E','Q','R','S'].includes(zoneName);
         const isLayer3_Group2 = ['F','G','H','I','J','K','L','M','N','O','P'].includes(zoneName);
 
         let rowConfigs = [];
 
+        // คำนวณแถวและแบ่งราคาแบบครึ่งต่อครึ่งตามเงื่อนไขลายมือเป๊ะๆ
         if (isLayer1_6800) {
-            for(let i=1; i<=10; i++) rowConfigs.push({ rowName: String.fromCharCode(64+i), price: 6800 });
+            for(let i=1; i<=12; i++) rowConfigs.push({ rowName: 'Row-'+String.fromCharCode(64+i), price: 6800 });
         } else if (isLayer1_5500) {
-            for(let i=1; i<=10; i++) rowConfigs.push({ rowName: String.fromCharCode(64+i), price: 5500 });
+            for(let i=1; i<=12; i++) rowConfigs.push({ rowName: 'Row-'+String.fromCharCode(64+i), price: 5500 });
         } else if (isLayer2_6800) {
-            for(let i=1; i<=8; i++) rowConfigs.push({ rowName: String.fromCharCode(64+i), price: 6800 });
+            for(let i=1; i<=10; i++) rowConfigs.push({ rowName: 'Row-'+String.fromCharCode(64+i), price: 6800 });
         } else if (isLayer2_5500) {
-            for(let i=1; i<=8; i++) rowConfigs.push({ rowName: String.fromCharCode(64+i), price: 5500 });
+            for(let i=1; i<=10; i++) rowConfigs.push({ rowName: 'Row-'+String.fromCharCode(64+i), price: 5500 });
         } 
         else if (isLayer3_Group1) {
-            for(let i=1; i<=8; i++) rowConfigs.push({ rowName: 'Row-'+i, price: 3800 });
-            for(let i=9; i<=12; i++) rowConfigs.push({ rowName: 'Row-'+i, price: 3500 });
-            for(let i=13; i<=14; i++) rowConfigs.push({ rowName: 'Row-'+i, price: 2800 });
+            // โซน C-S ทั้งหมด 15 แถว: ครึ่งแรก 3,800 / ครึ่งถัดมา 3,500 / ท้ายสุดน้อยกว่าครึ่งนึงเป็น 2,800
+            for(let i=1; i<=15; i++) {
+                let p = 3800;
+                if(i > 5 && i <= 10) p = 3500;
+                if(i > 10) p = 2800;
+                rowConfigs.push({ rowName: 'Row-'+i, price: p });
+            }
         } else if (isLayer3_Group2) {
-            for(let i=1; i<=8; i++) rowConfigs.push({ rowName: 'Row-'+i, price: 3800 });
-            for(let i=9; i<=12; i++) rowConfigs.push({ rowName: 'Row-'+i, price: 3500 });
-            for(let i=13; i<=13; i++) rowConfigs.push({ rowName: 'Row-'+i, price: 2500 });
+            // โซน F-P ทั้งหมด 12 แถว: ครึ่งแรก 2,800 / ครึ่งน้อยกว่าครึ่งนึงด้านท้าย 2,500
+            for(let i=1; i<=12; i++) {
+                let p = (i <= 6) ? 2800 : 2500;
+                rowConfigs.push({ rowName: 'Row-'+i, price: p });
+            }
         }
 
         rowConfigs.forEach(cfg => {
             let rowDiv = document.createElement('div');
             rowDiv.className = 'seat-row';
             
-            // ป้ายบอกชื่อแถวไว้ข้างซ้ายสุดเรียบๆ
             let lbl = document.createElement('div');
             lbl.className = 'row-label';
             lbl.innerText = cfg.rowName;
@@ -305,7 +351,7 @@
                 dot.className = 'seat-dot';
                 dot.innerText = s;
                 
-                if(Math.random() < 0.35) {
+                if(Math.random() < 0.40) {
                     dot.classList.add('taken');
                 } else {
                     dot.onclick = () => {
