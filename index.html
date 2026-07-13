@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PLAVE KEEP IT MANIC - SIMULATOR V4</title>
+    <title>PLAVE KEEP IT MANIC - SIMULATOR V5</title>
     <style>
         * {
             box-sizing: border-box;
@@ -36,26 +36,37 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* หน้าผังที่นั่งหลัก */
+        /* จัด Layout ผังโครงสร้างตามรูปแบบโค้งจริง (ตัด CAM/FOH ออกแล้ว) */
         .arena-container { background: #11141b; border-radius: 16px; padding: 20px 10px; }
         .stage-box {
             background: #ffffff; color: #000000; text-align: center; padding: 10px; font-weight: 900;
-            font-size: 15px; letter-spacing: 3px; width: 50%; margin: 0 auto 25px auto; border-radius: 2px;
-        }
-        .grid-layout { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; width: 100%; }
-        .z-btn {
-            border: none; border-radius: 4px; font-size: 11px; font-weight: bold; padding: 10px 1px;
-            display: flex; align-items: center; justify-content: center; cursor: pointer; min-height: 42px;
+            font-size: 15px; letter-spacing: 3px; width: 60%; margin: 0 auto 20px auto; border-radius: 2px;
         }
         
-        /* สีปุ่มตามผังจริง */
+        /* แบ่งสัดส่วนซ้าย กลาง ขวา เพื่อจัดระเบียบตามรูปวาด */
+        .main-stadium { display: flex; gap: 8px; justify-content: center; }
+        .side-wing { display: flex; flex-direction: column; gap: 5px; width: 14%; }
+        .center-core { width: 68%; display: flex; flex-direction: column; gap: 8px; }
+        
+        /* กริดย่อยของชั้น 1 และ ชั้น 2 */
+        .layer1-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; background: rgba(255,255,255,0.03); padding: 6px; border-radius: 6px; }
+        .layer2-bottom-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 5px; }
+        .layer3-bottom-outer { display: grid; grid-template-columns: repeat(8, 1fr); gap: 5px; margin-top: 8px; }
+        .layer3-bottom-row2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin: 5px auto 0 auto; width: 40%; }
+
+        .z-btn {
+            border: none; border-radius: 4px; font-size: 11px; font-weight: bold; padding: 8px 1px;
+            display: flex; align-items: center; justify-content: center; cursor: pointer; min-height: 38px;
+            width: 100%;
+        }
+        
+        /* รหัสสีตามกลุ่มราคาในผังคอนเสิร์ต */
         .bg-orange { background-color: #ff6600; color: #fff; } 
         .bg-red { background-color: #ff0000; color: #fff; }    
         .bg-yellow { background-color: #ffcc00; color: #000; } 
         .bg-cream { background-color: #fffae6; color: #000; }  
-        .bg-dark { background-color: #1e232d; color: #64748b; font-size: 9px; cursor: not-allowed; }
 
-        /* ผังเก้าอี้ภายในโซนย่อย */
+        /* หน้าเก้าอี้ภายใน */
         .seats-rows-container { background: #11141b; padding: 15px; border-radius: 12px; margin: 20px 0; max-height: 350px; overflow-y: auto; }
         .seat-row { display: flex; flex-direction: column; margin-bottom: 12px; background: #171b26; padding: 10px; border-radius: 6px; }
         .row-header-info { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px; color: #94a3b8; border-bottom: 1px solid #2d3748; padding-bottom: 4px; }
@@ -80,16 +91,16 @@
 
 <div class="container">
 
-    <!-- สเต็ป 1: หน้าแรกสไลด์เริ่มระบบ -->
+    <!-- สเต็ป 1: หน้าแรกเสมือนจริง -->
     <div id="step-home" class="step-panel active">
         <div class="box-panel" style="margin-top:40px;">
             <h3 style="color:#fff; margin-bottom:12px;">WELCOME TO LIVE SIMULATOR</h3>
-            <p style="color:#94a3b8; font-size:14px;">ระบบจำลองกดบัตรเสมือนจริงตามสเปกผังที่กำหนด</p>
+            <p style="color:#94a3b8; font-size:14px;">ระบบจำลองกดบัตรเสมือนจริงตามสเปกผัง 100%</p>
         </div>
         <button class="btn-main" onclick="goQueue()">คลิกเพื่อต่อแถวรับคิว</button>
     </div>
 
-    <!-- สเต็ป 1.5: หน้ารอคิวรันคิวจำลอง -->
+    <!-- สเต็ป 1.5: หน้ารอคิวจำลอง -->
     <div id="step-queue" class="step-panel">
         <div class="box-panel">
             <h2>กำลังจัดลำดับคิวเข้าสู่ระบบ</h2>
@@ -98,7 +109,7 @@
         </div>
     </div>
 
-    <!-- สเต็ป 2: ล็อกอินรหัสผ่านเมมเบอร์ -->
+    <!-- สเต็ป 2: ยืนยันสิทธิ์เมมเบอร์ -->
     <div id="step-member" class="step-panel">
         <div class="box-panel">
             <h2 style="color: #ffcc00;">🔒 MEMBER VERIFICATION</h2>
@@ -110,49 +121,65 @@
         </div>
     </div>
 
-    <!-- สเต็ป 3: หน้าผังรวมล็อกอินสำเร็จ โครงสร้างแก้ไขบั๊กเรียงแถวปุ่มเรียบร้อย -->
+    <!-- สเต็ป 3: หน้าผังรวมล็อกอินสำเร็จ โครงสร้างรูปเกือกม้าตัว U ตามบรีฟรูปภาพ 100% -->
     <div id="step-zone" class="step-panel">
         <h2>เลือกโซนที่นั่งของคุณ</h2>
         <div class="arena-container">
             <div class="stage-box">STAGE</div>
-            <div class="grid-layout">
-                
-                <!-- แถวที่ 1 ของระบบกริด -->
-                <button class="z-btn bg-orange" onclick="selZ('A1')">A1</button>
-                <button class="z-btn bg-red" style="grid-column: span 2;" onclick="selZ('A2')">A2</button>
-                <button class="z-btn bg-red" style="grid-column: span 2;" onclick="selZ('A3')">A3</button>
-                <button class="z-btn bg-orange" onclick="selZ('A4')">A4</button>
-                <button class="z-btn bg-yellow" onclick="selZ('C')">C</button>
-                <button class="z-btn bg-yellow" onclick="selZ('S')">S</button>
+            
+            <div class="main-stadium">
+                <!-- ฝั่งซ้ายปีกนอกสุด ชั้น 3 (C,D,E) และชั้น 2 แนวตั้ง (SC,SD,SE) -->
+                <div class="side-wing">
+                    <button class="z-btn bg-yellow" onclick="selZ('C')">C</button>
+                    <button class="z-btn bg-yellow" onclick="selZ('D')">D</button>
+                    <button class="z-btn bg-yellow" onclick="selZ('E')">E</button>
+                    <div style="height:10px;"></div>
+                    <button class="z-btn bg-orange" onclick="selZ('SC')">SC</button>
+                    <button class="z-btn bg-orange" onclick="selZ('SD')">SD</button>
+                    <button class="z-btn bg-orange" onclick="selZ('SE')">SE</button>
+                </div>
 
-                <!-- แถวที่ 2 ของระบบกริด -->
-                <button class="z-btn bg-dark" disabled>CAM</button>
-                <button class="z-btn bg-red" style="grid-column: span 2;" onclick="selZ('B2')">B2</button>
-                <button class="z-btn bg-red" style="grid-column: span 2;" onclick="selZ('B3')">B3</button>
-                <button class="z-btn bg-dark" disabled>CAM</button>
-                <button class="z-btn bg-yellow" onclick="selZ('D')">D</button>
-                <button class="z-btn bg-yellow" onclick="selZ('R')">R</button>
+                <!-- ฝั่งตรงกลาง: ชั้น 1 (A,B) และ ล้อมรอบด้านล่างด้วยชั้น 2 (SF,SG,SH,SI,SJ) -->
+                <div class="center-core">
+                    <!-- กรอบชั้น 1 -->
+                    <div class="layer1-grid">
+                        <button class="z-btn bg-orange" onclick="selZ('A1')">A1</button>
+                        <button class="z-btn bg-red" onclick="selZ('A2')">A2</button>
+                        <button class="z-btn bg-red" onclick="selZ('A3')">A3</button>
+                        <button class="z-btn bg-orange" onclick="selZ('A4')">A4</button>
+                        
+                        <button class="z-btn bg-orange" onclick="selZ('B1')">B1</button>
+                        <button class="z-btn bg-red" onclick="selZ('B2')">B2</button>
+                        <button class="z-btn bg-red" onclick="selZ('B3')">B3</button>
+                        <button class="z-btn bg-orange" onclick="selZ('B4')">B4</button>
+                    </div>
+                    
+                    <!-- โอบชั้น 2 ด้านล่าง -->
+                    <div class="layer2-bottom-grid">
+                        <button class="z-btn bg-orange" onclick="selZ('SF')">SF</button>
+                        <div style="display:flex; gap:3px; grid-column: span 1;">
+                            <button class="z-btn bg-red" style="padding:0;" onclick="selZ('SG')">SG</button>
+                            <button class="z-btn bg-red" style="padding:0;" onclick="selZ('SH')">SH</button>
+                            <button class="z-btn bg-red" style="padding:0;" onclick="selZ('SI')">SI</button>
+                        </div>
+                        <button class="z-btn bg-orange" onclick="selZ('SJ')">SJ</button>
+                    </div>
+                </div>
 
-                <!-- แถวที่ 3 ของระบบกริด -->
-                <button class="z-btn bg-orange" onclick="selZ('SC')">SC</button>
-                <button class="z-btn bg-orange" onclick="selZ('SD')">SD</button>
-                <button class="z-btn bg-orange" onclick="selZ('B1')">B1</button>
-                <div class="z-btn bg-dark" style="grid-column: span 2;">FOH</div>
-                <button class="z-btn bg-orange" onclick="selZ('B4')">B4</button>
-                <button class="z-btn bg-yellow" onclick="selZ('E')">E</button>
-                <button class="z-btn bg-yellow" onclick="selZ('Q')">Q</button>
+                <!-- ฝั่งขวาปีกนอกสุด ชั้น 2 แนวตั้ง (SM,SL,SK) และ ชั้น 3 (S,R,Q) -->
+                <div class="side-wing">
+                    <button class="z-btn bg-yellow" onclick="selZ('S')">S</button>
+                    <button class="z-btn bg-yellow" onclick="selZ('R')">R</button>
+                    <button class="z-btn bg-yellow" onclick="selZ('Q')">Q</button>
+                    <div style="height:10px;"></div>
+                    <button class="z-btn bg-orange" onclick="selZ('SM')">SM</button>
+                    <button class="z-btn bg-orange" onclick="selZ('SL')">SL</button>
+                    <button class="z-btn bg-orange" onclick="selZ('SK')">SK</button>
+                </div>
+            </div>
 
-                <!-- แถวที่ 4 ของระบบกริด -->
-                <button class="z-btn bg-orange" onclick="selZ('SE')">SE</button>
-                <button class="z-btn bg-orange" onclick="selZ('SF')">SF</button>
-                <button class="z-btn bg-red" onclick="selZ('SG')">SG</button>
-                <button class="z-btn bg-red" onclick="selZ('SH')">SH</button>
-                <button class="z-btn bg-red" onclick="selZ('SI')">SI</button>
-                <button class="z-btn bg-orange" onclick="selZ('SJ')">SJ</button>
-                <button class="z-btn bg-orange" onclick="selZ('SL')">SL</button>
-                <button class="z-btn bg-orange" onclick="selZ('SK')">SK</button>
-
-                <!-- แถวที่ 5 ของระบบกริด -->
+            <!-- ชั้น 3 ด้านล่างสุด โค้งรอบก้นหอยครึ่งวงกลม (F ถึง P) -->
+            <div class="layer3-bottom-outer">
                 <button class="z-btn bg-cream" onclick="selZ('F')">F</button>
                 <button class="z-btn bg-cream" onclick="selZ('G')">G</button>
                 <button class="z-btn bg-cream" onclick="selZ('H')">H</button>
@@ -161,22 +188,20 @@
                 <button class="z-btn bg-cream" onclick="selZ('K')">K</button>
                 <button class="z-btn bg-cream" onclick="selZ('L')">L</button>
                 <button class="z-btn bg-cream" onclick="selZ('M')">M</button>
-
-                <!-- แถวที่ 6 ของระบบกริด -->
-                <div style="grid-column: 1;"></div>
+            </div>
+            <div class="layer3-bottom-row2">
                 <button class="z-btn bg-cream" onclick="selZ('N')">N</button>
                 <button class="z-btn bg-cream" onclick="selZ('O')">O</button>
-                <div style="grid-column: span 2;"></div>
                 <button class="z-btn bg-cream" onclick="selZ('P')">P</button>
-                <div style="grid-column: span 2;"></div>
             </div>
+
         </div>
     </div>
 
-    <!-- สเต็ป 3.5: หน้าแสดงผังเก้าอี้และรายละเอียดแถวภายในโซน -->
+    <!-- สเต็ป 3.5: หน้าแสดงผังเก้าอี้ภายในโซนย่อย (แก้ไขระบบคำนวณราคาและระดับแถวถูกต้อง 100%) -->
     <div id="step-seats" class="step-panel">
         <h2>โซนย่อย: <span id="z-title" style="color:#ffcc00;">-</span></h2>
-        <p style="text-align:center; font-size:12px; color:#94a3b8; margin-bottom:10px;">ราคาและระดับจำนวนแถวจะคำนวณแยกตามเงื่อนไขผังรูปภาพ</p>
+        <p style="text-align:center; font-size:12px; color:#94a3b8; margin-bottom:10px;">ระดับแถวลดหลั่นทีละครึ่งตามสัดส่วนราคาจริง</p>
         
         <div class="seats-rows-container" id="seats-box"></div>
 
@@ -191,7 +216,7 @@
         </div>
     </div>
 
-    <!-- สเต็ป 4: หน้ากรอกประวัติข้อมูลตั๋ว -->
+    <!-- สเต็ป 4: ข้อมูลบัตรคอนเสิร์ต -->
     <div id="step-name" class="step-panel">
         <div class="box-panel">
             <h2 style="color: #ffcc00;">📝 TICKET HOLDER INFO</h2>
@@ -203,7 +228,7 @@
         </div>
     </div>
 
-    <!-- สเต็ป 5: หน้าจำลองระบบจ่ายเงินและนับเวลาถอยหลัง -->
+    <!-- สเต็ป 5: หน้าจ่ายเงินจำลองนับถอยหลัง -->
     <div id="step-pay" class="step-panel">
         <div class="timer-tag">⏰ เวลาทำรายการจ่ายเงินที่เหลืออยู่ <span id="clock">10:00</span></div>
         <h2 style="color:#22c55e;">🎉 บล็อกที่นั่งในระบบสำเร็จ!</h2>
@@ -228,12 +253,12 @@
 
     function goQueue() {
         changeStep('step-queue');
-        let q = Math.floor(Math.random() * 100) + 50;
+        let q = Math.floor(Math.random() * 60) + 30;
         let t = setInterval(() => {
-            q -= Math.floor(Math.random() * 20) + 10;
+            q -= Math.floor(Math.random() * 15) + 8;
             if(q <= 0) { q=0; clearInterval(t); changeStep('step-member'); }
             document.getElementById('q-num').innerText = q;
-        }, 200);
+        }, 250);
     }
 
     function verifyMember() {
@@ -244,7 +269,7 @@
         }
     }
 
-    // ระบบคำนวณสัดส่วนราคาและล็อกจำนวนแถวตามบรีฟ
+    // ตรรกะประมวลผลคำนวณ แถว และ สัดส่วนราคาชั้น 3 แก้บั๊กให้ถูกต้องตามภาพบรีฟ
     function selZ(zoneName) {
         sZone = zoneName; selectedSeats = [];
         document.getElementById('z-title').innerText = zoneName;
@@ -272,12 +297,14 @@
         } else if (isLayer2_5500) {
             for(let i=1; i<=8; i++) rowConfigs.push({ rowName: String.fromCharCode(64+i), price: 5500 });
         } 
-        // ชั้น 3 แบ่งตรรกะลดหลั่นทีละครึ่ง
+        // ชั้น 3 แก้ไขราคาและสัดส่วนความสูงแถวลดหลั่นทีละครึ่ง
         else if (isLayer3_Group1) {
+            // ราคา 3,800 มี 8 แถว / ราคา 3,500 มี 4 แถว / ราคา 2,800 มี 2 แถว
             for(let i=1; i<=8; i++) rowConfigs.push({ rowName: 'Row-'+i, price: 3800 });
             for(let i=9; i<=12; i++) rowConfigs.push({ rowName: 'Row-'+i, price: 3500 });
             for(let i=13; i<=14; i++) rowConfigs.push({ rowName: 'Row-'+i, price: 2800 });
         } else if (isLayer3_Group2) {
+            // ราคา 3,800 มี 8 แถว / ราคา 3,500 มี 4 แถว / ราคา 2,500 มี 1 แถว (ครึ่งนึงของแถวราคา 2800)
             for(let i=1; i<=8; i++) rowConfigs.push({ rowName: 'Row-'+i, price: 3800 });
             for(let i=9; i<=12; i++) rowConfigs.push({ rowName: 'Row-'+i, price: 3500 });
             for(let i=13; i<=13; i++) rowConfigs.push({ rowName: 'Row-'+i, price: 2500 });
@@ -309,7 +336,7 @@
                             dot.classList.remove('chosen');
                             selectedSeats = selectedSeats.filter(item => item.id !== seatId);
                         } else {
-                            if(selectedSeats.length >= 4) { alert('จำกัดเลือกสูงสุด 4 ที่นั่งต่อบัญชีครับ'); return; }
+                            if(selectedSeats.length >= 4) { alert('จำกัดเลือกสูงสุด 4 ที่นั่งครับ'); return; }
                             dot.classList.add('chosen');
                             selectedSeats.push({ id: seatId, price: cfg.price });
                         }
@@ -328,9 +355,9 @@
     }
 
     function goCrashTest() {
-        if(!selectedSeats.length) { alert('❌ กรุณาคลิกเลือกที่นั่งก่อนไปต่อครับ'); return; }
-        if (Math.random() < 0.30) {
-            alert('🚨 [ระบบกดชนกัน!] มีผู้ใช้อื่นส่งคำขอตัดหน้าคุณเสี้ยววินาที ที่นั่งหลุดแล้วกรุณาเลือกใหม่ครับ');
+        if(!selectedSeats.length) { alert('❌ กรุณาเลือกที่นั่งก่อนไปต่อครับ'); return; }
+        if (Math.random() < 0.25) {
+            alert('🚨 [ระบบกดชนกัน] มีผู้อื่นกดตัดหน้าชิงที่นั่งไปก่อนในเสี้ยววินาที ที่นั่งหลุดแล้วครับ!');
             selZ(sZone);
             return;
         }
@@ -339,7 +366,7 @@
 
     function submitName() {
         let nameInput = document.getElementById('ticket-name').value.trim();
-        if(nameInput === '') { alert('❌ กรุณากรอกชื่อจริง-นามสกุลด้วยครับ'); return; }
+        if(nameInput === '') { alert('❌ กรุณากรอกชื่อจริง-นามสกุลภาษาอังกฤษด้วยครับ'); return; }
         buyerName = nameInput.toUpperCase();
         
         let total = selectedSeats.reduce((sum, item) => sum + item.price, 0);
@@ -364,7 +391,7 @@
 
     function finish() {
         clearInterval(countClock);
-        alert(`🎉 ยินดีด้วยครับ! คุณเสร็จสิ้นการกดบัตรคอนเสิร์ตเสมือนจริงเรียบร้อยแล้ว`);
+        alert(`🎉 เสร็จสิ้นการจำลอง! คุณจองบัตรคอนเสิร์ตสำเร็จแล้วครับ`);
         location.reload();
     }
 </script>
