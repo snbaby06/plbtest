@@ -38,7 +38,7 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* ผังโซนหลัก */
+        /* ผังโซนหลักตามรูปเป๊ะๆ */
         .arena-container { background: #11141b; border-radius: 16px; padding: 20px 10px; }
         .stage-box {
             background: #ffffff; color: #000000; text-align: center; padding: 10px; font-weight: 900;
@@ -50,13 +50,11 @@
             display: flex; align-items: center; justify-content: center; cursor: pointer; min-height: 44px;
         }
         
-        /* สีโซนราคาตามรูปภาพ */
+        /* สีปุ่มโซน */
         .bg-6800 { background-color: #ff0000; color: #fff; }
         .bg-5500 { background-color: #ff6600; color: #fff; }
         .bg-3800 { background-color: #ffcc00; color: #000; }
         .bg-3500 { background-color: #fffae6; color: #000; }
-        .bg-2800 { background-color: #4dd2ff; color: #000; }
-        .bg-2500 { background-color: #0066cc; color: #fff; }
         .bg-dark { background-color: #1e232d; color: #555860; font-size: 9px; cursor: not-allowed; }
 
         /* ผังเก้าอี้ภายในโซน */
@@ -114,35 +112,38 @@
         </div>
     </div>
 
-    <!-- สเต็ป 3: เลือกโซนหลัก -->
+    <!-- สเต็ป 3: หน้าผังโซนหลัก (ดึง B4 กลับมาเรียงสัดส่วนถูกต้องแล้ว) -->
     <div id="step-zone" class="step-panel">
         <h2>เลือกโซนที่นั่งของคุณ</h2>
         <div class="arena-container">
             <div class="stage-box">STAGE</div>
             <div class="grid-layout">
-                <!-- แถว 1 -->
+                <!-- แถวที่ 1 -->
                 <button class="z-btn bg-5500" onclick="selZ('A1')">A1</button>
                 <button class="z-btn bg-6800" style="grid-column: span 2;" onclick="selZ('A2')">A2</button>
                 <button class="z-btn bg-6800" style="grid-column: span 2;" onclick="selZ('A3')">A3</button>
                 <button class="z-btn bg-5500" onclick="selZ('A4')">A4</button>
                 <button class="z-btn bg-3800" onclick="selZ('C')">C</button>
                 <button class="z-btn bg-3800" onclick="selZ('S')">S</button>
-                <!-- แถว 2 -->
+
+                <!-- แถวที่ 2 -->
                 <button class="z-btn bg-dark" disabled>CAM</button>
                 <button class="z-btn bg-6800" style="grid-column: span 2;" onclick="selZ('B2')">B2</button>
                 <button class="z-btn bg-6800" style="grid-column: span 2;" onclick="selZ('B3')">B3</button>
                 <button class="z-btn bg-dark" disabled>CAM</button>
                 <button class="z-btn bg-3800" onclick="selZ('D')">D</button>
                 <button class="z-btn bg-3800" onclick="selZ('R')">R</button>
-                <!-- แถว 3 -->
+
+                <!-- แถวที่ 3 -->
                 <button class="z-btn bg-5500" onclick="selZ('SC')">SC</button>
                 <button class="z-btn bg-5500" onclick="selZ('SD')">SD</button>
                 <button class="z-btn bg-5500" onclick="selZ('B1')">B1</button>
                 <div class="z-btn bg-dark" style="grid-column: span 2;">FOH</div>
-                <button class="z-btn bg-5500" onclick="selZ('SM')">SM</button>
+                <button class="z-btn bg-5500" onclick="selZ('B4')">B4</button> <!-- ดึง B4 กลับมาตรงนี้ตามผังหน้าเว็บจริง -->
                 <button class="z-btn bg-3800" onclick="selZ('E')">E</button>
                 <button class="z-btn bg-3800" onclick="selZ('Q')">Q</button>
-                <!-- แถว 4 -->
+
+                <!-- แถวที่ 4 -->
                 <button class="z-btn bg-5500" onclick="selZ('SE')">SE</button>
                 <button class="z-btn bg-5500" onclick="selZ('SF')">SF</button>
                 <button class="z-btn bg-6800" onclick="selZ('SG')">SG</button>
@@ -151,7 +152,8 @@
                 <button class="z-btn bg-5500" onclick="selZ('SJ')">SJ</button>
                 <button class="z-btn bg-5500" onclick="selZ('SL')">SL</button>
                 <button class="z-btn bg-5500" onclick="selZ('SK')">SK</button>
-                <!-- แถว 5 -->
+
+                <!-- แถวที่ 5 -->
                 <button class="z-btn bg-3500" onclick="selZ('F')">F</button>
                 <button class="z-btn bg-3500" onclick="selZ('G')">G</button>
                 <button class="z-btn bg-3500" onclick="selZ('H')">H</button>
@@ -160,7 +162,8 @@
                 <button class="z-btn bg-3500" onclick="selZ('K')">K</button>
                 <button class="z-btn bg-3500" onclick="selZ('L')">L</button>
                 <button class="z-btn bg-3500" onclick="selZ('M')">M</button>
-                <!-- แถว 6 -->
+
+                <!-- แถวที่ 6 -->
                 <button class="z-btn bg-3500" style="grid-column: 2;" onclick="selZ('N')">N</button>
                 <button class="z-btn bg-3500" style="grid-column: 3;" onclick="selZ('O')">O</button>
                 <button class="z-btn bg-3500" style="grid-column: 6;" onclick="selZ('P')">P</button>
@@ -168,9 +171,9 @@
         </div>
     </div>
 
-    <!-- สเต็ป 3.5: หน้าเลือกที่นั่งย่อย (มีระบบกดชน 50%) -->
+    <!-- สเต็ป 3.5: หน้าเลือกที่นั่งภายในโซน -->
     <div id="step-seats" class="step-panel">
-        <h2>โซน: <span id="z-title" style="color:#ffcc00;">-</span></h2>
+        <h2>โซน: <span id="z-title" style="color:#ffcc00;">-</span> (<span id="z-price-lbl">-</span> บาท)</h2>
         
         <div style="display:flex; justify-content:center; gap:15px; margin: 10px 0; font-size:12px;">
             <div><span style="display:inline-block; width:12px; height:12px; background:#22c55e; border-radius:2px;"></span> ว่าง</div>
@@ -195,7 +198,7 @@
     <div id="step-name" class="step-panel">
         <div class="box-panel">
             <h2 style="color: #ffcc00;">📝 TICKET HOLDER INFO</h2>
-            <p style="font-size: 13px; color: #94a3b8; margin-bottom: 15px;">ระบบผ่านด่านกดชนแล้ว! กรุณากรอกชื่อจริงภาษาอังกฤษให้ตรงกับพาสปอร์ต/บัตรประชาชนเพื่อพิมพ์ลงบนบัตรคอนเสิร์ต</p>
+            <p style="font-size: 13px; color: #94a3b8; margin-bottom: 15px;">ระบบผ่านด่านกดชนแล้ว! กรุณากรอกชื่อจริงภาษาอังกฤษให้ตรงกับพาสปอร์ตเพื่อพิมพ์ลงบนบัตร</p>
             
             <div class="input-group">
                 <label for="ticket-name">ชื่อ - นามสกุล ผู้เข้าชม (ภาษาอังกฤษตัวพิมพ์ใหญ่)</label>
@@ -229,7 +232,6 @@
         document.getElementById(id).classList.add('active');
     }
 
-    // STEP 1: ระบบรันคิว
     function goQueue() {
         changeStep('step-queue');
         let q = Math.floor(Math.random() * 400) + 200;
@@ -240,18 +242,16 @@
         }, 200);
     }
 
-    // STEP 2: ตรวจสอบเลขเมมเบอร์
     function verifyMember() {
         let codeInput = document.getElementById('member-code').value.trim();
         if (codeInput === '20230312') {
-            alert('✅ สิทธิ์เมมเบอร์ถูกต้อง! กำลังเข้าสู่หน้าผังผังหลัก');
+            alert('✅ สิทธิ์เมมเบอร์ถูกต้อง! กำลังเข้าสู่หน้าผังหลัก');
             changeStep('step-zone');
         } else {
             alert('❌ รหัสผิด! (คำใบ้: วันเดบิวต์วง PLAVE)');
         }
     }
 
-    // STEP 3: คำนวณจำนวนแถวเก้าอี้ตามระดับชั้น (Layer) และระดับราคาจริง
     function selZ(zoneName) {
         sZone = zoneName; selectedSeats = [];
         document.getElementById('z-title').innerText = zoneName;
@@ -263,55 +263,36 @@
         let targetPrice = 0;
         let totalRows = 0;
 
-        // แยกตรวจกลุ่มตามกรอบชั้น 1, ชั้น 2 และ ชั้น 3 จากภาพโจทย์
-        const layer1 = ['A1','A2','A3','A4','B1','B2','B3'];
-        const layer2 = ['SC','SD','SE','SF','SG','SH','SI','SJ','SK','SL','SM'];
-        const zone3_8k = ['C','D','E','Q','R','S']; // บล็อกรอบนอกราคาบนสุด
-        const zone2_5k = ['F','G','H','I','J','K','L','M','N','O','P']; // บล็อกรอบนอกด้านล่างสุด
+        // ผูกสเปกโซนหลังบ้าน รวมถึงแก้เงื่อนไขให้ B4 ราคา 5,500 บัตรรอบกรอบชั้น 1 มี 10 แถวตรงตัว
+        const l1_6800 = ['A2','A3','B2','B3'];
+        const l1_5500 = ['A1','A4','B1','B4']; // เพิ่ม B4 เข้าระบบราคาตรงนี้ครับ
+        const l2_6800 = ['SG','SH','SI'];
+        const l2_5500 = ['SC','SD','SE','SF','SJ','SK','SL','SM'];
+        const l3_3800 = ['C','D','E','Q','R','S'];
+        const l3_3500 = ['F','G','H','I','J','K','L','M','N','O','P'];
 
-        if (layer1.includes(zoneName)) {
-            // ชั้น 1 มี 10 แถว
-            totalRows = 10;
-            targetPrice = ['A2','A3','B2','B3'].includes(zoneName) ? 6800 : 5500;
-            
-        } else if (layer2.includes(zoneName)) {
-            // ชั้น 2 มี 8 แถว
-            totalRows = 8;
-            targetPrice = ['SG','SH','SI'].includes(zoneName) ? 6800 : 5500;
-            
-        } else {
-            // ชั้น 3 มีตรรกะลดหลั่นลงมาตามตำแหน่งแถว
-            if (zone3_8k.includes(zoneName)) {
-                // ส่วนของบล็อกชั้น 3 ด้านบน (มีทั้ง 3800, 3500, 2800)
-                // จำลองโครงสร้างแถวต่อกันใน 1 บล็อก: 3,800(10แถว) -> 3,500(5แถว) -> 2,800(2แถว)
-                createTierRows(box, 3800, 10, 65); // แถว A-J
-                createTierRows(box, 3500, 5, 75);  // แถว K-O
-                createTierRows(box, 2800, 2, 80);  // แถว P-Q
-                changeStep('step-seats');
-                return;
-            } else if (zone2_5k.includes(zoneName)) {
-                // บล็อกชั้น 3 ด้านล่างสุด (มีกลุ่ม 3,500(5แถว) -> 2,500(1แถว))
-                createTierRows(box, 3500, 5, 65);  // แถว A-E
-                createTierRows(box, 2500, 1, 70);  // แถว F
-                changeStep('step-seats');
-                return;
-            }
+        if (l1_6800.includes(zoneName)) {
+            totalRows = 10; targetPrice = 6800;
+        } else if (l1_5500.includes(zoneName)) {
+            totalRows = 10; targetPrice = 5500;
+        } else if (l2_6800.includes(zoneName)) {
+            totalRows = 8; targetPrice = 6800;
+        } else if (l2_5500.includes(zoneName)) {
+            totalRows = 8; targetPrice = 5500;
+        } else if (l3_3800.includes(zoneName)) {
+            totalRows = 10; targetPrice = 3800;
+        } else if (l3_3500.includes(zoneName)) {
+            totalRows = 5; targetPrice = 3500;
         }
 
-        // สำหรับชั้น 1 และ ชั้น 2 ที่เป็นราคาเดี่ยวทั้งโซน
-        createTierRows(box, targetPrice, totalRows, 65);
-        changeStep('step-seats');
-    }
+        document.getElementById('z-price-lbl').innerText = targetPrice.toLocaleString();
 
-    // ฟังก์ชันช่วยสร้างแถวเก้าอี้
-    function createTierRows(container, price, rowsCount, startCharNode) {
-        let rowCharCount = startCharNode;
-        for(let r=1; r<=rowsCount; r++) {
+        for(let r=1; r<=totalRows; r++) {
             let rowDiv = document.createElement('div');
             rowDiv.className = 'seat-row';
             let label = document.createElement('div');
             label.className = 'row-label';
-            label.innerText = String.fromCharCode(rowCharCount) + r;
+            label.innerText = String.fromCharCode(64 + r);
             rowDiv.appendChild(label);
             
             for(let s=1; s<=8; s++) {
@@ -319,8 +300,7 @@
                 dot.className = 'seat-dot';
                 dot.innerText = s;
                 
-                // สุ่มที่นั่งเต็ม 40%
-                if(Math.random() < 0.40) {
+                if(Math.random() < 0.45) {
                     dot.classList.add('taken');
                 } else {
                     dot.onclick = () => {
@@ -331,7 +311,7 @@
                         } else {
                             if(selectedSeats.length >= 4) { alert('เลือกได้ไม่เกิน 4 ที่นั่งครับ'); return; }
                             dot.classList.add('chosen');
-                            selectedSeats.push({ id: seatId, price: price });
+                            selectedSeats.push({ id: seatId, price: targetPrice });
                         }
                         let total = selectedSeats.reduce((sum, item) => sum + item.price, 0);
                         document.getElementById('lbl-seats').innerText = selectedSeats.length ? selectedSeats.map(i=>i.id).join(', ') : "ยังไม่ได้เลือก";
@@ -340,14 +320,13 @@
                 }
                 rowDiv.appendChild(dot);
             }
-            container.appendChild(rowDiv);
+            box.appendChild(rowDiv);
         }
+        changeStep('step-seats');
     }
 
-    // STEP 3.5: ระบบกดชน (Seat Concurrency Crash) 50%
     function goCrashTest() {
         if(!selectedSeats.length) { alert('❌ โปรดเลือกเก้าอี้ก่อนกดยืนยันครับ!'); return; }
-        
         if (Math.random() < 0.50) {
             alert('🚨 [กดชน!] มีคนตัดหน้าจ่ายตั๋วไปก่อนคุณในเสี้ยววินาที! ที่นั่งหลุดแล้ว รีบเลือกใหม่ด่วน!');
             selZ(sZone);
@@ -357,13 +336,9 @@
         changeStep('step-name');
     }
 
-    // STEP 4: ตรวจสอบการใส่ชื่อผู้จอง
     function submitName() {
         let nameInput = document.getElementById('ticket-name').value.trim();
-        if(nameInput === '') {
-            alert('❌ กรุณากรอกชื่อผู้เข้าชมก่อนไปต่อครับ!');
-            return;
-        }
+        if(nameInput === '') { alert('❌ กรุณากรอกชื่อผู้เข้าชมก่อนไปต่อครับ!'); return; }
         buyerName = nameInput.toUpperCase();
         
         let total = selectedSeats.reduce((sum, item) => sum + item.price, 0);
@@ -376,7 +351,6 @@
         startTimer();
     }
 
-    // STEP 5: นับเวลาถอยหลังตอนจ่ายเงิน
     function startTimer() {
         let sec = 600; clearInterval(countClock);
         countClock = setInterval(() => {
@@ -389,7 +363,7 @@
 
     function finish() {
         clearInterval(countClock);
-        alert(`🎉 ยินดีด้วยครับ! คุณ ${buyerName} สามารถทำลายด่านรันคิว ล็อกเมมเบอร์ กดชน และพิมพ์ชื่อจนคว้าตั๋วใบนี้สำเร็จ!`);
+        alert(`🎉 ยินดีด้วยครับ! คุณ ${buyerName} กดบัตรคอนเสิร์ตสำเร็จลุล่วงแล้ว!`);
         location.reload();
     }
 </script>
