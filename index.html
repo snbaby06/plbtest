@@ -1056,6 +1056,32 @@
             }
         }, 300); 
     }
+     }
+
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener('keydown', function(e) {
+    const isCtrlOrCmd = e.ctrlKey || e.metaKey;
+    const key = e.key.toLowerCase();
+
+    // บล็อก Ctrl+C (ก๊อป), Ctrl+X (ตัด), Ctrl+A (คลุมดำทั้งหมด)
+    if (isCtrlOrCmd && (key === 'c' || key === 'x' || key === 'a')) {
+        e.preventDefault();
+    }
+    // บล็อก Ctrl+S (เซฟไฟล์หน้าเว็บ), Ctrl+P (ปริ้นหน้าเว็บ)
+    if (isCtrlOrCmd && (key === 's' || key === 'p')) {
+        e.preventDefault();
+    }
+    // บล็อกปุ่มเข้า DevTools: F12, Ctrl+U (ดูโค้ด), Ctrl+Shift+I (Inspect)
+    if (
+        e.key === 'F12' || 
+        (isCtrlOrCmd && key === 'u') || 
+        (isCtrlOrCmd && e.shiftKey && key === 'i')
+    ) {
+        e.preventDefault();
+    }
 </script>
 </body>
 </html>
