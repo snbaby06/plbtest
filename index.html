@@ -626,7 +626,7 @@
     <!-- STEP 5: SEAT SELECTION SECTOR -->
     <div id="step-seats" class="step-panel">
         <h2>โซน: <span id="z-title" style="color:#ffcc00;">-</span> (<span id="z-price">-</span> บาท)</h2>
-        <div class="sub-title" style="color: #ff4d4d; font-weight: bold;">⚠️ จำกัดการกดบัตรสูงสุด 2 ใบต่อทำรายการ</div>
+        <div class="sub-title" style="color: #ff4d4d; font-weight: bold;">⚠️ จำกัดบัตรสูงสุด 2 ใบต่อ Membership ID</div>
         
         <div class="seats-rows-container" id="seats-box"></div>
 
@@ -689,44 +689,46 @@
             </div>
 
             <div class="summary-side">
-                <h3 style="margin-bottom: 15px; font-size: 16px; border-bottom: 1px solid #334155; padding-bottom: 8px;">รายละเอียดการจอง</h3>
-                
-                <div class="summary-row">
-                    <span>โซนที่นั่ง:</span>
-                    <span id="sum-zone" style="font-weight: bold; color: #ffcc00;">-</span>
-                </div>
-                <div class="summary-row">
-                    <span>เลขที่นั่ง:</span>
-                    <span id="sum-seats" style="font-weight: bold; color: #ffcc00;">-</span>
-                </div>
-                <div class="summary-row">
-                    <span>รายชื่อบนบัตร:</span>
-                    <span id="sum-names" style="text-align: right; font-weight: bold; color: #fff;">-</span>
-                </div>
-                
-                <div style="margin: 15px 0; border-top: 1px solid #334155; padding-top: 15px;"></div>
+    <h3 style="margin-bottom: 15px; font-size: 16px; border-bottom: 1px solid #334155; padding-bottom: 8px;">รายละเอียดการจอง</h3>
+    
+    <div class="summary-row">
+        <span>โซนที่นั่ง:</span>
+        <span id="sum-zone" style="font-weight: bold; color: #ffcc00;">-</span>
+    </div>
+    <div class="summary-row">
+        <span>เลขที่นั่ง:</span>
+        <span id="sum-seats" style="font-weight: bold; color: #ffcc00;">-</span>
+    </div>
+    <div class="summary-row">
+        <span>รายชื่อบนบัตร:</span>
+        <span id="sum-names" style="text-align: right; font-weight: bold; color: #fff;">-</span>
+    </div>
+    
+    <div style="margin: 15px 0; border-top: 1px solid #334155; padding-top: 15px;"></div>
 
-                <div class="summary-row">
-                    <span>ราคาบัตร:</span>
-                    <span id="sum-base-price">0 บาท</span>
-                </div>
-                <div class="summary-row">
-                    <span>ค่าบริการ 30 บาทต่อใบ + Processing fee 3% (ถ้ามี):</span>
-                    <span id="sum-service-fee">0 บาท</span>
-                </div>
-                <div class="summary-row">
-                    <span>Ticket Protect (7%):</span>
-                    <span id="sum-protect-fee">0 บาท</span>
-                </div>
-                
-                <div class="summary-row total">
-                    <span>จำนวนเงินที่ต้องชำระ:</span>
-                    <span id="sum-grand-total">0 บาท</span>
-                </div>
+    <div class="summary-row">
+        <span>ราคาบัตร:</span>
+        <span id="sum-base-price">0 บาท</span>
+    </div>
+    
+    <div class="summary-row">
+        <span>ค่าบริการ (30 บ./ใบ) + Processing fee 3%:</span>
+        <span id="sum-service-fee">0 บาท</span>
+    </div>
+    
+    <div class="summary-row">
+        <span>Ticket Protect (7%):</span>
+        <span id="sum-protect-fee">0 บาท</span>
+    </div>
+    
+    <div class="summary-row total">
+        <span>จำนวนเงินที่ต้องชำระ:</span>
+        <span id="sum-grand-total">0 บาท</span>
+    </div>
 
-                <button class="btn-main" style="background:#22c55e; margin-top: 20px; font-size: 18px;" onclick="finish()">ยืนยันการชำระเงิน</button>
-            </div>
-
+ 
+    <button class="btn-main" style="background:#22c55e; margin-top: 20px; font-size: 18px;" onclick="finish()">ยืนยันการชำระเงิน</button>
+</div>
         </div>
     </div>
 
@@ -745,7 +747,6 @@
         });
         document.getElementById(stepId).classList.add('active');
     }
-
 
     function verifyMember() {
         let code = document.getElementById('member-code').value;
@@ -813,24 +814,40 @@
         changeStep('step-pay');
     }
 
-    // ปรับพร้อมเพย์ให้คิดค่าธรรมเนียม 3% เหมือนกัน
+    // ฟังก์ชันคำนวณราคา (ใช้ Math.floor เพื่อปัดเศษลง/ตัดเศษทศนิยมทิ้งทั้งหมด)
     function calculatePayment() {
-        let basePrice = selectedSeats.reduce((sum, item) => sum + item.price, 0);
-        let count = selectedSeats.length;
+        let baseTicketTotal = selectedSeats.reduce((sum, item) => sum + item.price, 0); // รวมราคาตั๋วทั้งหมด
+        let quantity = selectedSeats.length;
+        let serviceFeeTotal = 30 * quantity; // ค่าบริการ 30 บาทต่อใบ
 
-        let serviceFee = count * 30;
-        let protectFee = isTicketProtect ? Math.round(basePrice * 0.07) : 0;
+        // คิดค่าธรรมเนียม 3% เสมอ (ทั้ง QR พร้อมเพย์ และบัตรเครดิต)
+        let processingFee = (baseTicketTotal + serviceFeeTotal) * 0.03;
 
-        // บัตรเครดิต และ พร้อมเพย์ คิด Processing Fee 3%
-        let processFee = Math.round((basePrice + serviceFee + protectFee) * 0.03);
+        // รวมค่าบริการและ Processing fee และใช้ Math.floor เพื่อตัดทศนิยมทิ้งเลย (ไม่ปัดเศษขึ้น)
+        let totalServiceAndProcessing = Math.floor(serviceFeeTotal + processingFee);
 
-        let grandTotal = basePrice + serviceFee + protectFee + processFee;
+        // คำนวณ Ticket Protect 7% จากราคาตั๋ว (ถ้าเลือกซื้อ) และใช้ Math.floor เพื่อตัดทศนิยมทิ้ง
+        let protectFee = 0;
+        if (isTicketProtect) {
+            protectFee = Math.floor(baseTicketTotal * 0.07);
+        }
 
-        document.getElementById('sum-base-price').innerText = basePrice.toLocaleString() + " บาท";
-        document.getElementById('sum-service-fee').innerText = serviceFee.toLocaleString() + " บาท";
-        document.getElementById('sum-protect-fee').innerText = protectFee > 0 ? protectFee.toLocaleString() + " บาท" : "-";
-        document.getElementById('sum-process-fee').innerText = processFee.toLocaleString() + " บาท";
-        document.getElementById('sum-grand-total').innerText = grandTotal.toLocaleString() + " บาท";
+        // ยอดรวมเงินสุทธิทั้งหมดที่ต้องชำระ (ตัดเศษทศนิยมออกแล้วทั้งหมด)
+        let grandTotal = baseTicketTotal + totalServiceAndProcessing + protectFee;
+
+        // อัปเดตราคาแสดงผลในสรุปรายละเอียดจองตั๋ว
+        if (document.getElementById('sum-base-price')) {
+            document.getElementById('sum-base-price').innerText = baseTicketTotal.toLocaleString() + " บาท";
+        }
+        if (document.getElementById('sum-service-fee')) {
+            document.getElementById('sum-service-fee').innerText = totalServiceAndProcessing.toLocaleString() + " บาท";
+        }
+        if (document.getElementById('sum-protect-fee')) {
+            document.getElementById('sum-protect-fee').innerText = protectFee.toLocaleString() + " บาท";
+        }
+        if (document.getElementById('sum-grand-total')) {
+            document.getElementById('sum-grand-total').innerText = grandTotal.toLocaleString() + " บาท";
+        }
     }
 
     function selectPaymentMethod(method) {
@@ -1009,12 +1026,10 @@
         changeStep('step-seats');
     }
 
-// ปรับปรุงฟังก์ชัน goQueue เดิมให้แสดงเวลาและอัปเดตแถบ
     function goQueue() {
         changeStep('step-queue');
         let maxQueue = 5000;           let currentQueue = maxQueue;
         
-        // อัปเดตเวลาปัจจุบัน
         function updateTime() {
             let now = new Date();
             document.getElementById('update-time').innerText = now.toLocaleTimeString('th-TH');
@@ -1034,15 +1049,13 @@
             } else {
                 document.getElementById('q-num').innerText = currentQueue.toLocaleString();
                 
-                // คำนวณเปอร์เซ็นต์หลอดสัมพันธ์กับคิว 5,000
                 let progressPercent = ((maxQueue - currentQueue) / maxQueue) * 100;
                 document.querySelector('.progress-bar').style.width = progressPercent + "%";
                 
                 updateTime();
             }
-        }, 300); // ปรับเวลาให้ลดทุกๆ 0.3 วินาที 
+        }, 300); 
     }
 </script>
-
 </body>
 </html>
