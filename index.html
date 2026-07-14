@@ -632,8 +632,8 @@
         <div class="seats-rows-container" id="seats-box"></div>
 
         <div class="info-card">
-            <p>ที่นั่งคัดสรร: <span id="lbl-seats" style="color:#ffcc00; font-weight:bold;">ยังไม่ได้เลือก</span></p>
-            <p>ยอดเงินรวมเฉพาะค่าตั๋ว: <span id="lbl-total" style="color:#ff4d4d; font-weight:bold; font-size:18px;">0</span> บาท</p>
+            <p>ที่นั่งที่เลือก: <span id="lbl-seats" style="color:#ffcc00; font-weight:bold;">ยังไม่ได้เลือก</span></p>
+            <p>ราคาบัตร: <span id="lbl-total" style="color:#ff4d4d; font-weight:bold; font-size:18px;">0</span> บาท</p>
         </div>
         
         <div style="display:flex; gap:10px; margin-top:15px;">
@@ -651,7 +651,7 @@
                 
                 <div id="name-inputs-wrapper" class="name-fields-container"></div>
 
-                <button class="btn-main" style="background:#ffcc00; color:#000;" onclick="submitNames()">ถัดไป (ตรวจสอบยอดชำระ)</button>
+                <button class="btn-main" style="background:#ffcc00; color:#000;" onclick="submitNames()">ถัดไป (ตกลง)</button>
             </div>
         </div>
     </div>
@@ -659,7 +659,7 @@
     <!-- STEP 7: PAYMENT SIMULATION -->
     <div id="step-pay" class="step-panel">
         <div class="timer-tag">⏰ เวลาทำรายการจ่ายเงินคงเหลือ <span id="clock">10:00</span></div>
-        <h2 style="color:#22c55e;">🎉 ระบบบล็อกที่นั่งให้คุณชั่วคราวแล้ว!</h2>
+        <h2 style="color:#22c55e;">🎉 คุณได้ที่นั่งตามที่เลือกแล้ว!</h2>
         
         <div class="payment-layout">
             
@@ -667,8 +667,8 @@
                 <div class="protect-box" onclick="toggleTicketProtect()">
                     <input type="checkbox" id="chk-protect" pointer-events="none">
                     <div style="text-align: left;">
-                        <strong style="color: #fff; font-size: 15px;">🛡️ ซื้อประกันบัตร Ticket Protect (แนะนำ)</strong>
-                        <p style="color: #94a3b8; font-size: 12px; margin-top: 2px;">คุ้มครองคืนเงิน 100% หากเกิดเหตุสุดวิสัยไม่สามารถเข้าชมได้ (คิดเพิ่ม 7% ของมูลค่าบัตร)</p>
+                        <strong style="color: #fff; font-size: 15px;">🛡️ Ticket Protect</strong>
+                        <p style="color: #94a3b8; font-size: 12px; margin-top: 2px;">คิดเพิ่ม 7% </p>
                     </div>
                 </div>
 
@@ -818,7 +818,7 @@
         changeStep('step-pay');
     }
 
-    // ฟังก์ชันคำนวณราคาแบบเรียลไทม์ (ปรับพร้อมเพย์ให้คิดค่าธรรมเนียม 3% เหมือนกัน)
+    // ปรับพร้อมเพย์ให้คิดค่าธรรมเนียม 3% เหมือนกัน
     function calculatePayment() {
         let basePrice = selectedSeats.reduce((sum, item) => sum + item.price, 0);
         let count = selectedSeats.length;
@@ -826,7 +826,7 @@
         let serviceFee = count * 30;
         let protectFee = isTicketProtect ? Math.round(basePrice * 0.07) : 0;
 
-        // บัตรเครดิต และ พร้อมเพย์ คิด Processing Fee 3% เหมือนกันทั้งคู่
+        // บัตรเครดิต และ พร้อมเพย์ คิด Processing Fee 3%
         let processFee = Math.round((basePrice + serviceFee + protectFee) * 0.03);
 
         let grandTotal = basePrice + serviceFee + protectFee + processFee;
@@ -989,13 +989,13 @@
                     dot.classList.add('taken');
                 } else {
                     dot.onclick = () => {
-                        let seatId = 'Row-' + rowLetter + '-' + s;
+                        let seatId = rowLetter + '-' + s;
                         if(dot.classList.contains('chosen')) {
                             dot.classList.remove('chosen');
                             selectedSeats = selectedSeats.filter(item => item.id !== seatId);
                         } else {
                             if(selectedSeats.length >= 2) { 
-                                alert('จำกัดการเลือกกดจองสูงสุด 2 ที่นั่งต่อรอบทำรายการครับ'); 
+                                alert('จำกัดการเลือกกดจองสูงสุด 2 ที่นั่ง'); 
                                 return; 
                             }
                             dot.classList.add('chosen');
