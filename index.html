@@ -665,7 +665,7 @@
             
             <div>
                 <div class="protect-box" onclick="toggleTicketProtect()">
-                    <input type="checkbox" id="chk-protect" pointer-events="none">
+                    <input type="checkbox" id="chk-protect" style="pointer-events: none;">
                     <div style="text-align: left;">
                         <strong style="color: #fff; font-size: 15px;">🛡️ Ticket Protect</strong>
                         <p style="color: #94a3b8; font-size: 12px; margin-top: 2px;">คิดเพิ่ม 7% </p>
@@ -909,10 +909,9 @@
         box.innerHTML = '';
 
         let rowCount = 6;
-        if(["A1","A2","A3","A4","B1","B2","B3","B4","SC","SD","SE","SF","SG","SH","SI","SK","SL","SM"].includes(zoneName)) {
+        if(["A1","A2","A3","A4","B1","B2","B3"].includes(zoneName)) {
             rowCount = 10; 
-        }
-        if(["B4","SC","SD","SE","SF","SG","SH","SI","SK","SL","SM"].includes(zoneName)) {
+        } else if(["B4","SC","SD","SE","SF","SG","SH","SI","SK","SL","SM"].includes(zoneName)) {
             rowCount = 5; 
         }
 
@@ -947,35 +946,16 @@
             let seatColor = '#fff4b3'; 
 
             if (isSpecialPriceZone) {
-                if (rowLetter === 'A' || rowLetter === 'B') {
-                    currentRowPrice = 3800;
-                    seatColor = '#ffd65b'; 
-                } else if (rowLetter === 'C' || rowLetter === 'D') {
-                    currentRowPrice = 3500;
-                    seatColor = '#fff4b3'; 
-                } else if (rowLetter === 'E' || rowLetter === 'F') {
-                    currentRowPrice = 2500;
-                    seatColor = '#0b73d8'; 
-                }
+                if (rowLetter === 'A' || rowLetter === 'B') { currentRowPrice = 3800; seatColor = '#ffd65b'; }
+                else if (rowLetter === 'C' || rowLetter === 'D') { currentRowPrice = 3500; seatColor = '#fff4b3'; }
+                else if (rowLetter === 'E' || rowLetter === 'F') { currentRowPrice = 2500; seatColor = '#0b73d8'; }
             } else if (isHalfPriceZone) {
-                if (rowLetter === 'A' || rowLetter === 'B' || rowLetter === 'C') {
-                    currentRowPrice = 3800;
-                    seatColor = '#ffd65b'; 
-                } else if (rowLetter === 'D' || rowLetter === 'E' || rowLetter === 'F') {
-                    currentRowPrice = 3500;
-                    seatColor = '#fff4b3'; 
-                }
+                if (rowLetter === 'A' || rowLetter === 'B' || rowLetter === 'C') { currentRowPrice = 3800; seatColor = '#ffd65b'; }
+                else if (rowLetter === 'D' || rowLetter === 'E' || rowLetter === 'F') { currentRowPrice = 3500; seatColor = '#fff4b3'; }
             } else if (isLegacyMultiZone) {
-                if (rowLetter === 'A' || rowLetter === 'B' || rowLetter === 'C') {
-                    currentRowPrice = 3800;
-                    seatColor = '#ffd65b'; 
-                } else if (rowLetter === 'D' || rowLetter === 'E') {
-                    currentRowPrice = 3500;
-                    seatColor = '#fff4b3'; 
-                } else if (rowLetter === 'F') {
-                    currentRowPrice = 2800;
-                    seatColor = '#63c5ea'; 
-                }
+                if (rowLetter === 'A' || rowLetter === 'B' || rowLetter === 'C') { currentRowPrice = 3800; seatColor = '#ffd65b'; }
+                else if (rowLetter === 'D' || rowLetter === 'E') { currentRowPrice = 3500; seatColor = '#fff4b3'; }
+                else if (rowLetter === 'F') { currentRowPrice = 2800; seatColor = '#63c5ea'; }
             } else {
                 if(defaultPrice === 6800) seatColor = '#ff1e1e';
                 else if(defaultPrice === 5500) seatColor = '#ff8a00';
@@ -1003,17 +983,33 @@
                 } else {
                     dot.onclick = () => {
                         let seatId = rowLetter + '-' + s;
+                        
                         if(dot.classList.contains('chosen')) {
                             dot.classList.remove('chosen');
                             selectedSeats = selectedSeats.filter(item => item.id !== seatId);
-                        } else {
-                            if(selectedSeats.length >= 2) { 
-                                alert('จำกัดการเลือกกดจองสูงสุด 2 ที่นั่ง'); 
-                                return; 
-                            }
-                            dot.classList.add('chosen');
-                            selectedSeats.push({ id: seatId, price: currentRowPrice }); 
+                            
+                            let total = selectedSeats.reduce((sum, item) => sum + item.price, 0);
+                            document.getElementById('lbl-seats').innerText = selectedSeats.length ? selectedSeats.map(i=>i.id).join(', ') : "ยังไม่ได้เลือก";
+                            document.getElementById('lbl-total').innerText = total.toLocaleString();
+                            return;
                         }
+                        
+                        if(selectedSeats.length >= 2) { 
+                            alert('จำกัดการเลือกกดจองสูงสุด 2 ที่นั่ง'); 
+                            return; 
+                        }
+
+                        // 💥 
+                        let collisionChance = 0.40; 
+                        if(Math.random() < collisionChance) {
+                            dot.classList.add('taken'); 
+                            alert(`❌ ที่นั่งนี้ถูกจองเรียบร้อยแล้ว กรุณาเลือกที่นั่งใหม่`);
+                            return;
+                        }
+
+                        dot.classList.add('chosen');
+                        selectedSeats.push({ id: seatId, price: currentRowPrice }); 
+                        
                         let total = selectedSeats.reduce((sum, item) => sum + item.price, 0);
                         document.getElementById('lbl-seats').innerText = selectedSeats.length ? selectedSeats.map(i=>i.id).join(', ') : "ยังไม่ได้เลือก";
                         document.getElementById('lbl-total').innerText = total.toLocaleString();
@@ -1024,12 +1020,15 @@
             rowDiv.appendChild(gridDiv);
             box.appendChild(rowDiv);
         }
+        
+        // 
         changeStep('step-seats');
     }
 
     function goQueue() {
         changeStep('step-queue');
-        let maxQueue = 5000;           let currentQueue = maxQueue;
+        let maxQueue = 5000;
+        let currentQueue = maxQueue;
         
         function updateTime() {
             let now = new Date();
@@ -1056,31 +1055,30 @@
                 updateTime();
             }
         }, 300); 
-}
+    } // เพิ่มปีกกาปิดฟังก์ชัน goQueue ที่ขาดหายไป ตรงนี้!
 
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-});
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
 
-document.addEventListener('keydown', function(e) {
-    const isCtrlOrCmd = e.ctrlKey || e.metaKey;
-    const key = e.key.toLowerCase();
+    document.addEventListener('keydown', function(e) {
+        const isCtrlOrCmd = e.ctrlKey || e.metaKey;
+        const key = e.key.toLowerCase();
 
-    if (isCtrlOrCmd && (key === 'c' || key === 'x' || key === 'a')) {
-        e.preventDefault();
-    }
-    
-    if (isCtrlOrCmd && (key === 's' || key === 'p')) {
-        e.preventDefault();
-    }
-    
-    if (
-        e.key === 'F12' || 
-        (isCtrlOrCmd && key === 'u') || 
-        (isCtrlOrCmd && e.shiftKey && key === 'i')
-    ) {
-        e.preventDefault();
-    }
-});</script>
+        if (isCtrlOrCmd && (key === 'c' || key === 'x' || key === 'a')) {
+            e.preventDefault();
+        }
+        if (isCtrlOrCmd && (key === 's' || key === 'p')) {
+            e.preventDefault();
+        }
+        if (
+            e.key === 'F12' || 
+            (isCtrlOrCmd && key === 'u') || 
+            (isCtrlOrCmd && e.shiftKey && key === 'i')
+        ) {
+            e.preventDefault();
+        }
+    });
+</script>
 </body>
 </html>
