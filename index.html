@@ -11,17 +11,29 @@
             margin: 0; padding: 0;
             -webkit-tap-highlight-color: transparent;
         }
-        body { background-color: #0b0f17; color: #e2e8f0; padding-bottom: 30px; }
+        body { background-color: #0b0f17; color: #e2e8f0; padding-bottom: 50px; }
         header {
             background: linear-gradient(180deg, #b30000 0%, #7a0000 100%);
-            color: white; padding: 15px; text-align: center; font-size: 15px; font-weight: bold;
+            color: white; padding: 20px; text-align: center; font-size: 18px; font-weight: bold;
             box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         }
-        .container { width: 100%; max-width: 500px; margin: 0 auto; padding: 12px; }
+        
+        .container { 
+            width: 100%; 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+        
+        .narrow-panel {
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
         .step-panel { display: none; }
         .step-panel.active { display: block; }
-        h2 { font-size: 17px; margin-bottom: 5px; color: #e2e8f0; text-align: center; font-weight: bold; }
-        .sub-title { text-align: center; font-size: 12px; color: #94a3b8; margin-bottom: 15px; }
+        h2 { font-size: 22px; margin-bottom: 10px; color: #e2e8f0; text-align: center; font-weight: bold; }
+        .sub-title { text-align: center; font-size: 14px; color: #94a3b8; margin-bottom: 20px; }
 
         .box-panel { background: #11141a; padding: 25px 20px; border-radius: 12px; border: 1px solid #334155; text-align: center; margin-top: 20px; }
         .input-group { margin: 20px 0; text-align: left; }
@@ -37,151 +49,37 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* ==================== ARENA NEW NEW LAYOUT (IMPACT EXACT MAP) ==================== */
         .arena-wrapper {
             background-color: #05070b;
             border-radius: 16px;
-            padding: 20px 10px 35px 10px;
+            padding: 15px;
             border: 1px solid #1e293b;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             overflow: hidden;
-        }
-        
-        .arena {
-            display: grid;
-            grid-template-columns: 1.1fr 1.5fr 1.1fr;
-            width: 100%;
-            max-width: 460px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .stage {
-            grid-column: 1 / span 3;
-            background: #ffffff;
-            color: #000000;
-            text-align: center;
-            padding: 8px;
-            font-weight: bold;
-            font-size: 15px;
-            letter-spacing: 5px;
-            border-radius: 4px;
-            margin-bottom: 25px;
-            box-shadow: 0 0 15px rgba(255,255,255,0.2);
-        }
-
-        /* โซนปีกซ้าย (C, D, E และ SC, SD, SE, SF) ทำการ Skew และ Rotate สไตล์ฮอลล์จริง */
-        .left-wing {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            transform: rotate(6deg) skewY(12deg);
-            transform-origin: top right;
-            padding-right: 5px;
-            margin-top: 5px;
-        }
-
-        /* โซนตรงกลางหลุม (ชั้น 1) A1-A4, B1-B4 */
-        .floor {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            align-items: center;
-            z-index: 10;
-        }
-        .floor-row {
-            display: flex;
-            gap: 4px;
-            width: 100%;
-            justify-content: center;
-        }
-
-        /* โซนปีกขวา (S, R, Q และ SM, SL, SK, SJ) สเกลสะท้อนฝั่งซ้าย */
-        .right-wing {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            transform: rotate(-6deg) skewY(-12deg);
-            transform-origin: top left;
-            padding-left: 5px;
-            margin-top: 5px;
-        }
-
-        /* โซนฐานล่างเกือกม้า (ท้ายฮอลล์) โค้งรับขอบล่าง */
-        .lower {
-            grid-column: 1 / span 3;
-            margin-top: 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            align-items: center;
-        }
-        .lower-row {
             display: flex;
             justify-content: center;
-            gap: 4px;
+        }
+        #seat-map {
             width: 100%;
+            max-height: 80vh;
         }
 
-        /* ป้ายบอกระดับชั้น Level 3 / Level 4 บริเวณปีกซ้าย-ขวา */
-        .level-tag-l, .level-tag-r {
-            position: absolute;
-            top: 10px;
-            font-size: 9px;
-            color: #475569;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-        .level-tag-l { left: 5px; text-align: left; }
-        .level-tag-r { right: 5px; text-align: right; }
-
-        /* บล็อกเหลี่ยมที่นั่งบนแผนผัง (Z-BLOCK) */
-        .z-block {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: 900;
-            border-radius: 4px;
+        .zone {
             cursor: pointer;
-            transition: all 0.1s ease;
-            border: 1px solid rgba(0,0,0,0.3);
-            min-height: 32px;
-            width: 100%;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.6);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease, opacity 0.2s ease;
         }
-        .z-block:active { transform: scale(0.92); filter: brightness(1.2); }
-        
-        /* ตกแต่งย่อยในบล็อกที่ซ้อนระดับราคา (ชั้น 3-4 ในบล็อกเดียว) */
-        .z-block span { font-size: 8px; opacity: 0.8; font-weight: normal; }
-
-        /* สำหรับบล็อกกล้องหรือส่วนที่ห้ามจอง */
-        .bg-cam { background: #1e293b !important; color: #475569 !important; font-size: 8px; cursor: not-allowed; text-shadow: none; box-shadow: none; }
-
-        /* คอนเซปต์กลุ่มก้อนโซนซ้อนชั้นตามราคาใหม่เป๊ะๆ */
-        .composite-zone {
-            display: flex;
-            flex-direction: column;
-            border-radius: 4px;
-            overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.4);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-            width: 100%;
+        .zone:hover {
+            opacity: 0.6;
+            filter: brightness(1.2);
         }
-        .sub-tier {
-            padding: 6px 2px;
-            text-align: center;
-            font-size: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            border-bottom: 1px solid rgba(0,0,0,0.15);
+        .camera-zone {
+            pointer-events: none;
         }
-        .sub-tier:last-child { border-bottom: none; }
-        .sub-tier:active { filter: brightness(1.3); }
+        text {
+            user-select: none;
+            pointer-events: none;
+        }
 
-        /* รหัสสีใหม่แมปปิ้งตรงจุด IMPACT */
         .c-6800 { background-color: #ff1e1e !important; color: #ffffff !important; }
         .c-5500 { background-color: #ff8a00 !important; color: #ffffff !important; }
         .c-3800 { background-color: #ffd65b !important; color: #000000 !important; }
@@ -189,223 +87,533 @@
         .c-2800 { background-color: #63c5ea !important; color: #000000 !important; }
         .c-2500 { background-color: #0b73d8 !important; color: #ffffff !important; }
 
-        /* ตารางแดชบอร์ดราคาด้านล่างผัง */
         .price-table {
             background: #11141a;
             border: 1px solid #232936;
             border-radius: 12px;
-            padding: 12px;
+            padding: 15px;
             margin-top: 15px;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
         }
-        .price-item { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: bold; }
-        .color-dot { width: 16px; height: 16px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.4); }
+        .price-item { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: bold; }
+        .color-dot { width: 18px; height: 18px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.4); }
 
-        /* หน้าเลือกที่นั่ง Grid */
-        .seats-rows-container { background: #11141b; padding: 15px 8px; border-radius: 12px; margin: 15px 0; max-height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
-        .seat-row { display: flex; align-items: center; width: 100%; padding: 1px 0; }
-        .row-label { width: 50px; font-size: 11px; font-weight: bold; color: #64748b; }
-        .row-seats-grid { display: flex; flex-grow: 1; justify-content: space-between; gap: 3px; }
+        /* ปรับปรุงหน้าต่างเลือกที่นั่งให้จัดกลางและติดกันเรียงสวยงาม */
+        .seats-rows-container { 
+            background: #11141b; 
+            padding: 25px 15px; 
+            border-radius: 12px; 
+            margin: 20px 0; 
+            max-height: 550px; 
+            overflow-y: auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+        }
+        .seat-row { display: flex; align-items: center; justify-content: center; width: 100%; padding: 3px 0; }
+        .row-label { width: 80px; font-size: 14px; font-weight: bold; color: #94a3b8; text-align: right; margin-right: 15px; }
+        
+        /* ปรับสไตล์ Grid ที่นั่งไม่ให้กระจายตัว และมีระยะห่างน่ารักพอดีตามรูปตัวอย่าง */
+        .row-seats-grid { 
+            display: flex; 
+            justify-content: center; 
+            gap: 6px; 
+        }
         
         .seat-dot {
-            width: 26px; height: 26px; border-radius: 4px; display: flex; align-items: center; 
-            justify-content: center; font-size: 10px; font-weight: bold; cursor: pointer;
+            width: 36px; height: 36px; border-radius: 6px; display: flex; align-items: center; 
+            justify-content: center; font-size: 13px; font-weight: bold; cursor: pointer;
+            transition: all 0.15s ease-in-out;
         }
-        .seat-dot.chosen { background-color: #ffffff !important; color: #000000 !important; box-shadow: 0 0 12px #ffffff; border: 1px solid #ffffff !important; }
+        @media (max-width: 600px) {
+            .seat-dot { width: 25px; height: 25px; font-size: 10px; border-radius: 4px; }
+            .row-label { width: 50px; font-size: 11px; margin-right: 8px; }
+            .row-seats-grid { gap: 4px; }
+        }
+        .seat-dot.chosen { background-color: #ffffff !important; color: #000000 !important; box-shadow: 0 0 12px #ffffff; border: 2px solid #ffffff !important; }
         .seat-dot.taken { background-color: #232936 !important; color: #4b5563 !important; cursor: not-allowed; border: none !important; }
 
-        .info-card { background: #171b26; padding: 15px; border-radius: 10px; margin-top: 15px; border-left: 4px solid #b30000; font-size: 14px; line-height: 1.8; }
+        .info-card { background: #171b26; padding: 20px; border-radius: 10px; margin-top: 15px; border-left: 4px solid #b30000; font-size: 15px; line-height: 1.8; }
         .btn-main { background: #b30000; color: white; border: none; width: 100%; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 8px; margin-top: 15px; cursor: pointer; }
         .timer-tag { background: #fff3cd; color: #856404; text-align: center; padding: 10px; font-weight: bold; border-radius: 6px; margin-bottom: 20px; }
+
+        .name-fields-container {
+            margin-top: 15px;
+            text-align: left;
+        }
+        .name-field-item {
+            margin-bottom: 15px;
+        }
+        .name-field-item label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #94a3b8;
+        }
+        .name-field-item input {
+            width: 100%; padding: 12px; background: #1e293b; border: 2px solid #475569; border-radius: 8px;
+            color: #fff; font-size: 16px; outline: none;
+        }
+
+        .payment-layout {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        @media (max-width: 768px) {
+            .payment-layout { grid-template-columns: 1fr; }
+        }
+        .pay-option-box {
+            background: #11141a;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        .pay-title {
+            font-weight: bold;
+            font-size: 16px;
+            background: #1e293b;
+            padding: 10px 15px;
+            margin: -20px -20px 20px -20px;
+            border-top-left-radius: 11px;
+            border-top-right-radius: 11px;
+            border-bottom: 1px solid #334155;
+        }
+        .payment-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .pay-method-btn {
+            background: #171b26;
+            border: 2px solid #334155;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #94a3b8;
+            font-weight: bold;
+        }
+        .pay-method-btn.selected {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.1);
+            color: #fff;
+        }
+        .summary-side {
+            background: #11141a;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 20px;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+        .summary-row.total {
+            border-top: 1px dashed #334155;
+            padding-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff4d4d;
+        }
+        .protect-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(179, 0, 0, 0.1);
+            border: 1px solid rgba(179, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .protect-box input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
-<header>PLAVE 1st WORLD TOUR [KEEP IT MANIC] IN BKK</header>
+<header>PLAVE 1st WORLD TOUR [KEEP IT MANIC] IN BANGKOK</header>
 
 <div class="container">
 
     <!-- STEP 1: HOME -->
     <div id="step-home" class="step-panel active">
-        <div class="box-panel" style="margin-top:40px;">
-            <h3 style="color:#fff; margin-bottom:12px;">WELCOME TO LIVE SIMULATOR</h3>
-            <p style="color:#94a3b8; font-size:14px;">ระบบจำลองกดบัตรอ้างอิงผังอัฒจันทร์ Impact Arena เต็มรูปแบบ</p>
+        <div class="narrow-panel">
+            <div class="box-panel" style="margin-top:40px;">
+                <h3 style="color:#fff; margin-bottom:12px;">PLAVE 1st WORLD TOUR [KEEP IT MANIC] IN BANGKOK</h3>
+                <p style="color:#94a3b8; font-size:14px;">เว็บไซต์เพื่อจำลองการกดบัตรคอนเสิร์ต PLAVE 1st WORLD TOUR [KEEP IT MANIC] IN BANGKOK สำหรับ PLLI เท่านั้น</p>
+            </div>
+            <button class="btn-main" onclick="goQueue()">คลิกเพื่อเข้ารับคิว</button>
         </div>
-        <button class="btn-main" onclick="goQueue()">คลิกเพื่อต่อแถวรับคิว</button>
     </div>
 
+   
     <!-- STEP 2: QUEUE -->
-    <div id="step-queue" class="step-panel">
+<div id="step-queue" class="step-panel">
+    <div class="narrow-panel">
         <div class="box-panel">
-            <h2>กำลังจัดลำดับคิวเข้าสู่ระบบ</h2>
-            <div class="spinner"></div>
-            <p style="color:#ffcc00; font-weight:bold; font-size:18px;">จำนวนคิวก่อนหน้าท่าน: <span id="q-num">999</span></p>
+            <h2 style="font-size: 20px; margin-bottom: 20px;">You are in the buying queue.</h2>
+            
+            
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            
+            <p style="margin-top: 15px; font-weight: bold; color: #fff;">
+                จำนวนคิวก่อนหน้าท่าน: <span id="q-num" style="color: #22c55e;">5,000</span>
+            </p>
+            <p style="font-size: 12px; color: #94a3b8; margin-top: 10px;">
+                Status last updated: <span id="update-time">--:--:--</span>
+            </p>
         </div>
     </div>
+</div>
+
+<style>
+    /* เพิ่มสไตล์สำหรับหน้าคิวใหม่ */
+    .progress-container {
+        width: 100%;
+        background-color: #2d323f;
+        border-radius: 10px;
+        height: 12px;
+        overflow: hidden;
+        margin: 10px 0;
+    }
+    .progress-bar {
+    width: 0%; /* เริ่มต้นที่ 0% และจะใช้ JavaScript ไปค่อยๆ เพิ่มความกว้าง */
+    height: 100%;
+    background-color: #22c55e;
+    border-radius: 10px;
+    transition: width 0.3s ease; /* เพิ่ม transition เพื่อให้หลอดขยับแบบสมูท */
+}
+</style>
 
     <!-- STEP 3: MEMBER VERIFICATION -->
     <div id="step-member" class="step-panel">
-        <div class="box-panel">
-            <h2 style="color: #ffcc00;">🔒 MEMBER VERIFICATION</h2>
-            <div class="input-group">
-                <label for="member-code">กรุณากรอกรหัสผ่านเมมเบอร์ (วันเดบิวต์วง PLAVE)</label>
-                <input type="tel" id="member-code" placeholder="YYYYMMDD" maxlength="8">
+        <div class="narrow-panel">
+            <div class="box-panel">
+                <h2 style="color: #ff1900;">🔒 WEVERSE MEMBERSHIP VERIFICATION</h2>
+                <div class="input-group">
+                    <label for="member-code">กรุณากรอกวันเดบิวต์ของ PLAVE (คำถามใช้เพื่อจำลองการกดแทนหมายเลข MEMBERSHIP เท่านั้น)</label>
+                    <input type="tel" id="member-code" placeholder="YYYYMMDD" maxlength="8">
+                </div>
+                <button class="btn-main" style="background:#ff1900; color:#000;" onclick="verifyMember()">ตกลง</button>
             </div>
-            <button class="btn-main" style="background:#ffcc00; color:#000;" onclick="verifyMember()">ยืนยันสิทธิ์เข้าระบบผัง</button>
         </div>
     </div>
 
-    <!-- STEP 4: NEW HTML ARENA MAP -->
+    <!-- STEP 4: MAP -->
     <div id="step-zone" class="step-panel">
-        <h2>เลือกโซนที่นั่งของคุณ</h2>
-        <div class="sub-title">สัมผัสบล็อกหรือริ้วแถบสีตามระดับชั้นโถงอัฒจันทร์เพื่อจองที่นั่ง</div>
+        <h2>เลือกโซนการแสดง</h2>
+        <div class="sub-title">กดเลือกหรือคลิกโซนที่ต้องการ</div>
         
         <div class="arena-wrapper">
-            <div class="arena">
-                
-                <div class="level-tag-l">Level 4 ➔<br>Level 3 ➔</div>
-                <div class="level-tag-r">System ➔<br>Tiers ➔</div>
+          <svg xmlns="http://www.w3.org/2000/svg" id="seat-map" width="100%" viewBox="0 0 1100 1100" fill="none" aria-label="ผังที่นั่ง IMPACT Arena">
+            <g id="map-container" transform="translate(10, 20)">
+              <!-- STAGE & FOH -->
+              <rect id="main-stage" x="291" y="0" width="482" height="136" fill="#333333"/>
+              <rect id="foh-camera" x="485" y="627" width="94" height="70" fill="#555555"/>
+              <text style="fill: #FFFFFF; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px; font-weight: bold;" x="487" y="80">STAGE</text>
+              <text style="fill: #FFFFFF; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px; font-weight: bold;" x="502" y="672">FOH</text>
+              
+              <!-- Zone A1 -->
+              <g id="zone-A1" class="zone" data-zone="A1" data-price="5500" onclick="selZ('A1', 5500)">
+                <rect x="291" y="166" width="105" height="60" fill="#F4A261"/>
+                <rect x="291" y="296" width="105" height="80" fill="#F4A261"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="325" y="206">A1</text>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="324" y="340">A1</text>
+              </g>
 
-                <!-- 1. STAGE -->
-                <div class="stage">STAGE</div>
+              <!-- JIM CAMERA LEFT -->
+              <g id="jim-camera-left" class="camera-zone">
+                <rect x="291" y="226" width="105" height="70" fill="#111111" stroke="#444444" stroke-width="1"/>
+                <text x="343.5" y="256" fill="#FFFFFF" font-size="11" font-family="sans-serif" text-anchor="middle" font-weight="bold">JIM</text>
+                <text x="343.5" y="268" fill="#FFFFFF" font-size="11" font-family="sans-serif" text-anchor="middle" font-weight="bold">CAMERA</text>
+              </g>
 
-                <!-- 2. LEFT WING (ฝั่งซ้ายเอียงสไตล์ IMPACT) -->
-                <div class="left-wing">
-                    <!-- โซนภายนอกสุดแบ่ง Tiers ตามความสูงจริง (C, D, E) -->
-                    <!-- โซน C (บนสุด 2500 -> 2800 -> 3500 -> ล่างสุดของโซน 3800) -->
-                    <div class="composite-zone">
-                        <div class="sub-tier c-2500" onclick="selZ('C', 2500)">C <span>2500</span></div>
-                        <div class="sub-tier c-2800" onclick="selZ('C', 2800)">C <span>2800</span></div>
-                        <div class="sub-tier c-3500" onclick="selZ('C', 3500)">C <span>3500</span></div>
-                        <div class="sub-tier c-3800" onclick="selZ('C', 3800)">C <span>3800</span></div>
-                    </div>
-                    <!-- โซน D (บนสุด 2500 -> 2800 -> ล่างสุดของโซน 3500) -->
-                    <div class="composite-zone">
-                        <div class="sub-tier c-2500" onclick="selZ('D', 2500)">D <span>2500</span></div>
-                        <div class="sub-tier c-2800" onclick="selZ('D', 2800)">D <span>2800</span></div>
-                        <div class="sub-tier c-3500" onclick="selZ('D', 3500)">D <span>3500</span></div>
-                    </div>
-                    <!-- โซน E (บนสุด 2500 -> 2800 -> ล่างสุดของโซน 3500) -->
-                    <div class="composite-zone">
-                        <div class="sub-tier c-2500" onclick="selZ('E', 2500)">E <span>2500</span></div>
-                        <div class="sub-tier c-2800" onclick="selZ('E', 2800)">E <span>2800</span></div>
-                        <div class="sub-tier c-3500" onclick="selZ('E', 3500)">E <span>3500</span></div>
-                    </div>
+              <!-- Zone A2 -->
+              <g id="zone-A2" class="zone" data-zone="A2" data-price="6800" onclick="selZ('A2', 6800)">
+                <rect x="406" y="166" width="125" height="210" fill="#E63946"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="448" y="276">A2</text>
+              </g>
 
-                    <!-- ชั้น Level 3 (ชั้นในถัดมา) มีราคาเดียวคือ 5500 -->
-                    <div class="z-block c-5500" onclick="selZ('SC', 5500)">SC</div>
-                    <div class="z-block c-5500" onclick="selZ('SD', 5500)">SD</div>
-                    <div class="z-block c-5500" onclick="selZ('SE', 5500)">SE</div>
-                    <div class="z-block c-5500" onclick="selZ('SF', 5500)">SF</div>
-                </div>
+              <!-- Zone A3 -->
+              <g id="zone-A3" class="zone" data-zone="A3" data-price="6800" onclick="selZ('A3', 6800)">
+                <rect x="541" y="166" width="125" height="210" fill="#E63946"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="587" y="279">A3</text>
+              </g>
 
-                <!-- 3. FLOOR (ลานกลางและหลุมหน้าเวที) -->
-                <div class="floor">
-                    <div class="floor-row">
-                        <div class="z-block c-5500" style="height:45px;" onclick="selZ('A1', 5500)">A1</div>
-                        <div class="z-block c-6800" style="height:65px;" onclick="selZ('A2', 6800)">A2</div>
-                        <div class="z-block c-6800" style="height:65px;" onclick="selZ('A3', 6800)">A3</div>
-                        <div class="z-block c-5500" style="height:45px;" onclick="selZ('A4', 5500)">A4</div>
-                    </div>
-                    <!-- บล็อกพิเศษขนาบข้างหลุม -->
-                    <div class="floor-row" style="margin-top: -16px; width: 100%; justify-content: space-between; padding: 0 4px;">
-                        <div class="z-block bg-cam" style="width:28px; min-height:26px; font-size:7px;">CAM</div>
-                        <div class="z-block bg-cam" style="width:28px; min-height:26px; font-size:7px;">CAM</div>
-                    </div>
-                    <div class="floor-row" style="margin-top: 6px;">
-                        <div class="z-block c-5500" style="height:48px;" onclick="selZ('B1', 5500)">B1</div>
-                        <div class="z-block c-6800" style="height:48px;" onclick="selZ('B2', 6800)">B2</div>
-                        <div class="z-block c-6800" style="height:48px;" onclick="selZ('B3', 6800)">B3</div>
-                        <div class="z-block c-5500" style="height:48px;" onclick="selZ('B4', 5500)">B4</div>
-                    </div>
-                    <div class="z-block bg-cam" style="width:90%; min-height:20px; margin-top:8px;">FOH CONTROL</div>
-                </div>
+              <!-- Zone A4 -->
+              <g id="zone-A4" class="zone" data-zone="A4" data-price="5500" onclick="selZ('A4', 5500)">
+                <rect x="676" y="166" width="105" height="210" fill="#F4A261"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="710" y="280">A4</text>
+              </g>
 
-                <!-- 4. RIGHT WING (ฝั่งขวาเอียงลู่เข้าหาเวที) -->
-                <div class="right-wing">
-                    <!-- โซน S (บนสุด 2500 -> 2800 -> 3500 -> ล่างสุดของโซน 3800) -->
-                    <div class="composite-zone">
-                        <div class="sub-tier c-2500" onclick="selZ('S', 2500)">S <span>2500</span></div>
-                        <div class="sub-tier c-2800" onclick="selZ('S', 2800)">S <span>2800</span></div>
-                        <div class="sub-tier c-3500" onclick="selZ('S', 3500)">S <span>3500</span></div>
-                        <div class="sub-tier c-3800" onclick="selZ('S', 3800)">S <span>3800</span></div>
-                    </div>
-                    <!-- โซน R (บนสุด 2500 -> 2800 -> ล่างสุดของโซน 3500) -->
-                    <div class="composite-zone">
-                        <div class="sub-tier c-2500" onclick="selZ('R', 2500)">R <span>2500</span></div>
-                        <div class="sub-tier c-2800" onclick="selZ('R', 2800)">R <span>2800</span></div>
-                        <div class="sub-tier c-3500" onclick="selZ('R', 3500)">R <span>3500</span></div>
-                    </div>
-                    <!-- โซน Q (บนสุด 2500 -> 2800 -> ล่างสุดของโซน 3500) -->
-                    <div class="composite-zone">
-                        <div class="sub-tier c-2500" onclick="selZ('Q', 2500)">Q <span>2500</span></div>
-                        <div class="sub-tier c-2800" onclick="selZ('Q', 2800)">Q <span>2800</span></div>
-                        <div class="sub-tier c-3500" onclick="selZ('Q', 3500)">Q <span>3500</span></div>
-                    </div>
+              <!-- Zone B1 -->
+              <g id="zone-B1" class="zone" data-zone="B1" data-price="5500" onclick="selZ('B1', 5500)">
+                <rect x="291" y="386" width="105" height="210" fill="#F4A261"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="328" y="498">B1</text>
+              </g>
 
-                    <!-- ชั้น Level 3 ฝั่งขวา (SM, SL, SK, SJ) -->
-                    <div class="z-block c-5500" onclick="selZ('SM', 5500)">SM</div>
-                    <div class="z-block c-5500" onclick="selZ('SL', 5500)">SL</div>
-                    <div class="z-block c-5500" onclick="selZ('SK', 5500)">SK</div>
-                    <div class="z-block c-5500" onclick="selZ('SJ', 5500)">SJ</div>
-                </div>
+              <!-- Zone B2 -->
+              <g id="zone-B2" class="zone" data-zone="B2" data-price="6800" onclick="selZ('B2', 6800)">
+                <rect x="406" y="386" width="125" height="210" fill="#E63946"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="456" y="500">B2</text>
+              </g>
 
-                <!-- 5. LOWER (ท้ายฮอลล์ อัฒจันทร์ทรงเกือกม้าชั้นหลังสุด) -->
-                <div class="lower">
-                    <!-- แถวหน้าสุดของโซนท้ายฮอลล์ (SG, SH, SI) บัตรราคาสูงสุดของอัฒจันทร์ 6800 -->
-                    <div class="lower-row" style="width: 86%;">
-                        <div class="z-block c-6800" onclick="selZ('SG', 6800)">SG</div>
-                        <div class="z-block c-6800" onclick="selZ('SH', 6800)">SH</div>
-                        <div class="z-block c-6800" onclick="selZ('SI', 6800)">SI</div>
-                    </div>
-                    
-                    <!-- โครงสร้างโซนเฉลียงท้ายฮอลล์ ไล่ระดับความสูงแบ่งเป็น 2 ชั้นราคา (2500 บนสุด / 3500 ด้านล่าง) -->
-                    <div class="lower-row">
-                        <!-- โซน F ถึง P -->
-                        <div class="composite-zone" style="width:36px;"><div class="sub-tier c-2500" onclick="selZ('F', 2500)">F</div></div>
-                        <div class="composite-zone" style="width:36px;"><div class="sub-tier c-2500" onclick="selZ('G', 2500)">G</div></div>
-                        
-                        <!-- โซนหลักท้ายฮอลล์แบ่งชั้นซ้อน (2500 อยู่บน / 3500 อยู่ล่าง) -->
-                        <div class="composite-zone" style="width:38px;">
-                            <div class="sub-tier c-2500" onclick="selZ('H', 2500)">H</div>
-                            <div class="sub-tier c-3500" onclick="selZ('H', 3500)">H</div>
-                        </div>
-                        <div class="composite-zone" style="width:38px;">
-                            <div class="sub-tier c-2500" onclick="selZ('I', 2500)">I</div>
-                            <div class="sub-tier c-3500" onclick="selZ('I', 3500)">I</div>
-                        </div>
-                        <div class="composite-zone" style="width:38px;">
-                            <div class="sub-tier c-2500" onclick="selZ('J', 2500)">J</div>
-                            <div class="sub-tier c-3500" onclick="selZ('J', 3500)">J</div>
-                        </div>
-                        <div class="composite-zone" style="width:38px;">
-                            <div class="sub-tier c-2500" onclick="selZ('K', 2500)">K</div>
-                            <div class="sub-tier c-3500" onclick="selZ('K', 3500)">K</div>
-                        </div>
-                        <div class="composite-zone" style="width:38px;">
-                            <div class="sub-tier c-2500" onclick="selZ('L', 2500)">L</div>
-                            <div class="sub-tier c-3500" onclick="selZ('L', 3500)">L</div>
-                        </div>
-                        <div class="composite-zone" style="width:38px;">
-                            <div class="sub-tier c-2500" onclick="selZ('M', 2500)">M</div>
-                            <div class="sub-tier c-3500" onclick="selZ('M', 3500)">M</div>
-                        </div>
-                        <div class="composite-zone" style="width:38px;">
-                            <div class="sub-tier c-2500" onclick="selZ('N', 2500)">N</div>
-                            <div class="sub-tier c-3500" onclick="selZ('N', 3500)">N</div>
-                        </div>
-                        
-                        <div class="composite-zone" style="width:36px;"><div class="sub-tier c-2500" onclick="selZ('O', 2500)">O</div></div>
-                        <div class="composite-zone" style="width:36px;"><div class="sub-tier c-2500" onclick="selZ('P', 2500)">P</div></div>
-                    </div>
-                </div>
+              <!-- Zone B3 -->
+              <g id="zone-B3" class="zone" data-zone="B3" data-price="6800" onclick="selZ('B3', 6800)">
+                <rect x="541" y="386" width="125" height="210" fill="#E63946"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="590" y="502">B3</text>
+              </g>
 
-            </div>
+              <!-- Zone B4 -->
+              <g id="zone-B4" class="zone" data-zone="B4" data-price="5500" onclick="selZ('B4', 5500)">
+                <rect x="676" y="386" width="105" height="45" fill="#F4A261"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="711" y="416">B4</text>
+              </g>
+
+              <!-- JIM CAMERA RIGHT -->
+              <g id="jim-camera-right" class="camera-zone">
+                <polygon points="676 436 781 436 781 540.7 729.1 591.7 678.1 593.1" fill="#111111" stroke="#444444" stroke-width="1"/>
+                <text x="728.5" y="510" fill="#FFFFFF" font-size="11" font-family="sans-serif" text-anchor="middle" font-weight="bold">JIM</text>
+                <text x="728.5" y="522" fill="#FFFFFF" font-size="11" font-family="sans-serif" text-anchor="middle" font-weight="bold">CAMERA</text>
+              </g>
+
+              <!-- Zone SC -->
+              <g id="zone-SC" class="zone" data-zone="SC" onclick="selZ('SC', 5500)">
+                <path d="M190.8 266.8L190.7 397.4L279.4 397.5L279.5 266.9L190.8 266.8Z" fill="#F4A261"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="215" y="342">SC</text>
+              </g>
+
+              <!-- Zone SD -->
+              <g id="zone-SD" class="zone" data-zone="SD" onclick="selZ('SD', 5500)">
+                <path d="M190.8 403.8L190.8 535.2L279.4 535.2L279.4 403.9L190.8 403.8Z" fill="#F4A261"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="217" y="476">SD</text>
+              </g>
+
+              <!-- Zone SE -->
+              <g id="zone-SE" class="zone" data-zone="SE" onclick="selZ('SE', 5500)">
+                <path d="M263.1 681.3L245.8 691.7L231.5 699.9L224.1 688L196.6 642.3C194.2 638.4 191.2 633.8 191.2 629L190.9 545.3C190.9 544.6 191.3 541.9 192.2 541.9L279.1 541.8L279.3 608C289.6 623.1 299.6 637.6 308.6 653.6L279.5 671.3L263.1 681.3Z" fill="#F4A261"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="220" y="623">SE</text>
+              </g>
+
+              <!-- Zone SF -->
+              <g id="zone-SF" class="zone" data-zone="SF" onclick="selZ('SF', 5500)">
+                <path d="M330.4 798.2L284.3 770.1C280.9 768 276.7 766.6 274.5 763.4L264.9 749.6L237.9 704.7L254.1 694.2L291 672.2L315.1 658L332.2 683.1L345.6 703.8L384.4 727.2L371.2 750.4L340.3 802.8C336.6 801.8 333.8 800.3 330.4 798.2Z" fill="#F4A261"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="297" y="738">SF</text>
+              </g>
+
+              <!-- Zone SG -->
+              <g id="zone-SG" class="zone" data-zone="SG" onclick="selZ('SG', 6800)">
+                <path d="M464.6 839.2C459.6 840.9 454.4 840.9 449.1 840.9L415.6 840.8C408.7 840.8 402.2 841 395.5 839.7L375.9 828.4L351.3 814C348.4 812.4 346.1 810.7 343.8 807.8L362.9 775.1L387.7 732.5L403.8 742.3C409 745.4 413.6 749.9 419.5 751.8C425.9 753.7 432.9 752.9 439.5 752.9L463.7 752.8C465 756.9 465.3 760.9 465.2 765L465.1 803.9L464.6 839.2Z" fill="#E63946"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="392" y="800">SG</text>
+              </g>
+
+              <!-- Zone SH -->
+              <g id="zone-SH" class="zone" data-zone="SH" onclick="selZ('SH', 6800)">
+                <path d="M586.2 752.6H471V840.8H586.2V752.6Z" fill="#E63946"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="508" y="800">SH</text>
+              </g>
+
+              <!-- Zone SI -->
+              <g id="zone-SI" class="zone" data-zone="SI" onclick="selZ('SI', 6800)">
+                <path d="M 616.9 840.2 L 589.5 839.8 L 589.4 769.8 L 589.4 752.2 L 619.6 752.4 C 625.7 752.4 632.8 753.2 638.4 750.8 L 671.4 737.8 L 687.9 763.6 L 715.8 806.5 L 666.5 836.4 C 661.1 839.7 655.4 840.7 649 840.4 L 616.9 840.2 Z" fill="#E63946"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="632" y="798">SI</text>
+              </g>
+
+              <!-- Zone SJ -->
+              <g id="zone-SJ" class="zone" data-zone="SJ" onclick="selZ('SJ', 5500)">
+                <path d="M 758.1 786 L 730.9 802.3 C 729 803.4 727.2 804.4 724.8 804.8 L 712.4 785.5 L 677.6 734.6 L 715.1 708.4 C 720.2 705.2 724.4 702 727.5 696.7 L 749.7 659.7 C 755.8 661.6 760.8 664.8 766.3 667.9 L 805.4 691.7 L 828.4 705.3 L 791.4 762 L 788.3 766.8 C 784.8 770.3 779.9 773.2 758.1 786 Z" fill="#F4A261"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="738" y="736">SJ</text>
+              </g>
+
+              <!-- Zone SK -->
+              <g id="zone-SK" class="zone" data-zone="SK" onclick="selZ('SK', 5500)">
+                <path d="M822.1 688.9L764.1 654.6L793 610.6L792.7 561.8L793.6 541.9L881.3 541.8L881.2 635.8L845.6 695C844.6 697.2 843.6 699.2 841.3 700L822.1 688.9Z" fill="#F4A261"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="816" y="615">SK</text>
+              </g>
+
+              <!-- Zone SL -->
+              <g id="zone-SL" class="zone" data-zone="SL" onclick="selZ('SL', 5500)">
+                <path d="M880.5 405.5H792V537.1H880.5V405.5Z" fill="#F4A261"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="824" y="478">SL</text>
+              </g>
+
+              <!-- Zone SM -->
+              <g id="zone-SM" class="zone" data-zone="SM" onclick="selZ('SM', 5500)">
+                <path d="M793.1 265.3L793 397.1L881.6 397.2L881.7 265.3L793.1 265.3Z" fill="#F4A261"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="819" y="337">SM</text>
+              </g>
+
+              <!-- Zone C -->
+              <g id="zone-C" class="zone" data-zone="C" onclick="selZ('C', 2500)">
+                <path d="M 37 266.4 L 37 360.7 L 37.2 395.1 C 37.3 396.5 37.5 398.3 37.5 396.8 L 11.2 397.3 C 9.3 397.3 11.1 398.3 9.6 397.2 L 9.3 359.2 L 9.3 266.5 L 37 266.4 Z" fill="#2D61A7"/>
+                <path d="M 70.6 288.1 L 70.4 373.4 L 61 374.3 L 61.9 396.9 L 47.5 396.7 L 35 397.2 C 34.8 396.9 34.4 398.7 34.4 397.3 L 34.5 357.3 L 34.7 266.4 L 61 266.5 L 61 287.6 C 64.4 287.9 67.4 287.2 70.6 288.1 Z" fill="#FFE3A8"/>
+                <path d="M 85.7 288 C 93.8 288 129.1 287.8 137.1 287.8 C 145.1 287.7 153.1 287.8 161.3 288.1 L 161.5 331 L 161.6 373.9 L 123 373.6 L 84.3 373.3 C 73.1 373.5 67.3 373.5 64.2 373.5 C 61.1 373.4 60.9 373.4 60.9 373.4 L 61.3 330.8 L 61.7 288.1" fill="#E9C46A"/>
+                <rect x="60.2" y="267" width="29.8" height="130.3" fill="#E9C46A"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="78.6" y="338">C</text>
+              </g>
+
+              <!-- Zone D -->
+              <g id="zone-D" class="zone" data-zone="D" onclick="selZ('D', 2500)">
+                <path d="M37.5 404.2L36.9 535 L12.3 535 C11.4 535 9.3 534.6 9.3 533.4 L9.4 503.6 L9.2 404.4 C18.9 403.6 28 404.2 37.5 404.2 H37.5Z" fill="#2D61A7"/>
+                <path d="M 107.9 426.5 C 108 427.3 108.4 428.2 108.4 429.4 L 108.8 457.5 L 108.2 507.6 C 108.2 509.4 97.2 511.8 96.7 512 C 96.7 512 78.9 512.4 88.8 511.6 L 88.7 535.2 L 33.6 535 L 34.2 404.2 L 88.4 404.2 L 88.8 426.6 L 107.9 426.5 Z" fill="#FFE3A8"/>
+                <path d="M 61.3 535.6 L 60.6 404.6 C 60.5 403.5 90.3 405.2 90.1 404.4 L 90.2 426.7 L 172.9 426.7 L 173.4 470.5 L 172.8 511.9 L 89.5 512.3 L 89.4 535.6" fill="#E9C46A"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="91.6" y="477">D</text>
+              </g>
+
+              <!-- Zone E -->
+              <g id="zone-E" class="zone" data-zone="E" onclick="selZ('E', 2500)">
+                <path d="M 107.7 564.8 L 108.3 587.2 L 104.7 647.2 L 67.8 662.8 L 33.6 671 L 33.9 623.5 L 34.1 541.8 L 88.6 541.7 L 88.8 564.5 L 107.7 564.8 Z" fill="#FFE3A8"/>
+                <path d="M 63.3 663.4 C 63.3 666.2 61.3 544.8 61.3 542.5 L 88.6 542.9 L 89.7 564.8 L 173 564.8 L 173.1 635.7 L 128.6 647.3 L 63.3 663.4 Z" fill="#E9C46A"/>
+                <path d="M 34.5 541.8 L 34.3 623.5 L 34.1 671 C 26.1 674.2 17.8 676.5 9.3 676.9 L 9.2 542.4 C 17.9 541.2 26.1 541.8 34.5 541.8V541.8Z" fill="#2D61A7"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="97.2" y="608">E</text>
+              </g>
+
+              <!-- Zone F -->
+              <g id="zone-F" class="zone" data-zone="F" onclick="selZ('F', 3500)">
+                <path d="M127.8 698.3L111.1 667.4C110 665.2 108.7 663.3 108.4 661L116 659.2L176.4 643.1C180.4 650.4 184.1 657.4 189.5 663.7L145.7 687.6L127.8 698.3Z" fill="#E9C46A"/>
+                <path d="M108.4 661C108.7 663.3 110 665.2 111.1 667.4L127.8 698.3L119.5 703L130.8 723.8L141.1 743.7C123.7 754.9 106.1 764.3 88.4 774.1L72.3 744.5L38 679.9L64.1 672.5L95.9 663.9L108.4 661Z" fill="#E9C46A"/>
+                <path d="M38 679.9L72.3 744.5L88.4 774.1L55.6 792.2L17.5 721.9L0.4 694.6C0.3 693.2 0.6 691.4 1.2 690.3C1.8 689.5 3.4 688.9 4.7 688.6L21.4 684.1L38 679.9Z" fill="#FFE3A8"/>
+                <path d="M55.7 792.2C52 794.2 48.9 797 44.4 798.5L35.2 781.7L10.9 737.5C7.1 730.7 3 724.2 1 716.7C-1 709.5 0.6 701.9 0.4 694.6L17.5 721.9L55.7 792.2Z" fill="#A8DADC"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="91.6" y="717">F</text>
+              </g>
+
+              <!-- Zone G -->
+              <g id="zone-G" class="zone" data-zone="G" onclick="selZ('G', 2800)">
+                <path d="M196.8 824L176.7 787.6L207 770.2L238.5 751.7C239.4 751.2 240.7 751.2 241.3 751.5C241.8 751.8 242.3 752.5 242.7 753.2L251.3 768.1L236.6 783.4L202.9 817.5L196.8 824Z" fill="#E9C46A"/>
+                <path d="M176.7 787.6L196.8 824L189 833.1L161 861.4L144.8 877.9L131.7 853.2L111.6 816.5L93.4 782.3C97.1 779.1 101.4 777.1 105.9 774.6L146.2 752.2L166.9 789.8C169 793.5 171.1 789.1 176.7 787.6V787.6Z" fill="#E9C46A"/>
+                <path d="M93.4 782.3L111.6 816.4L131.7 853.2L144.8 877.9L138 884.4L117.6 904.7C114.3 900.6 111.5 896.4 109.1 891.6L100.2 873.7L60.2 800.8L93.4 782.3Z" fill="#FFE3A8"/>
+                <path d="M60.2 800.8L100.2 873.7L109.1 891.6C111.5 896.4 114.4 900.7 117.6 904.7C115.3 908.8 112 911.9 108.6 915.2L88.7 879.8L66.2 838.6L49.4 807.7C52.3 803.8 56.3 802 60.2 800.8Z" fill="#A8DADC"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="143.7" y="810">G</text>
+              </g>
+
+              <!-- Zone H -->
+              <g id="zone-H" class="zone" data-zone="H" onclick="selZ('H', 2500)">
+                <path d="M243 848.8L227.4 840.5L206.4 828.2L219.5 814.9L234.3 798.9L249.6 784C250.9 782.7 252.7 782.4 254.4 783.3C260.9 786.4 266.9 790 272.3 794.9L260.3 817.4L245.2 845.4L243 848.8Z" fill="#E9C46A"/>
+                <path d="M206.4 828.2L227.4 840.5L243 848.8L237.1 861.9L273.4 882.8L262.3 902.3L244.1 934.6L234.2 929.7L194.3 907.2L153.2 883.6L176.1 859.3L206.4 828.2Z" fill="#E9C46A"/>
+                <path d="M153.2 883.6L194.3 907.2L234.2 929.7L244.1 934.6L230.5 958.9L224.8 968.3L201.9 957.2L189 950.1L165.1 937.1L137.8 920.6L127.2 915.3C126.4 914.9 125.8 914.4 125.3 913.5C129.6 907.3 135.1 902.8 140.1 897.4L151.6 884.8C152.2 884.7 153.7 884.5 153.2 883.6V883.6Z" fill="#FFE3A8"/>
+                <path d="M125.4 913.5C125.8 914.4 126.4 914.9 127.2 915.3L137.8 920.6L165.1 937.1L189 950.1L201.9 957.2L224.8 968.3C222.5 972 222 976.7 218 979.7L198.1 968.5L156.8 944.7L123.9 926.2L116.7 921.2C119.2 918.2 121.9 915.1 125.4 913.5Z" fill="#A8DADC"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="216.3" y="887">H</text>
+              </g>
+
+              <!-- Zone I -->
+              <g id="zone-I" class="zone" data-zone="I" onclick="selZ('I', 2500)">
+                <path d="M 367.6 921.5 C 365.2 917.9 356.1 918.9 352.1 916.7 L 332.3 899.4 L 348.6 870 L 362.4 845.3 L 383.1 856.3 C 383.7 858.5 383.1 860.7 382.7 863 L 376.3 887.4 L 370.5 909.2 L 367.6 921.5 Z" fill="#E9C46A"/>
+                <path d="M332.3 899.4L357.2 913.6C361.3 915.8 365.2 917.9 367.6 921.5L362.3 940.8L348.7 992.1C347.3 991.6 345.9 991.3 344.7 990.7L327.5 981.7L255.4 941.5C254.3 940.4 253.5 940.4 252.7 939.2L281.3 888.2C287.7 890.3 293 894 298.8 897.3L325.6 912.4C327.4 907.5 329.9 903.6 332.3 899.4V899.4Z" fill="#E9C46A"/>
+                <path d="M348.7 992.1L342.7 1014.3L337.7 1032.5C322.8 1026.6 309.4 1018.6 296.2 1009.8L286.6 1005.5L267.3 994.7L240 978.1L233.2 975.3C238.6 962.5 245.8 951.2 252.7 939.3C253.5 940.4 254.3 941.5L327.5 981.7L344.7 990.7C345.9 991.4 347.3 991.6 348.7 992.1Z" fill="#FFE3A8"/>
+                <path d="M337.7 1032.5L334.5 1045.4L253.6 999.6L227.8 984.8C228.9 981.2 230.6 978 233.2 975.3L240 978.1L267.3 994.7L286.6 1005.5L296.2 1009.8C309.4 1018.6 322.8 1026.6 337.7 1032.5Z" fill="#A8DADC"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="307.4" y="942">I</text>
+              </g>
+
+              <!-- Zone J -->
+              <g id="zone-J" class="zone" data-zone="J" onclick="selZ('J', 2500)">
+                <path d="M 427.3 919 L 405.9 924.8 L 376.5 919.7 L 387.4 876.5 C 387.4 871.1 389.8 865.9 392.3 861 L 426.5 860.7 L 427.2 871.2 L 427.3 919 Z" fill="#E9C46A"/>
+                <path d="M484 989.7C483 991.1 483.3 993.1 483.3 995.1L396.4 995.1L357.8 995L373.6 930.1L376.5 919.7L405.9 919.1L427.3 919 L484.5 918.8 L484 989.7Z" fill="#E9C46A"/>
+                <path d="M 437.6 1035.1 L 399.8 1035.2 L 347.2 1035.2 L 350.9 1018.7 L 364.7 966.4 L 394.7 966.1 L 483.3 966 C 483.3 964 483.5 991.1 484.5 989.7 C 484.5 994.6 485.7 1004.4 483.1 1006.9 C 482.3 1007.7 481.2 1007.6 479.9 1007.6 L 437.6 1007.7 L 437.6 1035.1 Z" fill="#FFE3A8"/>
+                <path d="M 437.9 1035.1 L 438.1 1042.6 C 438.3 1044.7 436.6 1046.4 434.3 1046.4 L 365.4 1046.5 L 344.5 1045.9 L 347.3 1035.2 L 400 1035.2 L 438 1035.1 Z" fill="#FFE3A8"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="416" y="957">J</text>
+              </g>
+
+              <!-- Zone K -->
+              <g id="zone-K" class="zone" data-zone="K" onclick="selZ('K', 2500)">
+                <path d="M 562.8 938.9 L 562.8 1014.7 L 499.8 1014.1 L 499.4 953.1 L 499.8 938.3 L 562.8 938.9 Z" fill="#FFE3A8"/>
+                <path d="M 562.8 970.1 L 500.1 970 L 499.5 877.7 L 499.5 860.6 L 537.7 860.6 L 562.2 861.3 C 563.5 867.7 562.7 874.9 562.6 881.8 L 562.5 942.9 L 562.8 970.1 Z" fill="#E9C46A"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="522" y="948">K</text>
+              </g>
+
+              <!-- Zone L -->
+              <g id="zone-L" class="zone" data-zone="L" onclick="selZ('L', 2500)">
+                <path d="M 685.3 919.3 L 659.7 925.6 L 636.4 919 L 636.5 860.6 L 671 860.7 L 672.9 870.5 L 683.9 916 L 685.3 919.3 Z" fill="#E9C46A"/>
+                <path d="M 635.4 919 L 658.2 919.3 L 684.9 919.3 L 694.5 963.2 L 696.7 969.6 L 695.8 970.8 L 619 971.9 L 579.5 973 L 579 956.7 L 578.9 918.7 L 635.4 919 Z" fill="#E9C46A"/>
+                <path d="M 696.5 966.6 L 714.9 1035.1 L 624.6 1035.2 L 624.4 1007.6 L 579.2 1007.4 L 580 970.2 C 580 970.2 618.6 970.3 618.6 970.3 L 696.5 966.6 Z" fill="#FFE3A8"/>
+                <path d="M714.9 1035.1C715.7 1038.3 717.9 1041.4 717.3 1045.4C713.3 1046.4 704.8 1046.2 704.8 1046.2L629.5 1046.1C627.5 1046.1 625.7 1045.5 624.9 1043.9L624.6 1035.1Z" fill="#FFE3A8"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="632" y="953">L</text>
+              </g>
+
+              <!-- Zone M -->
+              <g id="zone-M" class="zone" data-zone="M" onclick="selZ('M', 2500)">
+                <path d="M 730.7 899.1 C 730.1 899.6 724.8 912.9 724 913.3 L 721.7 925.9 C 720.5 926.6 697 918.5 695.5 918.5 L 693.6 913.2 L 684.6 879.1 L 679.5 857 C 685.6 852.6 700.5 843.8 702.3 847 L 717.4 875 L 730.7 899.1 Z" fill="#E9C46A"/>
+                <path d="M810.9 939.7L730.6 984.5L714.9 991.8L713.2 987.4L695.5 918.5C697 918.5 698 918.1 699.2 917.5L728.9 900.7C729.7 900.2 730.1 899.6 730.7 899.1L737.9 911.8C743.5 909.9 747.8 906.7 752.8 903.9L781.4 888L793.5 907.3L810.9 939.7Z" fill="#E9C46A"/>
+                <path d="M830.5 975.2L810.8 984.7L768.2 1008.6L736.4 1026.8C732.9 1028.8 729.3 1030.3 725.2 1030.9L714.9 991.8L730.6 984.5L810.9 939.7L830.5 975.2Z" fill="#FFE3A8"/>
+                <path d="M830.5 975.2C832.3 978.4 834.4 981.1 835.3 984.9L791.6 1010L748.5 1034.7L729 1045C726.6 1040.3 726.4 1035.5 725.2 1030.9C729.3 1030.3 732.9 1028.8 736.4 1026.8L768.2 1008.6L810.8 984.7L830.5 975.2Z" fill="#A8DADC"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="733" y="943">M</text>
+              </g>
+
+              <!-- Zone N -->
+              <g id="zone-N" class="zone" data-zone="N" onclick="selZ('N', 2500)">
+                <path d="M857.4 828.5C845.2 836 832.9 843 819.9 848.9L805.9 822.8L792.5 797.2C791.4 795 791.8 793.3 793.9 792.1L811.8 781.9C815.9 784.7 818.6 788.2 822 791.7L857.4 828.5Z" fill="#E9C46A"/>
+                <path d="M 857.4 828.5 L 880 851.7 L 909.7 883.4 C 905.3 887.3 900.6 889.6 895.5 892.5 L 826.4 930.8 L 819.8 934.9 L 817.2 931.4 L 790.8 882.3 L 826.6 861.7 L 819.8 848.9 C 832.9 842.6 845.1 834.6 857.4 828.5 Z" fill="#E9C46A"/>
+                <path d="M938.6 914.1L901.5 933.4L854.5 959.7C849.1 962.7 844.4 966.1 838.3 967.7L819.8 934.9L826.4 930.8L895.5 892.4C900.6 889.6 905.3 887.3 909.7 883.4L920.1 894.5L938.6 914.1Z" fill="#FFE3A8"/>
+                <path d="M838.3 967.7C844.4 966.2 849.1 962.7 844.4 959.7L901.5 933.4L938.6 914.1C941.1 916.8 945.2 918.2 946.4 923L926 933.9L866.9 967.2L844.6 979.4L838.3 967.7Z" fill="#A8DADC"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="835" y="886">N</text>
+              </g>
+
+              <!-- Zone O -->
+              <g id="zone-O" class="zone" data-zone="O" onclick="selZ('O', 2500)">
+                <path d="M886.3 787.2L881.4 796.6L866.5 824.4L852.7 809.6L813.8 770.4C811.8 768.4 812.6 766.2 813.9 764.1L820 753.7C820.6 752.7 821.6 751.6 822.5 751.6C823.4 751.6 824.7 751.9 825.6 752.4L870.3 778.3L886.3 787.2Z" fill="#E9C46A"/>
+                <path d="M 970.5 782.3 L 947.1 824.6 L 917.9 877.2 L 887.7 846.7 L 866.4 824.4 L 877.2 796.6 L 886.3 787.2 C 889.1 788.7 892.1 789.6 894.9 791.7 L 907.2 770.3 L 917 752.3 L 946 768.4 L 970.5 782.3 Z" fill="#E9C46A"/>
+                <path d="M1003.5 801.9L990.7 823L970.1 861.3L953.1 892.3L945.3 904.1C940.9 901.4 937.8 897.7 934.3 894L923.7 882.7L917.9 877.2L947.1 824.6L970.5 782.3L1003.5 801.9Z" fill="#FFE3A8"/>
+                <path d="M945.3 904.1L953.1 892.3L970.1 861.3L990.7 822.9L1003.5 801.9C1007.4 802.6 1010.8 804.4 1013.8 807.4L968.9 890.2L955.2 915.2C951.3 911.7 947.5 908.4 945.3 904.1Z" fill="#A8DADC"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="910" y="818">O</text>
+              </g>
+
+              <!-- Zone Q -->
+              <g id="zone-Q" class="zone" data-zone="Q" onclick="selZ('Q', 2500)">
+                <path d="M 1042.1 545.4 L 1042 575.9 L 1041.7 671.4 C 1039.4 670.8 1035.1 673.6 1033 672.5 L 992.7 661.8 L 958.4 654.8 C 957 654.5 955.8 654 954.9 653.3 L 955.3 624.4 L 955.2 565.7 L 978.6 565.4 L 999.6 542 L 1035.2 542.1 L 1042.1 545.4 Z" fill="#FFE3A8"/>
+                <path d="M 972.7 541.5 L 999.8 541.7 L 1000.2 626.3 L 999.8 647 L 999.2 663.5 L 966.1 655.5 L 941.4 648.9 L 941.4 648.9 L 915.8 642.2 L 890.3 635.6 L 890.3 603.2 L 890.2 570.8 C 890.2 569.8 890.3 568.9 890.4 568.1 C 890.6 567.2 890.8 566.4 891.1 565.5 L 897.4 565.1 L 903.8 564.7 L 929.5 564.7 L 955.2 564.7 L 972.4 564 L 972.7 541.5 Z" fill="#E9C46A"/>
+                <path d="M 1027.6 670.4 L 1027.9 574.9 L 1028.1 541.9 L 1054.3 541.9 L 1054.2 677.7 C 1044.7 675.9 1036.2 673.7 1027.6 670.4 Z" fill="#2D61A7"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="977.3" y="608.5">Q</text>
+              </g>
+
+              <!-- Zone P -->
+              <g id="zone-P" class="zone" data-zone="P" onclick="selZ('P', 3500)">
+                <path d="M955.6 661L946.3 677.7L935.7 698.3L921.9 690.3L896.8 676.4L875 663.3C878.3 656.5 882.2 650.6 886.6 644.8C887.6 643.5 889.8 643.8 891.3 644.2L925.9 653.4L955.5 661Z" fill="#E9C46A"/>
+                <path d="M 1026.4 679.7 L 1005.9 717.7 L 978.6 767 C 977.3 769.3 976.2 771.4 975.3 773.8 L 972.6 772.7 L 949 759.6 L 920.8 743.9 L 942.7 703.2 L 935.2 698.3 L 945.9 677.7 L 955.3 661 L 1026.4 679.7 Z" fill="#E9C46A"/>
+                <path d="M1062.8 696.5C1061.2 697.2 1059.9 698.7 1058.8 700.4L1046.7 720L1010.5 787.1C1009.5 789 1008.9 790.6 1008.2 792.5L975.3 773.8C976.2 771.4 977.3 769.3 978.6 767L1005.5 717.7L1025.8 679.7L1044.4 685.1L1058.4 688.8C1062.3 689.9 1063.2 692.6 1062.8 696.5Z" fill="#FFE3A8"/>
+                <path d="M1008.2 792.5C1008.9 790.6 1009.5 789 1010.5 787.1L1046.7 720L1058.8 700.4C1059.9 698.7 1061.2 697.2 1062.8 696.5C1062.2 703.1 1064.9 710.8 1062.3 717.2C1057.2 730.1 1050.2 741.6 1043.5 753.8L1018.8 798.4C1014.7 797.1 1011.7 794.5 1008.2 792.5Z" fill="#A8DADC"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="965.9" y="726.9">P</text>
+              </g>
+
+              <!-- Zone R -->
+              <g id="zone-R" class="zone" data-zone="R" onclick="selZ('R', 2500)">
+                <path d="M1025.5 535 L1026.4 497.9 L1026.2 413.8 C1026.2 410.2 1025.8 407.2 1025.3 404.2 H1054.2 V535.1 L1025.5 535Z" fill="#2D61A7"/>
+                <path d="M 1028 404.2 C 1028.5 407.2 1028.9 410.2 1028.9 413.8 L 1029.1 497.9 L 1028.2 535 L 977.5 534.8 C 977.5 534.6 975.2 534.5 974.5 533.9 C 974 533.4 973.8 532.4 973.7 531.5 L 973.3 512.2 L 955.2 511.7 L 954.9 488.3 L 955.4 426.7 L 973.3 426.4 L 973.6 408.8 C 973.6 407.7 974 405.1 975.3 405 L 996.4 404 L 1028 404.2 Z" fill="#FFE3A8"/>
+                <path d="M 990.5 428.8 C 991.3 430.2 991.6 443.6 991.8 457.7 C 992 471.7 992 486.4 991.9 490.4 C 991.9 493 991.8 495.5 991.7 498.1 C 991.6 500.7 991.5 503.3 991.4 505.8 C 991.3 506.7 991.7 507.9 991.8 508.9 C 991.9 510 991.9 510.8 991 511 C 986.9 511.9 984.5 512.1 982.1 512.1 C 979.7 512.1 977.2 511.9 973 511.9 C 960.6 512 946.3 512.3 932 512.4 C 917.7 512.5 903.4 512.4 891 511.7 C 890.6 511.7 890.3 510.3 890.1 508.8 C 889.9 507.3 889.8 505.7 889.8 505.4 C 889.8 502.1 889.8 498.9 889.8 495.6 C 889.8 492.3 889.8 489 889.8 485.7 C 889.8 479.2 889.8 472.6 889.8 466 C 889.8 459.5 889.8 452.9 889.8 446.3 C 889.8 443 889.2 439.6 888.9 436.3 C 888.7 433 890.1 430.4 891.2 427.3 C 891.7 426.1 889.4 427.5 890.9 427.8 C 892.4 428.1 896.2 426.6 897.4 426.6 C 900 426.5 917.8 426.5 935.6 426.5 C 953.4 426.5 971.2 426.4 973.8 426.4 C 986.7 426.3 990.2 425.6 990.9 425.5 C 991.5 425.5 989.2 426.2 990.5 428.8 Z" fill="#E9C46A"/>
+                <rect x="972.1" y="406.7" width="27.4" height="127.9" fill="#E9C46A" stroke="#E9C46A"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="974.5" y="477.2">R</text>
+              </g>
+
+              <!-- Zone S -->
+              <g id="zone-S" class="zone" data-zone="S" onclick="selZ('S', 2500)">
+                <path d="M1018.6 396.9L1025.6 395.4L1026.2 363.1L1026.2 266.5L1054 266.3L1054.2 396.6L1018.6 396.9Z" fill="#2D61A7"/>
+                <path d="M 1028.9 265.8 L 1028.8 363.4 L 1029 398.2 L 1021 397.6 L 985 397.7 C 981.3 397.4 977.6 397.5 974.2 396 C 972.3 389 973.2 382.1 974 374.8 L 954.8 374 L 955.1 353.4 L 955.1 287.3 L 973.3 287.1 L 974.1 265.8 L 1028.9 265.8 Z" fill="#FFE3A8"/>
+                <path d="M 978.3 287.8 L 978.3 353.2 L 977.8 373.6 L 933.8 373.9 L 895.7 373.8 C 892 373.8 890 371.9 890 369 L 889.9 294.3 C 889.9 292.8 890.5 289.6 892.1 289.1 L 925.2 287.8 L 978.3 287.8 Z" fill="#E9C46A"/>
+                <rect x="973.1" y="267" width="26.7" height="130" fill="#E9C46A" stroke="#E9C46A"/>
+                <text style="fill: #333333; font-family: 'Arial Rounded MT', sans-serif; font-size: 28px;" x="973.2" y="339.5">S</text>
+              </g>
+            </g>
+          </svg>
         </div>
 
-        <!-- แถบดัชนีบอกสีและราคาตามสเปกใหม่ของคุณ -->
         <div class="price-table">
             <div class="price-item"><div class="color-dot c-6800"></div> 6,800 THB</div>
             <div class="price-item"><div class="color-dot c-5500"></div> 5,500 THB</div>
@@ -418,113 +626,351 @@
 
     <!-- STEP 5: SEAT SELECTION SECTOR -->
     <div id="step-seats" class="step-panel">
-        <h2>โซนย่อย: <span id="z-title" style="color:#ffcc00;">-</span> (<span id="z-price">-</span> บาท)</h2>
+        <h2>โซน: <span id="z-title" style="color:#ffcc00;">-</span> (<span id="z-price">-</span> บาท)</h2>
+        <div class="sub-title" style="color: #ff4d4d; font-weight: bold;">⚠️ จำกัดการกดบัตรสูงสุด 2 ใบต่อทำรายการ</div>
         
         <div class="seats-rows-container" id="seats-box"></div>
 
         <div class="info-card">
             <p>ที่นั่งคัดสรร: <span id="lbl-seats" style="color:#ffcc00; font-weight:bold;">ยังไม่ได้เลือก</span></p>
-            <p>ยอดเงินรวมทั้งหมด: <span id="lbl-total" style="color:#ff4d4d; font-weight:bold; font-size:18px;">0</span> บาท</p>
+            <p>ยอดเงินรวมเฉพาะค่าตั๋ว: <span id="lbl-total" style="color:#ff4d4d; font-weight:bold; font-size:18px;">0</span> บาท</p>
         </div>
         
         <div style="display:flex; gap:10px; margin-top:15px;">
             <button class="btn-main" style="background:#475569; margin:0;" onclick="backToZone()">ย้อนกลับผังรวม</button>
-            <button class="btn-main" style="background:#22c55e; margin:0;" onclick="goCrashTest()">ยืนยันที่นั่ง</button>
+            <button class="btn-main" style="background:#22c55e; margin:0;" onclick="goInputName()">ยืนยันที่นั่ง</button>
         </div>
     </div>
 
     <!-- STEP 6: NAME ON TICKET -->
     <div id="step-name" class="step-panel">
-        <div class="box-panel">
-            <h2>📝 TICKET HOLDER INFO</h2>
-            <div class="input-group">
-                <label for="ticket-name">ชื่อ - นามสกุล ผู้เข้าชม (ภาษาอังกฤษตัวพิมพ์ใหญ่)</label>
-                <input type="text" id="ticket-name" placeholder="FIRSTNAME LASTNAME" autocomplete="off">
+        <div class="narrow-panel">
+            <div class="box-panel">
+                <h2>📝 ระบุรายละเอียดชื่อผู้เข้าชม</h2>
+                <p style="color:#94a3b8; font-size:13px; margin-top:5px;">กรุณากรอกชื่อ-นามสกุลจริงภาษาอังกฤษให้ตรงตามบัตรประชาชนหรือหนังสือเดินทาง</p>
+                
+                <div id="name-inputs-wrapper" class="name-fields-container"></div>
+
+                <button class="btn-main" style="background:#ffcc00; color:#000;" onclick="submitNames()">ถัดไป (ตรวจสอบยอดชำระ)</button>
             </div>
-            <button class="btn-main" style="background:#ffcc00; color:#000;" onclick="submitName()">บันทึกข้อมูลและไปชำระเงิน</button>
         </div>
     </div>
 
     <!-- STEP 7: PAYMENT SIMULATION -->
     <div id="step-pay" class="step-panel">
         <div class="timer-tag">⏰ เวลาทำรายการจ่ายเงินคงเหลือ <span id="clock">10:00</span></div>
-        <h2 style="color:#22c55e;">🎉 ระบบบล็อกที่นั่งเรียบร้อย!</h2>
-        <div class="info-card" style="line-height:2.2;">
-            <p><strong>ชื่อบนบัตร:</strong> <span id="p-name" style="color:#fff; font-weight:bold;"></span></p>
-            <p><strong>โซนอัฒจันทร์:</strong> <span id="p-zone" style="color:#ffcc00; font-weight:bold;"></span></p>
-            <p><strong>ตำแหน่งที่นั่ง:</strong> <span id="p-seats" style="color:#ffcc00; font-weight:bold;"></span></p>
-            <p><strong>ยอดชำระสุทธิ:</strong> <span id="p-total" style="color:#ff4d4d; font-weight:bold; font-size:20px;"></span> บาท</p>
+        <h2 style="color:#22c55e;">🎉 ระบบบล็อกที่นั่งให้คุณชั่วคราวแล้ว!</h2>
+        
+        <div class="payment-layout">
+            
+            <div>
+                <div class="protect-box" onclick="toggleTicketProtect()">
+                    <input type="checkbox" id="chk-protect" pointer-events="none">
+                    <div style="text-align: left;">
+                        <strong style="color: #fff; font-size: 15px;">🛡️ ซื้อประกันบัตร Ticket Protect (แนะนำ)</strong>
+                        <p style="color: #94a3b8; font-size: 12px; margin-top: 2px;">คุ้มครองคืนเงิน 100% หากเกิดเหตุสุดวิสัยไม่สามารถเข้าชมได้ (คิดเพิ่ม 7% ของมูลค่าบัตร)</p>
+                    </div>
+                </div>
+
+                <div class="pay-option-box">
+                    <div class="pay-title">💳 กรุณาเลือกวิธีการชำระเงิน</div>
+                    <div class="payment-methods">
+                        <div class="pay-method-btn" id="method-card" onclick="selectPaymentMethod('card')">
+                            <span style="font-size: 24px; display:block; margin-bottom: 5px;">💳</span>
+                            บัตรเครดิต/เดบิต<br>
+                            <span style="font-size: 11px; color:#ef4444; font-weight: normal;">(Processing Fee 3%)</span>
+                        </div>
+                        <div class="pay-method-btn" id="method-qr" onclick="selectPaymentMethod('qr')">
+                            <span style="font-size: 24px; display:block; margin-bottom: 5px;">📱</span>
+                            THAI QR พร้อมเพย์<br>
+                            <span style="font-size: 11px; color:#ef4444; font-weight: normal;">(Processing Fee 3%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-side">
+                <h3 style="margin-bottom: 15px; font-size: 16px; border-bottom: 1px solid #334155; padding-bottom: 8px;">รายละเอียดการจอง</h3>
+                
+                <div class="summary-row">
+                    <span>โซนที่นั่ง:</span>
+                    <span id="sum-zone" style="font-weight: bold; color: #ffcc00;">-</span>
+                </div>
+                <div class="summary-row">
+                    <span>เลขที่นั่ง:</span>
+                    <span id="sum-seats" style="font-weight: bold; color: #ffcc00;">-</span>
+                </div>
+                <div class="summary-row">
+                    <span>รายชื่อบนบัตร:</span>
+                    <span id="sum-names" style="text-align: right; font-weight: bold; color: #fff;">-</span>
+                </div>
+                
+                <div style="margin: 15px 0; border-top: 1px solid #334155; padding-top: 15px;"></div>
+
+                <div class="summary-row">
+                    <span>ค่าบัตรคอนเสิร์ต:</span>
+                    <span id="sum-base-price">0 บาท</span>
+                </div>
+                <div class="summary-row">
+                    <span>ค่าบริการระบบ (30 บาท/ใบ):</span>
+                    <span id="sum-service-fee">0 บาท</span>
+                </div>
+                <div class="summary-row">
+                    <span>Ticket Protect (7%):</span>
+                    <span id="sum-protect-fee">0 บาท</span>
+                </div>
+                <div class="summary-row">
+                    <span>Processing Fee (3%):</span>
+                    <span id="sum-process-fee">0 บาท</span>
+                </div>
+                
+                <div class="summary-row total">
+                    <span>จำนวนเงินที่ต้องชำระ:</span>
+                    <span id="sum-grand-total">0 บาท</span>
+                </div>
+
+                <button class="btn-main" style="background:#22c55e; margin-top: 20px; font-size: 18px;" onclick="finish()">ยืนยันการชำระเงิน</button>
+            </div>
+
         </div>
-        <button class="btn-main" style="background:#22c55e;" onclick="finish()">เสร็จสิ้นการจำลอง</button>
     </div>
 
 </div>
 
 <script>
-    let sZone = ''; let sPrice = 0; let selectedSeats = []; let countClock; let buyerName = '';
+    let sZone = '';
+    let selectedSeats = [];
+    let isTicketProtect = false;
+    let paymentMethod = 'qr'; 
+    let timerInterval = null;
 
-    function changeStep(id) {
-        document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
+    function changeStep(stepId) {
+        document.querySelectorAll('.step-panel').forEach(panel => {
+            panel.classList.remove('active');
+        });
+        document.getElementById(stepId).classList.add('active');
     }
 
-    function goQueue() {
-        changeStep('step-queue');
-        let q = Math.floor(Math.random() * 25) + 8;
-        let t = setInterval(() => {
-            q -= Math.floor(Math.random() * 5) + 3;
-            if(q <= 0) { q=0; clearInterval(t); changeStep('step-member'); }
-            document.getElementById('q-num').innerText = q;
-        }, 300);
-    }
 
     function verifyMember() {
-        if (document.getElementById('member-code').value.trim() === '20230312') {
+        let code = document.getElementById('member-code').value;
+        if(code === '20230312') { 
             changeStep('step-zone');
         } else {
-            alert('❌ รหัสไม่ถูกต้อง! (รหัสผ่านคือวันเดบิวต์วง PLAVE: 20230312)');
+            alert('รหัสสมาชิกไม่ถูกต้อง! กรุณาลองใหม่อีกครั้ง');
         }
     }
 
-    function backToZone() { changeStep('step-zone'); }
+    function backToZone() {
+        changeStep('step-zone');
+    }
 
-    // ฟังก์ชันสร้างแถวจุดที่นั่งและแมปปิ้งสีที่นั่งย่อยตามราคาที่กดเลือก
-    function selZ(zoneName, pricePoint) {
+    function goInputName() {
+        if(selectedSeats.length === 0) {
+            alert('กรุณาเลือกที่นั่งอย่างน้อย 1 ที่นั่ง');
+            return;
+        }
+        
+        let wrapper = document.getElementById('name-inputs-wrapper');
+        wrapper.innerHTML = ''; 
+
+        selectedSeats.forEach((seat, idx) => {
+            let itemDiv = document.createElement('div');
+            itemDiv.className = 'name-field-item';
+            itemDiv.innerHTML = `
+                <label>👤 ชื่อผู้เข้าชมคนที่ ${idx + 1} (สำหรับที่นั่ง ${seat.id})</label>
+                <input type="text" class="visitor-name-input" placeholder="FIRSTNAME LASTNAME" autocomplete="off" required>
+            `;
+            wrapper.appendChild(itemDiv);
+        });
+
+        changeStep('step-name');
+    }
+
+    function submitNames() {
+        let inputs = document.querySelectorAll('.visitor-name-input');
+        let names = [];
+        let isValid = true;
+
+        inputs.forEach(input => {
+            let val = input.value.trim();
+            if(!val) {
+                isValid = false;
+                input.style.borderColor = '#ff4d4d';
+            } else {
+                input.style.borderColor = '#475569';
+                names.push(val.toUpperCase());
+            }
+        });
+
+        if(!isValid) {
+            alert('กรุณากรอกชื่อผู้เข้าชมให้ครบทุกที่นั่งเป็นภาษาอังกฤษ');
+            return;
+        }
+
+        document.getElementById('sum-zone').innerText = sZone;
+        document.getElementById('sum-seats').innerText = selectedSeats.map(i => i.id).join(', ');
+        document.getElementById('sum-names').innerHTML = names.join('<br>');
+
+        calculatePayment(); 
+        startTimer(600); 
+        selectPaymentMethod('qr'); 
+        changeStep('step-pay');
+    }
+
+    // ฟังก์ชันคำนวณราคาแบบเรียลไทม์ (ปรับพร้อมเพย์ให้คิดค่าธรรมเนียม 3% เหมือนกัน)
+    function calculatePayment() {
+        let basePrice = selectedSeats.reduce((sum, item) => sum + item.price, 0);
+        let count = selectedSeats.length;
+
+        let serviceFee = count * 30;
+        let protectFee = isTicketProtect ? Math.round(basePrice * 0.07) : 0;
+
+        // บัตรเครดิต และ พร้อมเพย์ คิด Processing Fee 3% เหมือนกันทั้งคู่
+        let processFee = Math.round((basePrice + serviceFee + protectFee) * 0.03);
+
+        let grandTotal = basePrice + serviceFee + protectFee + processFee;
+
+        document.getElementById('sum-base-price').innerText = basePrice.toLocaleString() + " บาท";
+        document.getElementById('sum-service-fee').innerText = serviceFee.toLocaleString() + " บาท";
+        document.getElementById('sum-protect-fee').innerText = protectFee > 0 ? protectFee.toLocaleString() + " บาท" : "-";
+        document.getElementById('sum-process-fee').innerText = processFee.toLocaleString() + " บาท";
+        document.getElementById('sum-grand-total').innerText = grandTotal.toLocaleString() + " บาท";
+    }
+
+    function selectPaymentMethod(method) {
+        paymentMethod = method;
+        document.getElementById('method-card').classList.remove('selected');
+        document.getElementById('method-qr').classList.remove('selected');
+
+        if(method === 'card') {
+            document.getElementById('method-card').classList.add('selected');
+        } else {
+            document.getElementById('method-qr').classList.add('selected');
+        }
+        calculatePayment(); 
+    }
+
+    function toggleTicketProtect() {
+        isTicketProtect = !isTicketProtect;
+        document.getElementById('chk-protect').checked = isTicketProtect;
+        calculatePayment();
+    }
+
+    function startTimer(duration) {
+        if(timerInterval) clearInterval(timerInterval);
+        let timer = duration, minutes, seconds;
+        let clockDisp = document.getElementById('clock');
+        timerInterval = setInterval(function () {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            clockDisp.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                clearInterval(timerInterval);
+                alert("หมดเวลาทำรายการจองตั๋ว ระบบจะทำการคืนสิทธิ์บัตร");
+                location.reload();
+            }
+        }, 1000);
+    }
+
+    function finish() {
+        clearInterval(timerInterval);
+        alert('🎉 ยินดีด้วยค่ะ! PLLI คนเก่งได้บัตรคอนแล้ว! ขอให้พลังแต้มบุญส่งผลถึงวันกดบัตรจริง กดได้โซนที่ต้องการ สมใจหวังเลยนะ!🎫✨');
+        location.reload();
+    }
+
+    function selZ(zoneName, defaultPrice) {
         sZone = zoneName; 
-        sPrice = pricePoint;
         selectedSeats = [];
         
         document.getElementById('z-title').innerText = zoneName;
-        document.getElementById('z-price').innerText = pricePoint.toLocaleString();
         document.getElementById('lbl-seats').innerText = "ยังไม่ได้เลือก";
         document.getElementById('lbl-total').innerText = "0";
         
         let box = document.getElementById('seats-box'); 
         box.innerHTML = '';
 
-        // แยกแมปปิ้งสีเม็ดที่นั่งในระบบตามจุดราคานั้นๆ
-        let seatColor = '#fff4b3'; 
-        if(pricePoint === 6800) seatColor = '#ff1e1e';
-        else if(pricePoint === 5500) seatColor = '#ff8a00';
-        else if(pricePoint === 3800) seatColor = '#ffd65b';
-        else if(pricePoint === 3500) seatColor = '#fff4b3';
-        else if(pricePoint === 2800) seatColor = '#63c5ea';
-        else if(pricePoint === 2500) seatColor = '#0b73d8';
-
         let rowCount = 6;
-        if([6800, 5500].includes(pricePoint)) rowCount = 8; // โซนล่างหรือหลุมจะมีแถวลึกกว่า
+        if(["A1","A2","A3","A4","B1","B2","B3","B4","SC","SD","SE","SF","SG","SH","SI","SK","SL","SM"].includes(zoneName)) {
+            rowCount = 10; 
+        }
+        if(["B4","SC","SD","SE","SF","SG","SH","SI","SK","SL","SM"].includes(zoneName)) {
+            rowCount = 5; 
+        }
+
+        let isSpecialPriceZone = ["C","D","E","Q","R","S"].includes(zoneName);
+        let isHalfPriceZone = ["J","K","L"].includes(zoneName);
+        let isLegacyMultiZone = ["F","G","H","I","M","N","O","P"].includes(zoneName);
+        
+        if (isSpecialPriceZone) {
+            document.getElementById('z-price').innerText = "2,500 - 3,800";
+        } else if (isHalfPriceZone) {
+            document.getElementById('z-price').innerText = "3,500 - 3,800";
+        } else if (isLegacyMultiZone) {
+            document.getElementById('z-price').innerText = "2,800 - 3,800";
+        } else {
+            document.getElementById('z-price').innerText = defaultPrice.toLocaleString();
+        }
 
         for(let i=1; i<=rowCount; i++) {
+            let rowLetter = String.fromCharCode(64+i); 
             let rowDiv = document.createElement('div');
             rowDiv.className = 'seat-row';
             
             let lbl = document.createElement('div');
             lbl.className = 'row-label';
-            lbl.innerText = 'Row-' + String.fromCharCode(64+i);
+            lbl.innerText = 'Row-' + rowLetter;
             rowDiv.appendChild(lbl);
 
             let gridDiv = document.createElement('div');
             gridDiv.className = 'row-seats-grid';
+
+            let currentRowPrice = defaultPrice;
+            let seatColor = '#fff4b3'; 
+
+            if (isSpecialPriceZone) {
+                if (rowLetter === 'A' || rowLetter === 'B') {
+                    currentRowPrice = 3800;
+                    seatColor = '#ffd65b'; 
+                } else if (rowLetter === 'C' || rowLetter === 'D') {
+                    currentRowPrice = 3500;
+                    seatColor = '#fff4b3'; 
+                } else if (rowLetter === 'E' || rowLetter === 'F') {
+                    currentRowPrice = 2500;
+                    seatColor = '#0b73d8'; 
+                }
+            } else if (isHalfPriceZone) {
+                if (rowLetter === 'A' || rowLetter === 'B' || rowLetter === 'C') {
+                    currentRowPrice = 3800;
+                    seatColor = '#ffd65b'; 
+                } else if (rowLetter === 'D' || rowLetter === 'E' || rowLetter === 'F') {
+                    currentRowPrice = 3500;
+                    seatColor = '#fff4b3'; 
+                }
+            } else if (isLegacyMultiZone) {
+                if (rowLetter === 'A' || rowLetter === 'B' || rowLetter === 'C') {
+                    currentRowPrice = 3800;
+                    seatColor = '#ffd65b'; 
+                } else if (rowLetter === 'D' || rowLetter === 'E') {
+                    currentRowPrice = 3500;
+                    seatColor = '#fff4b3'; 
+                } else if (rowLetter === 'F') {
+                    currentRowPrice = 2800;
+                    seatColor = '#63c5ea'; 
+                }
+            } else {
+                if(defaultPrice === 6800) seatColor = '#ff1e1e';
+                else if(defaultPrice === 5500) seatColor = '#ff8a00';
+                else if(defaultPrice === 3800) seatColor = '#ffd65b';
+                else if(defaultPrice === 3500) seatColor = '#fff4b3';
+                else if(defaultPrice === 2800) seatColor = '#63c5ea';
+                else if(defaultPrice === 2500) seatColor = '#0b73d8';
+            }
 
             for(let s=1; s<=10; s++) { 
                 let dot = document.createElement('div');
@@ -533,26 +979,27 @@
                 dot.style.backgroundColor = seatColor;
                 dot.style.border = `1px solid rgba(0,0,0,0.2)`;
                 
-                // สลับสีตัวเลขให้สแกนสายตาง่าย
-                if([3800, 3500, 2800].includes(pricePoint)) {
+                if([3800, 3500, 2800].includes(currentRowPrice)) {
                     dot.style.color = '#000000';
                 } else {
                     dot.style.color = '#ffffff';
                 }
                 
-                // สุ่มสถานะการถูกจอง (Taken)
                 if(Math.random() < 0.40) { 
                     dot.classList.add('taken');
                 } else {
                     dot.onclick = () => {
-                        let seatId = 'Row-' + String.fromCharCode(64+i) + '-' + s;
+                        let seatId = 'Row-' + rowLetter + '-' + s;
                         if(dot.classList.contains('chosen')) {
                             dot.classList.remove('chosen');
                             selectedSeats = selectedSeats.filter(item => item.id !== seatId);
                         } else {
-                            if(selectedSeats.length >= 4) { alert('ระบบจำกัดจองสูงสุด 4 ที่นั่งต่อรอบทำรายการครับ'); return; }
+                            if(selectedSeats.length >= 2) { 
+                                alert('จำกัดการเลือกกดจองสูงสุด 2 ที่นั่งต่อรอบทำรายการครับ'); 
+                                return; 
+                            }
                             dot.classList.add('chosen');
-                            selectedSeats.push({ id: seatId, price: sPrice });
+                            selectedSeats.push({ id: seatId, price: currentRowPrice }); 
                         }
                         let total = selectedSeats.reduce((sum, item) => sum + item.price, 0);
                         document.getElementById('lbl-seats').innerText = selectedSeats.length ? selectedSeats.map(i=>i.id).join(', ') : "ยังไม่ได้เลือก";
@@ -567,46 +1014,38 @@
         changeStep('step-seats');
     }
 
-    function goCrashTest() {
-        if(!selectedSeats.length) { alert('❌ กรุณาจิ้มเลือกตำแหน่งที่นั่งอย่างน้อย 1 ที่นั่งครับ'); return; }
-        // จำลองระบบชน/ตั๋วหลุด (10%)
-        if (Math.random() < 0.10) {
-            alert('🚨 [Ticket Conflict] มีผู้ใช้รายอื่นส่งคำขอจองที่นั่งนี้พร้อมคุณในระดับเสี้ยววินาที! กรุณาเลือกที่นั่งใหม่อีกครั้ง');
-            selZ(sZone, sPrice);
-            return;
+// ปรับปรุงฟังก์ชัน goQueue เดิมให้แสดงเวลาและอัปเดตแถบ
+    function goQueue() {
+        changeStep('step-queue');
+        let maxQueue = 5000;           let currentQueue = maxQueue;
+        
+        // อัปเดตเวลาปัจจุบัน
+        function updateTime() {
+            let now = new Date();
+            document.getElementById('update-time').innerText = now.toLocaleTimeString('th-TH');
         }
-        changeStep('step-name');
-    }
+        updateTime();
 
-    function submitName() {
-        let nameInput = document.getElementById('ticket-name').value.trim();
-        if(nameInput === '') { alert('❌ กรุณากรอกชื่อสลักหน้าตั๋วผู้เข้าชมเป็นภาษาอังกฤษด้วยครับ'); return; }
-        buyerName = nameInput.toUpperCase();
-        
-        let total = selectedSeats.reduce((sum, item) => sum + item.price, 0);
-        document.getElementById('p-name').innerText = buyerName;
-        document.getElementById('p-zone').innerText = 'Zone ' + sZone + ' (' + sPrice.toLocaleString() + ' THB)';
-        document.getElementById('p-seats').innerText = selectedSeats.map(i=>i.id).join(', ');
-        document.getElementById('p-total').innerText = total.toLocaleString();
-        
-        changeStep('step-pay');
-        startTimer();
-    }
+        let interval = setInterval(() => {
+            let decrease = Math.floor(Math.random() * 81) + 100; 
+            currentQueue -= decrease;
 
-    function startTimer() {
-        let sec = 600; clearInterval(countClock);
-        countClock = setInterval(() => {
-            sec--;
-            let m = Math.floor(sec/60); let s = sec%60;
-            document.getElementById('clock').innerText = (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
-            if(sec<=0) { clearInterval(countClock); alert('หมดเวลาการทำรายการชำระเงิน บัตรของคุณดีดกลับเข้าระบบส่วนกลาง'); location.reload(); }
-        }, 1000);
-    }
-
-    function finish() {
-        clearInterval(countClock);
-        alert(`🎉 เสร็จสิ้นการจำลองเสมือนจริง! คุณจองโซน ${sZone} ทั้งหมด ${selectedSeats.length} ที่นั่งสำเร็จแล้วครับ`);
-        location.reload();
+            if (currentQueue <= 0) {
+                currentQueue = 0;
+                document.getElementById('q-num').innerText = "0";
+                document.querySelector('.progress-bar').style.width = "100%"; 
+                clearInterval(interval);
+                setTimeout(() => changeStep('step-member'), 1000);
+            } else {
+                document.getElementById('q-num').innerText = currentQueue.toLocaleString();
+                
+                // คำนวณเปอร์เซ็นต์หลอดสัมพันธ์กับคิว 5,000
+                let progressPercent = ((maxQueue - currentQueue) / maxQueue) * 100;
+                document.querySelector('.progress-bar').style.width = progressPercent + "%";
+                
+                updateTime();
+            }
+        }, 300); // ปรับเวลาให้ลดทุกๆ 0.3 วินาที 
     }
 </script>
 
