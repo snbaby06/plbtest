@@ -19,6 +19,7 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         }
         
+
         .container { 
             width: 100%; 
             max-width: 1100px; 
@@ -276,7 +277,7 @@
             </div>
             
             <p style="margin-top: 15px; font-weight: bold; color: #fff;">
-                จำนวนคิวก่อนหน้าท่าน: <span id="q-num" style="color: #22c55e;">5,000</span>
+                จำนวนคิวก่อนหน้า: <span id="q-num" style="color: #22c55e;">5,000</span>
             </p>
             <p style="font-size: 12px; color: #94a3b8; margin-top: 10px;">
                 Status last updated: <span id="update-time">--:--:--</span>
@@ -645,8 +646,8 @@
     <div id="step-name" class="step-panel">
         <div class="narrow-panel">
             <div class="box-panel">
-                <h2>📝 ระบุรายละเอียดชื่อผู้เข้าชม</h2>
-                <p style="color:#94a3b8; font-size:13px; margin-top:5px;">กรุณากรอกชื่อ-นามสกุลจริงภาษาอังกฤษให้ตรงตามบัตรประชาชนหรือหนังสือเดินทาง</p>
+                <h2>📝 กรุณากรอกรายละเอียด</h2>
+                <p style="color:#94a3b8; font-size:13px; margin-top:5px;">จะต้องระบุชื่อ นามสกุลภาษาอังกฤษของผู้เข้าชมทุกที่นั่งเมื่อซื้อบัตร ชื่อจะถูกพิมพ์ลงบนบัตร</p>
                 
                 <div id="name-inputs-wrapper" class="name-fields-container"></div>
 
@@ -1055,8 +1056,7 @@
                 updateTime();
             }
         }, 300); 
-    }
-     }
+}
 
 document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
@@ -1066,15 +1066,14 @@ document.addEventListener('keydown', function(e) {
     const isCtrlOrCmd = e.ctrlKey || e.metaKey;
     const key = e.key.toLowerCase();
 
-    // บล็อก Ctrl+C (ก๊อป), Ctrl+X (ตัด), Ctrl+A (คลุมดำทั้งหมด)
     if (isCtrlOrCmd && (key === 'c' || key === 'x' || key === 'a')) {
         e.preventDefault();
     }
-    // บล็อก Ctrl+S (เซฟไฟล์หน้าเว็บ), Ctrl+P (ปริ้นหน้าเว็บ)
+    
     if (isCtrlOrCmd && (key === 's' || key === 'p')) {
         e.preventDefault();
     }
-    // บล็อกปุ่มเข้า DevTools: F12, Ctrl+U (ดูโค้ด), Ctrl+Shift+I (Inspect)
+    
     if (
         e.key === 'F12' || 
         (isCtrlOrCmd && key === 'u') || 
@@ -1082,6 +1081,6 @@ document.addEventListener('keydown', function(e) {
     ) {
         e.preventDefault();
     }
-</script>
+});</script>
 </body>
 </html>
