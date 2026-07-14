@@ -287,7 +287,7 @@
 </div>
 
 <style>
-    /* เพิ่มสไตล์สำหรับหน้าคิวใหม่ */
+    /* หน้าคิว */
     .progress-container {
         width: 100%;
         background-color: #2d323f;
@@ -297,11 +297,11 @@
         margin: 10px 0;
     }
     .progress-bar {
-    width: 0%; /* เริ่มต้นที่ 0% และจะใช้ JavaScript ไปค่อยๆ เพิ่มความกว้าง */
+    width: 0%; 
     height: 100%;
     background-color: #22c55e;
     border-radius: 10px;
-    transition: width 0.3s ease; /* เพิ่ม transition เพื่อให้หลอดขยับแบบสมูท */
+    transition: width 0.3s ease; 
 }
 </style>
 
@@ -647,11 +647,11 @@
         <div class="narrow-panel">
             <div class="box-panel">
                 <h2>📝 กรุณากรอกรายละเอียด</h2>
-                <p style="color:#94a3b8; font-size:13px; margin-top:5px;">จะต้องระบุชื่อ นามสกุลภาษาอังกฤษของผู้เข้าชมทุกที่นั่งเมื่อซื้อบัตร ชื่อจะถูกพิมพ์ลงบนบัตร</p>
+                <p style="color:#94a3b8; font-size:13px; margin-top:5px;">จะต้องระบุชื่อ นามสกุล ภาษาอังกฤษของผู้เข้าชมทุกที่นั่งเมื่อซื้อบัตร ชื่อจะถูกพิมพ์ลงบนบัตร</p>
                 
                 <div id="name-inputs-wrapper" class="name-fields-container"></div>
 
-                <button class="btn-main" style="background:#ffcc00; color:#000;" onclick="submitNames()">ถัดไป (ตกลง)</button>
+                <button class="btn-main" style="background:#ffcc00; color:#000;" onclick="submitNames()">ตกลง</button>
             </div>
         </div>
     </div>
@@ -668,7 +668,7 @@
                     <input type="checkbox" id="chk-protect" style="pointer-events: none;">
                     <div style="text-align: left;">
                         <strong style="color: #fff; font-size: 15px;">🛡️ Ticket Protect</strong>
-                        <p style="color: #94a3b8; font-size: 12px; margin-top: 2px;">คิดเพิ่ม 7% </p>
+                        <p style="color: #94a3b8; font-size: 12px; margin-top: 2px;">ค่าธรรมเนียม 7% </p>
                     </div>
                 </div>
 
@@ -682,7 +682,7 @@
                         </div>
                         <div class="pay-method-btn" id="method-qr" onclick="selectPaymentMethod('qr')">
                             <span style="font-size: 24px; display:block; margin-bottom: 5px;">📱</span>
-                            THAI QR พร้อมเพย์<br>
+                            Thai QR PromptPay<br>
                             <span style="font-size: 11px; color:#ef4444; font-weight: normal;">(Processing Fee 3%)</span>
                         </div>
                     </div>
@@ -701,7 +701,7 @@
         <span id="sum-seats" style="font-weight: bold; color: #ffcc00;">-</span>
     </div>
     <div class="summary-row">
-        <span>รายชื่อบนบัตร:</span>
+        <span>ชื่อบนบัตร:</span>
         <span id="sum-names" style="text-align: right; font-weight: bold; color: #fff;">-</span>
     </div>
     
@@ -815,28 +815,28 @@
         changeStep('step-pay');
     }
 
-    // ฟังก์ชันคำนวณราคา (ใช้ Math.floor เพื่อปัดเศษลง/ตัดเศษทศนิยมทิ้งทั้งหมด)
+    // 
     function calculatePayment() {
         let baseTicketTotal = selectedSeats.reduce((sum, item) => sum + item.price, 0); // รวมราคาตั๋วทั้งหมด
         let quantity = selectedSeats.length;
         let serviceFeeTotal = 30 * quantity; // ค่าบริการ 30 บาทต่อใบ
 
-        // คิดค่าธรรมเนียม 3% เสมอ (ทั้ง QR พร้อมเพย์ และบัตรเครดิต)
+        // 
         let processingFee = (baseTicketTotal + serviceFeeTotal) * 0.03;
 
-        // รวมค่าบริการและ Processing fee และใช้ Math.floor เพื่อตัดทศนิยมทิ้งเลย (ไม่ปัดเศษขึ้น)
+        // 
         let totalServiceAndProcessing = Math.floor(serviceFeeTotal + processingFee);
 
-        // คำนวณ Ticket Protect 7% จากราคาตั๋ว (ถ้าเลือกซื้อ) และใช้ Math.floor เพื่อตัดทศนิยมทิ้ง
+        // คTicket Protect 7% 
         let protectFee = 0;
         if (isTicketProtect) {
             protectFee = Math.floor(baseTicketTotal * 0.07);
         }
 
-        // ยอดรวมเงินสุทธิทั้งหมดที่ต้องชำระ (ตัดเศษทศนิยมออกแล้วทั้งหมด)
+        // 
         let grandTotal = baseTicketTotal + totalServiceAndProcessing + protectFee;
 
-        // อัปเดตราคาแสดงผลในสรุปรายละเอียดจองตั๋ว
+        // 
         if (document.getElementById('sum-base-price')) {
             document.getElementById('sum-base-price').innerText = baseTicketTotal.toLocaleString() + " บาท";
         }
@@ -885,7 +885,7 @@
 
             if (--timer < 0) {
                 clearInterval(timerInterval);
-                alert("หมดเวลาทำรายการจองตั๋ว ระบบจะทำการคืนสิทธิ์บัตร");
+                alert("หมดเวลาทำรายการจองตั๋ว ระบบจะทำการคืนบัตรกลับสู่ระบบ");
                 location.reload();
             }
         }, 1000);
@@ -1055,7 +1055,7 @@
                 updateTime();
             }
         }, 300); 
-    } // เพิ่มปีกกาปิดฟังก์ชัน goQueue ที่ขาดหายไป ตรงนี้!
+    } 
 
     document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
