@@ -111,15 +111,15 @@
             overflow-y: auto; 
             display: flex; 
             flex-direction: column; 
-            gap: 12px; 
+            gap: 2px; 
         }
-        .seat-row { display: flex; align-items: center; justify-content: center; width: 100%; padding: 3px 0; }
+        .seat-row { display: flex; align-items: center; justify-content: center; width: 100%; padding: 1px 0; }
         .row-label { width: 80px; font-size: 14px; font-weight: bold; color: #94a3b8; text-align: right; margin-right: 15px; }
         
         .row-seats-grid { 
             display: flex; 
             justify-content: center; 
-            gap: 6px; 
+            gap: 2px; 
         }
         
         .seat-dot {
@@ -940,11 +940,11 @@
         let box = document.getElementById('seats-box'); 
         box.innerHTML = '';
 
-        let rowCount = 6;
+        let rowCount = 16;
         if(["A1","A2","A3","A4","B1","B2","B3"].includes(zoneName)) {
-            rowCount = 10; 
+            rowCount = 12; 
         } else if(["B4","SC","SD","SE","SF","SG","SH","SI","SK","SL","SM"].includes(zoneName)) {
-            rowCount = 5; 
+            rowCount = 8; 
         }
 
         let isSpecialPriceZone = ["C","D","E","Q","R","S"].includes(zoneName);
@@ -978,16 +978,16 @@
             let seatColor = '#fff4b3'; 
 
             if (isSpecialPriceZone) {
-                if (rowLetter === 'A' || rowLetter === 'B') { currentRowPrice = 3800; seatColor = '#ffd65b'; }
-                else if (rowLetter === 'C' || rowLetter === 'D') { currentRowPrice = 3500; seatColor = '#fff4b3'; }
-                else if (rowLetter === 'E' || rowLetter === 'F') { currentRowPrice = 2500; seatColor = '#0b73d8'; }
+                if (rowLetter === 'A' || rowLetter === 'B' || rowLetter === 'C'|| rowLetter === 'D'|| rowLetter === 'E'|| rowLetter === 'F'|| rowLetter === 'G'|| rowLetter === 'H'|| rowLetter === 'I') { currentRowPrice = 3800; seatColor = '#ffd65b'; }
+                else if (rowLetter === 'J' || rowLetter === 'K' || rowLetter === 'L' || rowLetter === 'M') { currentRowPrice = 3500; seatColor = '#fff4b3'; }
+                else if (rowLetter === 'N' || rowLetter === 'O' || rowLetter === 'P') { currentRowPrice = 2500; seatColor = '#0b73d8'; }
             } else if (isHalfPriceZone) {
-                if (rowLetter === 'A' || rowLetter === 'B' || rowLetter === 'C') { currentRowPrice = 3800; seatColor = '#ffd65b'; }
-                else if (rowLetter === 'D' || rowLetter === 'E' || rowLetter === 'F') { currentRowPrice = 3500; seatColor = '#fff4b3'; }
+                if (rowLetter === 'A' || rowLetter === 'B' || rowLetter === 'C'|| rowLetter === 'D' || rowLetter === 'E'|| rowLetter === 'F'|| rowLetter === 'G'|| rowLetter === 'H'|| rowLetter === 'I' || rowLetter === 'J') { currentRowPrice = 3800; seatColor = '#ffd65b'; }
+                else if (rowLetter === 'K' || rowLetter === 'L' || rowLetter === 'M'|| rowLetter === 'N' || rowLetter === 'O' || rowLetter === 'P') { currentRowPrice = 3500; seatColor = '#fff4b3'; }
             } else if (isLegacyMultiZone) {
-                if (rowLetter === 'A' || rowLetter === 'B' || rowLetter === 'C') { currentRowPrice = 3800; seatColor = '#ffd65b'; }
-                else if (rowLetter === 'D' || rowLetter === 'E') { currentRowPrice = 3500; seatColor = '#fff4b3'; }
-                else if (rowLetter === 'F') { currentRowPrice = 2800; seatColor = '#63c5ea'; }
+                if (rowLetter === 'A' || rowLetter === 'B' || rowLetter === 'C'|| rowLetter === 'D'|| rowLetter === 'E'|| rowLetter === 'F'|| rowLetter === 'G'|| rowLetter === 'H'|| rowLetter === 'I') { currentRowPrice = 3800; seatColor = '#ffd65b'; }
+                else if (rowLetter === 'J' || rowLetter === 'K' || rowLetter === 'L' || rowLetter === 'M') { currentRowPrice = 3500; seatColor = '#fff4b3'; }
+                else if (rowLetter === 'N' ||rowLetter === 'O' || rowLetter === 'P') { currentRowPrice = 2800; seatColor = '#63c5ea'; }
             } else {
                 if(defaultPrice === 6800) seatColor = '#ff1e1e';
                 else if(defaultPrice === 5500) seatColor = '#ff8a00';
