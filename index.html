@@ -270,15 +270,15 @@
 <div id="step-queue" class="step-panel">
     <div class="narrow-panel">
         <div class="box-panel">
-            <h2 style="font-size: 20px; margin-bottom: 20px;">You are in the buying queue.</h2>
-            
+            <h2 style="font-size: 20px; margin-bottom: 20px;">ขณะนี้คุณอยู่ในคิว / You are in the buying queue.</h2>
+	       <h2 style="font-size: 14px; font-weight: normal;">ขณะนี้คุณอยู่ในคิว เมื่อถึงคิวของคุณ คุณมีเวลา 10 นาทีเพื่อเข้าสู่เว็บไซต์</h2>            
             
             <div class="progress-container">
                 <div class="progress-bar"></div>
             </div>
             
             <p style="margin-top: 15px; font-weight: bold; color: #fff;">
-                จำนวนคิวก่อนหน้า: <span id="q-num" style="color: #22c55e;">5,000</span>
+                จำนวนคิวก่อนหน้า: <span id="q-num" style="color: #22c55e;">กรุณารอสักครู่...</span>
             </p>
             <p style="font-size: 12px; color: #94a3b8; margin-top: 10px;">
                 Status last updated: <span id="update-time">--:--:--</span>
@@ -756,7 +756,7 @@
         if(code === '20230312') { 
             changeStep('step-zone');
         } else {
-            alert('รหัสสมาชิกไม่ถูกต้อง! กรุณาลองใหม่อีกครั้ง');
+            alert('คำตอบไม่ถูกต้อง! กรุณาลองใหม่อีกครั้ง');
         }
     }
 
@@ -1027,37 +1027,44 @@
         changeStep('step-seats');
     }
 
-    function goQueue() {
-        changeStep('step-queue');
-        let maxQueue = 5000;
-        let currentQueue = maxQueue;
-        
-        function updateTime() {
-            let now = new Date();
-            document.getElementById('update-time').innerText = now.toLocaleTimeString('th-TH');
+   function goQueue() {
+    changeStep('step-queue');
+    const minQ = 100;
+    const maxQ = 10000;
+    let maxQueue = Math.floor(Math.random() * (maxQ - minQ + 1)) + minQ;
+    let currentQueue = maxQueue;
+    
+    // 0.3 วินาที
+    document.getElementById('q-num').innerText = currentQueue.toLocaleString();
+    document.querySelector('.progress-bar').style.width = "0%";
+    
+    function updateTime() {
+        let now = new Date();
+        document.getElementById('update-time').innerText = now.toLocaleTimeString('th-TH');
+    }
+    updateTime();
+
+    let interval = setInterval(() => {
+        // 
+        let randomDecrease = Math.floor(Math.random() * 501) + 100; 
+        currentQueue -= randomDecrease;
+
+        if (currentQueue <= 0) {
+            currentQueue = 0;
+            document.getElementById('q-num').innerText = "0";
+            document.querySelector('.progress-bar').style.width = "100%"; 
+            clearInterval(interval);
+            setTimeout(() => changeStep('step-member'), 1000);
+        } else {
+            document.getElementById('q-num').innerText = currentQueue.toLocaleString();
+            
+            let progressPercent = ((maxQueue - currentQueue) / maxQueue) * 100;
+            document.querySelector('.progress-bar').style.width = progressPercent + "%";
+            
+            updateTime();
         }
-        updateTime();
-
-        let interval = setInterval(() => {
-            let decrease = Math.floor(Math.random() * 81) + 100; 
-            currentQueue -= decrease;
-
-            if (currentQueue <= 0) {
-                currentQueue = 0;
-                document.getElementById('q-num').innerText = "0";
-                document.querySelector('.progress-bar').style.width = "100%"; 
-                clearInterval(interval);
-                setTimeout(() => changeStep('step-member'), 1000);
-            } else {
-                document.getElementById('q-num').innerText = currentQueue.toLocaleString();
-                
-                let progressPercent = ((maxQueue - currentQueue) / maxQueue) * 100;
-                document.querySelector('.progress-bar').style.width = progressPercent + "%";
-                
-                updateTime();
-            }
-        }, 300); 
-    } 
+    }, 300);
+}
 
     document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
