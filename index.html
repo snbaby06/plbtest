@@ -649,7 +649,7 @@
         <div class="narrow-panel">
             <div class="box-panel">
                 <h2>📝 กรุณากรอกรายละเอียด</h2>
-                <p style="color:#94a3b8; font-size:13px; margin-top:5px;">จะต้องระบุชื่อ นามสกุล ภาษาอังกฤษของผู้เข้าชมทุกที่นั่งเมื่อซื้อบัตร ชื่อจะถูกพิมพ์ลงบนบัตร</p>
+                <p style="color:#94a3b8; font-size:13px; margin-top:5px;">จะต้องระบุชื่อ-นามสกุลของผู้ที่เข้าชมทุกที่นั่ง ตรงกับบัตรประชาชน โดยระบุเป็นภาษาอังกฤษเท่านั้น ชื่อจะถูกพิมพ์ลงบนบัตร</p>
                 
                 <div id="name-inputs-wrapper" class="name-fields-container"></div>
 
@@ -662,15 +662,25 @@
     <div id="step-pay" class="step-panel">
         <div class="timer-tag">⏰ เวลาทำรายการจ่ายเงินคงเหลือ <span id="clock">10:00</span></div>
         <h2 style="color:#22c55e;">🎉 คุณได้ที่นั่งตามที่เลือกแล้ว!</h2>
-        
-        <div class="payment-layout">
+         <div class="payment-layout">
             
             <div>
                 <div class="protect-box" onclick="toggleTicketProtect()">
                     <input type="checkbox" id="chk-protect" style="pointer-events: none;">
                     <div style="text-align: left;">
                         <strong style="color: #fff; font-size: 15px;">🛡️ Ticket Protect</strong>
-                        <p style="color: #94a3b8; font-size: 12px; margin-top: 2px;">ค่าธรรมเนียม 7% </p>
+                        <p style="color: #94a3b8; font-size: 12px; margin-top: 2px;">ค่าธรรมเนียม 7% ของราคาบัตร
+                    </div>
+                </div>
+
+                <div class="pay-option-box">
+                    <div class="pay-title">🎟️ กรุณาเลือกวิธีการรับบัตร</div>
+                    <div class="payment-methods" style="grid-template-columns: 1fr;">
+                        <div class="pay-method-btn" id="method-pickup" onclick="selectDeliveryMethod('pickup')">
+                            <span style="font-size: 24px; display:block; margin-bottom: 5px;">🎫</span>
+                            รับบัตรด้วยตัวเอง<br>
+                            <span style="font-size: 11px; color:#94a3b8; font-weight: normal;">(ณ หน้างานคอนเสิร์ต)</span>
+                        </div>
                     </div>
                 </div>
 
@@ -740,9 +750,10 @@
 <script>
     let sZone = '';
     let selectedSeats = [];
-    let isTicketProtect = false;
+    let isTicketProtect = true;
     let paymentMethod = 'qr'; 
     let timerInterval = null;
+    let selectedDeliveryMethod = '';
 
     function changeStep(stepId) {
         document.querySelectorAll('.step-panel').forEach(panel => {
@@ -811,6 +822,17 @@
         document.getElementById('sum-seats').innerText = selectedSeats.map(i => i.id).join(', ');
         document.getElementById('sum-names').innerHTML = names.join('<br>');
 
+        selectedDeliveryMethod = '';
+        const pickupBtn = document.getElementById('method-pickup');
+        if (pickupBtn) {
+            pickupBtn.classList.remove('selected');
+            pickupBtn.querySelector('span:last-child').style.color = '#94a3b8';
+        }
+
+        isTicketProtect = true;
+        const protectChk = document.getElementById('chk-protect');
+        if (protectChk) protectChk.checked = true;
+
         calculatePayment(); 
         startTimer(600); 
         selectPaymentMethod('qr'); 
@@ -853,6 +875,15 @@
         }
     }
 
+       function selectDeliveryMethod(method) {
+        selectedDeliveryMethod = method;
+        const pickupBtn = document.getElementById('method-pickup');
+        if (pickupBtn) {
+            pickupBtn.classList.add('selected');
+            pickupBtn.querySelector('span:last-child').style.color = '#22c55e';
+        }
+    }
+	
     function selectPaymentMethod(method) {
         paymentMethod = method;
         document.getElementById('method-card').classList.remove('selected');
@@ -865,7 +896,6 @@
         }
         calculatePayment(); 
     }
-
     function toggleTicketProtect() {
         isTicketProtect = !isTicketProtect;
         document.getElementById('chk-protect').checked = isTicketProtect;
