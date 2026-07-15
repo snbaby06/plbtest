@@ -113,13 +113,13 @@
             flex-direction: column; 
             gap: 2px; 
         }
-        .seat-row { display: flex; align-items: center; justify-content: center; width: 100%; padding: 1px 0; }
+        .seat-row { display: flex; align-items: center; justify-content: center; width: 100%; padding: 2px 0; }
         .row-label { width: 80px; font-size: 14px; font-weight: bold; color: #94a3b8; text-align: right; margin-right: 15px; }
         
         .row-seats-grid { 
             display: flex; 
             justify-content: center; 
-            gap: 2px; 
+            gap: 3px; 
         }
         
         .seat-dot {
@@ -997,7 +997,7 @@
                 else if(defaultPrice === 2500) seatColor = '#0b73d8';
             }
 
-            for(let s=1; s<=10; s++) { 
+            for(let s=1; s<=12; s++) { 
                 let dot = document.createElement('div');
                 dot.className = 'seat-dot';
                 dot.innerText = s;
