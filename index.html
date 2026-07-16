@@ -247,11 +247,35 @@
                 gap: 15px;
             }
 
-            /* 2. ฝั่งซ้าย (ผังที่นั่ง): ลด padding เพื่อให้ผังที่นั่งในมือถือแสดงผลได้กว้างที่สุด */
+            /* 2. ฝั่งซ้าย (ผังที่นั่ง): ป้องกันชื่อแถวตกขอบ และเปิดให้เลื่อนสไลด์แนวนอนได้บนมือถือ */
             .seats-rows-container {
                 width: 100% !important;
                 padding: 15px 10px !important;
-                max-height: 400px; /* จำกัดความสูงผังในมือถือให้พอดีสายตา ไม่ยาวเกินไป */
+                max-height: 400px;
+                overflow-y: auto; 
+                overflow-x: auto; /* เพิ่มการสไลด์แนวนอน ป้องกันการเบียดจนตกขอบ */
+                border: 1px solid #cbd5e1;
+            }
+
+            /* ล็อกให้แต่ละแถวมีขนาดความกว้างภายในที่พอดี ไม่บีบตัวหนังสือบอกชื่อแถว */
+            .seat-row {
+                justify-content: flex-start !important; /* เปลี่ยนจาก center เป็น start เพื่อป้องกันตกขอบฝั่งซ้าย */
+                min-width: max-content; /* บังคับให้แถวยาวตามจำนวนเก้าอี้จริง ไม่หดสั้น */
+                padding: 4px 10px !important;
+            }
+
+            .seats-rows-container .row-label {
+                width: 45px !important;
+                min-width: 45px !important; /* ล็อกความกว้างขั้นต่ำของชื่อแถวไว้ไม่ให้โดนเก้าอี้เบียด */
+                font-size: 13px !important;
+                color: #334155 !important;
+                text-align: left !important;
+                margin-right: 10px !important;
+                flex-shrink: 0; /* ห้ามชื่อแถวหดตัวเด็ดขาด */
+            }
+
+            .row-seats-grid {
+                justify-content: flex-start !important;
             }
 
             /* 3. ฝั่งขวา (กล่องสรุปรายละเอียด): ปรับให้กว้าง 100% เต็มหน้าจอมือถือพอดี */
@@ -266,7 +290,7 @@
             .seat-summary-side .summary-header {
                 padding: 12px 15px !important;
                 font-size: 14px !important;
-                text-align: left; /* จัดชิดซ้ายดูเป็นระเบียบ */
+                text-align: left;
             }
 
             .seat-summary-side .summary-body {
@@ -275,7 +299,7 @@
 
             .seat-summary-side .summary-item {
                 display: flex !important;
-                flex-direction: row !important; /* ให้หัวข้อกับข้อมูลอยู่บรรทัดเดียวกันซ้าย-ขวา */
+                flex-direction: row !important;
                 justify-content: space-between !important;
                 align-items: center !important;
                 margin-bottom: 12px;
@@ -283,7 +307,7 @@
                 padding-bottom: 8px;
             }
 
-            /* 5. ปุ่มกดยืนยันในมือถือ ปรับให้เด่น กว้างเต็มจอ กดง่าย */
+            /* 5. ปุ่มกดยืนยันในมือถือ */
             .summary-actions {
                 gap: 10px !important;
                 margin-top: 15px;
@@ -292,7 +316,7 @@
             .summary-actions .btn-confirm {
                 padding: 14px !important;
                 font-size: 15px !important;
-                border-radius: 25px !important; /* คงความโค้งมนสวยๆ ไว้ */
+                border-radius: 25px !important;
                 width: 100% !important;
             }
 
