@@ -125,7 +125,7 @@
         .price-item { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: bold; }
         .color-dot { width: 18px; height: 18px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.4); }
 
-        /* ขยายกรอบรวมของทั้งหน้าให้กว้างขึ้น เพื่อให้ผังที่นั่งฝั่งซ้ายยาวและกว้างขึ้น */
+        /* seats */
         #step-seats {
             max-width: 1200px;
             margin: 0 auto;
@@ -154,10 +154,9 @@
             border: 1px solid #232936;
         }
 
-        /* seat-summary */
         .seat-summary-side {
-            width: 280px; /* บีบให้แคบลงเรียบร้อยครับ */
-            flex-shrink: 0; /* ป้องกันไม่ให้กล่องหดตัว */
+            width: 280px; 
+            flex-shrink: 0; 
             background: #ffffff;
             color: #1e293b;
             border-radius: 10px;
@@ -241,44 +240,40 @@
 
         /* Responsive */
         @media (max-width: 900px) {
-            /* 1. ให้ผังที่นั่งและกล่องรายละเอียดสลับกลับมาเรียงเป็นแนวตั้ง */
             .layout-seats-wrapper {
                 flex-direction: column !important;
                 gap: 15px;
             }
 
-            /* 2. ฝั่งซ้าย (ผังที่นั่ง): ป้องกันชื่อแถวตกขอบ และเปิดให้เลื่อนสไลด์แนวนอนได้บนมือถือ */
             .seats-rows-container {
                 width: 100% !important;
                 padding: 15px 10px !important;
                 max-height: 400px;
                 overflow-y: auto; 
-                overflow-x: auto; /* เพิ่มการสไลด์แนวนอน ป้องกันการเบียดจนตกขอบ */
+                overflow-x: auto;
                 border: 1px solid #cbd5e1;
             }
 
-            /* ล็อกให้แต่ละแถวมีขนาดความกว้างภายในที่พอดี ไม่บีบตัวหนังสือบอกชื่อแถว */
             .seat-row {
-                justify-content: flex-start !important; /* เปลี่ยนจาก center เป็น start เพื่อป้องกันตกขอบฝั่งซ้าย */
-                min-width: max-content; /* บังคับให้แถวยาวตามจำนวนเก้าอี้จริง ไม่หดสั้น */
+                justify-content: flex-start !important;
+                min-width: max-content;
                 padding: 4px 10px !important;
             }
 
             .seats-rows-container .row-label {
                 width: 45px !important;
-                min-width: 45px !important; /* ล็อกความกว้างขั้นต่ำของชื่อแถวไว้ไม่ให้โดนเก้าอี้เบียด */
+                min-width: 45px !important;
                 font-size: 13px !important;
                 color: #334155 !important;
                 text-align: left !important;
                 margin-right: 10px !important;
-                flex-shrink: 0; /* ห้ามชื่อแถวหดตัวเด็ดขาด */
+                flex-shrink: 0;
             }
 
             .row-seats-grid {
                 justify-content: flex-start !important;
             }
 
-            /* 3. ฝั่งขวา (กล่องสรุปรายละเอียด): ปรับให้กว้าง 100% เต็มหน้าจอมือถือพอดี */
             .seat-summary-side {
                 width: 100% !important; 
                 position: static;
@@ -286,7 +281,6 @@
                 box-shadow: 0 4px 15px rgba(0,0,0,0.15);
             }
 
-            /* 4. จัดระเบียบเนื้อหาด้านในกล่องให้แนบชิดและกระชับแบบ ThaiTicket */
             .seat-summary-side .summary-header {
                 padding: 12px 15px !important;
                 font-size: 14px !important;
@@ -307,7 +301,6 @@
                 padding-bottom: 8px;
             }
 
-            /* 5. ปุ่มกดยืนยันในมือถือ */
             .summary-actions {
                 gap: 10px !important;
                 margin-top: 15px;
@@ -327,6 +320,7 @@
                 text-align: center;
             }
         }
+		
         .seat-row { display: flex; align-items: center; justify-content: center; width: 100%; padding: 2px 0; }
         .row-label { width: 80px; font-size: 14px; font-weight: bold; color: #94a3b8; text-align: right; margin-right: 15px; }
         
@@ -493,12 +487,12 @@
     </div>
 
    
-    <!-- STEP 2: QUEUE -->
+    <!-- QUEUE -->
 <div id="step-queue" class="step-panel">
     <div class="narrow-panel">
         <div class="box-panel">
             <h2 style="font-size: 20px; margin-bottom: 20px;">ขณะนี้คุณอยู่ในคิว / You are in the buying queue.</h2>
-	       <h2 style="font-size: 14px; font-weight: normal; color: #94a3b8;">ขณะนี้คุณอยู่ในคิว เมื่อถึงคิวของคุณ คุณมีเวลา 10 นาทีเพื่อเข้าสู่เว็บไซต์</h2>            
+	       <h2 style="font-size: 14px; font-weight: normal; color: #94a3b8;">ขณะนี้คุณอยู่ในคิวซื้อบัตร เมื่อถึงคิวของคุณ คุณมีเวลา 10 นาทีเพื่อเข้าสู่เว็บไซต์</h2>            
             
             <div class="progress-container">
                 <div class="progress-bar"></div>
@@ -533,7 +527,7 @@
 }
 </style>
 
-    <!-- STEP 3: MEMBER VERIFICATION -->
+    <!-- MEMBER VERIFICATION -->
     <div id="step-member" class="step-panel">
         <div class="narrow-panel">
             <div class="box-panel">
@@ -548,7 +542,7 @@
         </div>
     </div>
 
-    <!-- STEP 4: MAP -->
+    <!-- MAP -->
     <div id="step-zone" class="step-panel">
         <h2 style="color: #fff;">เลือกโซนการแสดง</h2>
         <div class="sub-title">กดเลือกหรือคลิกโซนที่ต้องการ</div>
@@ -882,7 +876,7 @@
         </div>
     </div>
 
-    <!-- STEP 6: NAME ON TICKET -->
+    <!-- NAME -->
     <div id="step-name" class="step-panel">
         <div class="narrow-panel">
             <div class="box-panel">
@@ -896,7 +890,7 @@
         </div>
     </div>
 
-    <!-- STEP 7: PAYMENT SIMULATION -->
+    <!-- PAYMENT SIMULATION -->
     <div id="step-pay" class="step-panel">
         <div class="timer-tag">⏰ เวลาทำรายการจ่ายเงินคงเหลือ <span id="clock">10:00</span></div>
         <h2 style="color:#22c55e;">🎉 คุณได้ที่นั่งตามที่เลือกแล้ว!</h2>
