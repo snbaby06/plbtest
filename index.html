@@ -102,16 +102,129 @@
         .price-item { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: bold; }
         .color-dot { width: 18px; height: 18px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.4); }
 
+        /* ขยายกรอบรวมของทั้งหน้าให้กว้างขึ้น เพื่อให้ผังที่นั่งฝั่งซ้ายยาวและกว้างขึ้น */
+        #step-seats {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* layout-seats */
+        .layout-seats-wrapper {
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        /* seats-rows */
         .seats-rows-container { 
+            flex: 1;
             background: #11141b; 
             padding: 25px 15px; 
             border-radius: 12px; 
-            margin: 20px 0; 
-            max-height: 550px; 
-            overflow-y: auto; 
+            margin: 0; 
+            max-height: 900px;            overflow-y: auto; 
             display: flex; 
             flex-direction: column; 
             gap: 2px; 
+            border: 1px solid #232936;
+        }
+
+        /* seat-summary */
+        .seat-summary-side {
+            width: 280px; /* บีบให้แคบลงเรียบร้อยครับ */
+            flex-shrink: 0; /* ป้องกันไม่ให้กล่องหดตัว */
+            background: #ffffff;
+            color: #1e293b;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: sticky;
+            top: 20px;
+        }
+
+        /* summary-header */
+        .seat-summary-side .summary-header {
+            background: #b30000;
+            color: #ffffff;
+            padding: 15px 20px;
+            font-weight: bold;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        /* summary-body */
+        .seat-summary-side .summary-body {
+            padding: 20px 15px;
+        }
+
+         .seat-summary-side .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            font-size: 14px;
+            color: #334155;
+            border-bottom: 1px dashed #e2e8f0;
+            padding-bottom: 12px;
+        }
+        .seat-summary-side .summary-item span:first-child {
+            font-weight: 500;
+        }
+
+        .summary-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        /* confirm */
+        .summary-actions .btn-confirm {
+            background: #b30000;
+            color: #ffffff;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 25px; 
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 4px 12px rgba(179, 0, 0, 0.3);
+        }
+        .summary-actions .btn-confirm:hover {
+            background: #d60000;
+        }
+
+        /* back */
+        .summary-actions .btn-back {
+            background: transparent;
+            color: #64748b;
+            border: none;
+            width: 100%;
+            padding: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .summary-actions .btn-back:hover {
+            color: #0f172a;
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .layout-seats-wrapper {
+                flex-direction: column;
+            }
+            .seat-summary-side {
+                width: 100%;
+                position: static;
+            }
         }
         .seat-row { display: flex; align-items: center; justify-content: center; width: 100%; padding: 2px 0; }
         .row-label { width: 80px; font-size: 14px; font-weight: bold; color: #94a3b8; text-align: right; margin-right: 15px; }
@@ -631,16 +744,27 @@
         <h2>โซน: <span id="z-title" style="color:#ffcc00;">-</span> (<span id="z-price">-</span> บาท)</h2>
         <div class="sub-title" style="color: #ff4d4d; font-weight: bold;">⚠️ จำกัดบัตรสูงสุด 2 ใบต่อ Membership ID</div>
         
-        <div class="seats-rows-container" id="seats-box"></div>
+        <div class="layout-seats-wrapper">
+            <div class="seats-rows-container" id="seats-box"></div>
 
-        <div class="info-card">
-            <p>ที่นั่งที่เลือก: <span id="lbl-seats" style="color:#ffcc00; font-weight:bold;">ยังไม่ได้เลือก</span></p>
-            <p>ราคาบัตร: <span id="lbl-total" style="color:#ff4d4d; font-weight:bold; font-size:18px;">0</span> บาท</p>
-        </div>
-        
-        <div style="display:flex; gap:10px; margin-top:15px;">
-            <button class="btn-main" style="background:#475569; margin:0;" onclick="backToZone()">ย้อนกลับผังรวม</button>
-            <button class="btn-main" style="background:#22c55e; margin:0;" onclick="goInputName()">ยืนยันที่นั่ง</button>
+            <div class="seat-summary-side">
+                <div class="summary-header">รายละเอียดการจอง</div>
+                <div class="summary-body">
+                    <div class="summary-item">
+                        <span>ที่นั่งที่เลือก:</span>
+                        <span id="lbl-seats" style="color:#000000; font-weight:bold;">ยังไม่ได้เลือก</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>ราคาบัตร:</span>
+                        <span id="lbl-total" style="color:#ff4d4d; font-weight:bold; font-size:18px;">0</span> บาท
+                    </div>
+                    
+                    <div class="summary-actions">
+                        <button class="btn-main btn-confirm" onclick="goInputName()">ยืนยันที่นั่ง</button>
+                        <button class="btn-main btn-back" onclick="backToZone()">&lt; เลือกโซนอื่น</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
