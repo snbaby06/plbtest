@@ -560,7 +560,7 @@
                 <h2 style="color: #ff1900;">🔒 WEVERSE MEMBERSHIP VERIFICATION</h2>
                 <div class="input-group">
                     <label for="member-code">โปรดระบุวันเดบิวต์ของ PLAVE เพื่อยืนยันสิทธิ์ Membership</label>
-                    <label for="member-code">(หมายเหตุ: คำถามนี้ใช้แทนการกรอกหมายเลข Weverse Membership เท่านั้น)</label>
+                    <label for="member-code">หมายเหตุ: คำถามนี้ใช้แทนการกรอกหมายเลข Weverse Membership เท่านั้น</label>
                     <input type="tel" id="member-code" placeholder="YYYYMMDD" maxlength="8">
                 </div>
                 <button class="btn-main" style="background:#ff1900; color:#fff;" onclick="verifyMember()">ตกลง</button>
@@ -942,7 +942,7 @@
                         <div class="pay-method-btn" id="method-pickup" onclick="selectDeliveryMethod('pickup')">
                             <span style="font-size: 24px; display:block; margin-bottom: 5px;">🎫</span>
                             รับบัตรด้วยตัวเอง<br>
-                            <span style="font-size: 11px; color:#ef4444; font-weight: normal;">(ติดต่อรับบัตรได้ที่บูธ TTM 11 สาขาหลัก ตามวันและเวลาที่กำหนด หรือ บูธ TTM หน้างานแสดง)</span>
+                            <span style="font-size: 11px; color:#ef4444; font-weight: normal;">รับบัตรด้วยตนเอง ณ จุดจำหน่ายไทยทิคเก็ตเมเจอร์ 11 สาขาหลัก หรือจุดจำหน่ายที่หน้างานแสดงก่อนการแสดงเริ่มประมาณ 2 ชม.</span>
                         </div>
                     </div>
                 </div>
@@ -953,12 +953,12 @@
                         <div class="pay-method-btn" id="method-card" onclick="selectPaymentMethod('card')">
                             <span style="font-size: 24px; display:block; margin-bottom: 5px;">💳</span>
                             บัตรเครดิต/เดบิต<br>
-                            <span style="font-size: 11px; color:#ef4444; font-weight: normal;">(Processing Fee 3%)</span>
+                            <span style="font-size: 11px; color:#ef4444; font-weight: normal;">Processing Fee 3%</span>
                         </div>
                         <div class="pay-method-btn" id="method-qr" onclick="selectPaymentMethod('qr')">
                             <span style="font-size: 24px; display:block; margin-bottom: 5px;">📱</span>
                             Thai QR PromptPay<br>
-                            <span style="font-size: 11px; color:#ef4444; font-weight: normal;">(Processing Fee 3%)</span>
+                            <span style="font-size: 11px; color:#ef4444; font-weight: normal;">Processing Fee 3%</span>
                         </div>
                     </div>
                 </div>
@@ -967,7 +967,6 @@
     <input type="checkbox" id="chk-protect" checked onclick="event.stopPropagation(); toggleTicketProtect();">
     <div style="text-align: left;">
         <strong style="color: #000000; font-size: 15px;">Ticket Protect</strong>
-        <p style="color: #64748b; font-size: 12px; margin-top: 2px;">+7% ของราคาบัตร</p>
     </div>
 </div>
 
