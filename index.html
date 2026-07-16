@@ -447,7 +447,7 @@
             font-weight: bold;
             color: #b30000; 
         }
-        .protect-box {
+	.protect-box {
             display: flex;
             align-items: center;
             gap: 10px;
@@ -466,6 +466,32 @@
             height: 18px;
             cursor: pointer;
         }
+	.agree-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            cursor: pointer;
+            user-select: none;
+            color: #334155;
+            font-size: 13px;
+            line-height: 1.5;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            text-align: left;
+        }
+        
+        .agree-box input {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        
     </style>
 </head>
 <body>
@@ -849,7 +875,7 @@
 
     <!-- STEP 5: SEAT SELECTION SECTOR -->
     <div id="step-seats" class="step-panel">
-        <h2 style="color: #fff;">โซน: <span id="z-title" style="color:#eb0000;">-</span> (<span id="z-price">-</span> บาท)</h2>
+        <h2 style="color: #fff;">เลือกที่นั่ง</h2>
         <div class="sub-title" style="color: #ff4d4d; font-weight: bold;">⚠️ จำกัดบัตรสูงสุด 2 ใบต่อ Membership ID</div>
         
         <div class="layout-seats-wrapper">
@@ -858,6 +884,10 @@
             <div class="seat-summary-side">
                 <div class="summary-header">รายละเอียดการจอง</div>
                 <div class="summary-body">
+					<div class="summary-item">
+                        <span>โซนที่เลือก:</span>
+                        <span id="z-title" style="color:#eb0000;">-</span>
+                    </div>
                     <div class="summary-item">
                         <span>ที่นั่งที่เลือก:</span>
                         <span id="lbl-seats" style="color:#000000; font-weight:bold;">ยังไม่ได้เลือก</span>
@@ -893,18 +923,10 @@
     <!-- PAYMENT SIMULATION -->
     <div id="step-pay" class="step-panel">
         <div class="timer-tag">⏰ เวลาทำรายการจ่ายเงินคงเหลือ <span id="clock">10:00</span></div>
-        <h2 style="color:#22c55e;">🎉 คุณได้ที่นั่งตามที่เลือกแล้ว!</h2>
          <div class="payment-layout">
             
-            <div>
-                <div class="protect-box" onclick="toggleTicketProtect()">
-                    <input type="checkbox" id="chk-protect" style="pointer-events: none;">
-                    <div style="text-align: left;">
-                        <strong style="color: #000; font-size: 15px;">🛡️ Ticket Protect</strong>
-                        <p style="color: #94a3b8; font-size: 12px; margin-top: 2px;">ค่าธรรมเนียม 7% ของราคาบัตร
-                    </div>
-                </div>
-
+            <div class="pay-left" style="flex: 1;">
+                
                 <div class="pay-option-box">
                     <div class="pay-title">🎟️ กรุณาเลือกวิธีการรับบัตร</div>
                     <div class="payment-methods" style="grid-template-columns: 1fr;">
@@ -931,9 +953,24 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="protect-box" onclick="toggleTicketProtect()" style="margin-top: 15px;">
+    <input type="checkbox" id="chk-protect" checked onclick="event.stopPropagation(); toggleTicketProtect();">
+    <div style="text-align: left;">
+        <strong style="color: #000000; font-size: 15px;">Ticket Protect</strong>
+        <p style="color: #64748b; font-size: 12px; margin-top: 2px;">+7% ของราคาบัตร</p>
+    </div>
+</div>
+
+                <div class="agree-box" onclick="toggleAgree()">
+                    <input type="checkbox" id="chk-agree" onclick="event.stopPropagation();">
+                    <div style="text-align: left;">
+                       <strong style="color: #000000; font-size: 15px;">ยอมรับข้อตกลงในการใช้บริการ</strong>
+                    </div>
+                </div>
             </div>
 
-            <div class="summary-side">
+                     <div class="summary-side">
     <h3 style="margin-bottom: 15px; font-size: 16px; border-bottom: 1px solid #334155; padding-bottom: 8px;">รายละเอียดการจอง</h3>
     
     <div class="summary-row">
@@ -957,7 +994,7 @@
     </div>
     
     <div class="summary-row">
-        <span>ค่าบริการ (30 บ./ใบ) + Processing fee 3%:</span>
+        <span>ค่าบริการ (30 บาทต่อใบ + Processing fee 3% (ถ้ามี)):</span>
         <span id="sum-service-fee">0 บาท</span>
     </div>
     
@@ -971,13 +1008,13 @@
         <span id="sum-grand-total">0 บาท</span>
     </div>
 
- 
-    <button class="btn-main" style="background:#c70000; margin-top: 20px; font-size: 18px;" onclick="finish()">ยืนยันการสั่งซื้อ</button>
-</div>
+                    <div class="summary-actions" style="margin-top: 20px;">
+                        <button class="btn-confirm" style="background:#b30000; width: 100%; padding: 14px; color: white; border: none; border-radius: 25px; font-size: 16px; font-weight: bold; cursor: pointer;" onclick="finish()">ยืนยันการสั่งซื้อ</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-</div>
 
 <script>
     let sZone = '';
@@ -1061,38 +1098,34 @@
             pickupBtn.querySelector('span:last-child').style.color = '#94a3b8';
         }
 
+
         isTicketProtect = true;
         const protectChk = document.getElementById('chk-protect');
         if (protectChk) protectChk.checked = true;
 
+        const agreeChk = document.getElementById('chk-agree');
+        if (agreeChk) agreeChk.checked = false; 
         calculatePayment(); 
         startTimer(600); 
         selectPaymentMethod('qr'); 
         changeStep('step-pay');
     }
 
-    // 
     function calculatePayment() {
-        let baseTicketTotal = selectedSeats.reduce((sum, item) => sum + item.price, 0); // รวมราคาตั๋วทั้งหมด
+        let baseTicketTotal = selectedSeats.reduce((sum, item) => sum + item.price, 0); 
         let quantity = selectedSeats.length;
-        let serviceFeeTotal = 30 * quantity; // ค่าบริการ 30 บาทต่อใบ
+        let serviceFeeTotal = 30 * quantity; 
 
-        // 
         let processingFee = (baseTicketTotal + serviceFeeTotal) * 0.03;
-
-        // 
         let totalServiceAndProcessing = Math.floor(serviceFeeTotal + processingFee);
 
-        // คTicket Protect 7% 
         let protectFee = 0;
         if (isTicketProtect) {
             protectFee = Math.floor(baseTicketTotal * 0.07);
         }
 
-        // 
         let grandTotal = baseTicketTotal + totalServiceAndProcessing + protectFee;
 
-        // 
         if (document.getElementById('sum-base-price')) {
             document.getElementById('sum-base-price').innerText = baseTicketTotal.toLocaleString() + " บาท";
         }
@@ -1107,7 +1140,7 @@
         }
     }
 
-       function selectDeliveryMethod(method) {
+    function selectDeliveryMethod(method) {
         selectedDeliveryMethod = method;
         const pickupBtn = document.getElementById('method-pickup');
         if (pickupBtn) {
@@ -1115,7 +1148,7 @@
             pickupBtn.querySelector('span:last-child').style.color = '#22c55e';
         }
     }
-	
+    
     function selectPaymentMethod(method) {
         paymentMethod = method;
         document.getElementById('method-card').classList.remove('selected');
@@ -1128,10 +1161,19 @@
         }
         calculatePayment(); 
     }
+
     function toggleTicketProtect() {
-        isTicketProtect = !isTicketProtect;
-        document.getElementById('chk-protect').checked = isTicketProtect;
-        calculatePayment();
+    const protectChk = document.getElementById('chk-protect');
+    if (protectChk) {
+        isTicketProtect = protectChk.checked; 
+        calculatePayment();     }
+}
+
+    function toggleAgree() {
+        const chk = document.getElementById('chk-agree');
+        if (chk) {
+            chk.checked = !chk.checked;
+        }
     }
 
     function startTimer(duration) {
@@ -1149,15 +1191,22 @@
 
             if (--timer < 0) {
                 clearInterval(timerInterval);
-                alert("หมดเวลาทำรายการจองตั๋ว ระบบจะทำการคืนบัตรกลับสู่ระบบ");
+                alert("หมดเวลาทำรายการ ระบบจะทำการคืนบัตรกลับสู่ระบบ");
                 location.reload();
             }
         }, 1000);
     }
 
+
     function finish() {
         if (selectedDeliveryMethod === '') {
             alert('⚠️ กรุณาเลือกวิธีการรับบัตรก่อนทำการชำระเงิน');
+            return;
+        }
+
+        const chkAgree = document.getElementById('chk-agree');
+        if (!chkAgree || !chkAgree.checked) {
+            alert('⚠️ คุณยังไม่ได้ทำการตรวจสอบ และยอมรับข้อตกลงในการซื้อบัตร');
             return;
         }
 
@@ -1289,48 +1338,45 @@
             box.appendChild(rowDiv);
         }
         
-        // 
         changeStep('step-seats');
     }
 
-   function goQueue() {
-    changeStep('step-queue');
-    const minQ = 100;
-    const maxQ = 15000;
-    let maxQueue = Math.floor(Math.random() * (maxQ - minQ + 1)) + minQ;
-    let currentQueue = maxQueue;
-    
-    // 0.3 วินาที
-    document.getElementById('q-num').innerText = currentQueue.toLocaleString();
-    document.querySelector('.progress-bar').style.width = "0%";
-    
-    function updateTime() {
-        let now = new Date();
-        document.getElementById('update-time').innerText = now.toLocaleTimeString('th-TH');
-    }
-    updateTime();
-
-    let interval = setInterval(() => {
-        // 
-        let randomDecrease = Math.floor(Math.random() * 501) + 100; 
-        currentQueue -= randomDecrease;
-
-        if (currentQueue <= 0) {
-            currentQueue = 0;
-            document.getElementById('q-num').innerText = "0";
-            document.querySelector('.progress-bar').style.width = "100%"; 
-            clearInterval(interval);
-            setTimeout(() => changeStep('step-member'), 1000);
-        } else {
-            document.getElementById('q-num').innerText = currentQueue.toLocaleString();
-            
-            let progressPercent = ((maxQueue - currentQueue) / maxQueue) * 100;
-            document.querySelector('.progress-bar').style.width = progressPercent + "%";
-            
-            updateTime();
+    function goQueue() {
+        changeStep('step-queue');
+        const minQ = 100;
+        const maxQ = 15000;
+        let maxQueue = Math.floor(Math.random() * (maxQ - minQ + 1)) + minQ;
+        let currentQueue = maxQueue;
+        
+        document.getElementById('q-num').innerText = currentQueue.toLocaleString();
+        document.querySelector('.progress-bar').style.width = "0%";
+        
+        function updateTime() {
+            let now = new Date();
+            document.getElementById('update-time').innerText = now.toLocaleTimeString('th-TH');
         }
-    }, 300);
-}
+        updateTime();
+
+        let interval = setInterval(() => {
+            let randomDecrease = Math.floor(Math.random() * 501) + 100; 
+            currentQueue -= randomDecrease;
+
+            if (currentQueue <= 0) {
+                currentQueue = 0;
+                document.getElementById('q-num').innerText = "0";
+                document.querySelector('.progress-bar').style.width = "100%"; 
+                clearInterval(interval);
+                setTimeout(() => changeStep('step-member'), 1000);
+            } else {
+                document.getElementById('q-num').innerText = currentQueue.toLocaleString();
+                
+                let progressPercent = ((maxQueue - currentQueue) / maxQueue) * 100;
+                document.querySelector('.progress-bar').style.width = progressPercent + "%";
+                
+                updateTime();
+            }
+        }, 300);
+    }
 
     document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
