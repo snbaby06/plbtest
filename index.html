@@ -241,12 +241,67 @@
 
         /* Responsive */
         @media (max-width: 900px) {
+            /* บังคับให้หน้าเลือกที่นั่งยังคงแบ่งเป็น 2 ฝั่งซ้าย-ขวาคู่กัน ไม่ตัดลงมาแนวดิ่ง */
             .layout-seats-wrapper {
-                flex-direction: column;
+                flex-direction: row !important; 
+                gap: 12px; /* ลดระยะห่างลงเพื่อให้กระชับพื้นที่ */
+                align-items: stretch;
             }
+
+            /* ฝั่งซ้าย (ผังที่นั่ง): ย่อขนาด Padding เพื่อให้ผังที่นั่งดูกว้างขึ้นบนจอมือถือ */
+            .seats-rows-container {
+                padding: 12px 8px !important;
+                max-height: 480px; /* จำกัดความสูงไม่ให้ล้นจอ */
+            }
+
+            /* ฝั่งขวา (กล่องรายละเอียดการจอง): บีบความกว้างลงเหลือ 130px ให้พอดีพื้นที่จอ */
             .seat-summary-side {
-                width: 100%;
+                width: 130px !important; 
+                flex-shrink: 0;
                 position: static;
+                border-radius: 8px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            }
+
+            /* ย่อขนาดตัวหนังสือและปุ่มในกล่องขวาลงให้พอดีกับความแคบของจอมือถือ */
+            .seat-summary-side .summary-header {
+                padding: 8px 5px !important;
+                font-size: 11px !important;
+            }
+
+            .seat-summary-side .summary-body {
+                padding: 10px 8px !important;
+            }
+
+            .seat-summary-side .summary-item {
+                flex-direction: column; /* สลับตัวหนังสือให้เรียงแบบบน-ล่าง */
+                align-items: flex-start;
+                gap: 2px;
+                margin-bottom: 10px;
+                font-size: 11px !important;
+                padding-bottom: 6px;
+            }
+            
+            .seat-summary-side .summary-item span:last-child {
+                font-size: 13px !important;
+            }
+
+            .summary-actions {
+                gap: 6px !important;
+                margin-top: 15px;
+            }
+
+            /* ปุ่มยืนยันย่อขนาดเล็กและมนลงสำหรับใช้นิ้วกดง่าย */
+            .summary-actions .btn-confirm {
+                padding: 8px 4px !important;
+                font-size: 12px !important;
+                border-radius: 15px !important;
+            }
+
+            /* ปุ่มย้อนกลับปรับให้เล็กกะทัดรัด */
+            .summary-actions .btn-back {
+                padding: 4px !important;
+                font-size: 11px !important;
             }
         }
         .seat-row { display: flex; align-items: center; justify-content: center; width: 100%; padding: 2px 0; }
