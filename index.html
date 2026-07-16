@@ -875,32 +875,45 @@
 
     <!-- STEP 5: SEAT SELECTION SECTOR -->
      <div id="step-seats" class="step-panel">
-        <h2 style="color: #fff;">เลือกที่นั่งโซน: <span id="z-title" style="color:#eb0000;">-</span> (<span id="z-price">-</span> บาท)</h2>
-        <div class="sub-title" style="color: #ff4d4d; font-weight: bold;">⚠️ จำกัดบัตรสูงสุด 2 ใบต่อ Membership ID</div>
+        <h2 style="color: #fff; margin-bottom: 5px;">เลือกที่นั่ง</h2>
+        <div class="sub-title" style="color: #ff4d4d; font-weight: bold; margin-bottom: 20px;">⚠️ จำกัดบัตรสูงสุด 2 ใบต่อ Membership ID</div>
         
         <div class="layout-seats-wrapper">
             <div class="seats-rows-container" id="seats-box"></div>
 
-            <div class="seat-summary-side">
+            <div class="seat-summary-side" style="width: 320px; flex-shrink: 0;">
                 <div class="summary-header">รายละเอียดการจอง</div>
                 <div class="summary-body">
-                    <div class="summary-item">
+                    
+                    <div class="summary-item" style="display: flex; justify-content: space-between; border-bottom: 1px dashed #cbd5e1; padding-bottom: 10px; margin-bottom: 12px;">
+                        <span>โซน:</span>
+                        <span style="font-weight: bold; color: #000000;">
+                            <span id="z-title">-</span>
+                            <span id="z-price" style="display: none;">-</span>
+                        </span>
+                    </div>
+
+                    <div class="summary-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                         <span>ที่นั่งที่เลือก:</span>
                         <span id="lbl-seats" style="color:#000000; font-weight:bold;">ยังไม่ได้เลือก</span>
                     </div>
-                    <div class="summary-item">
+                    
+                    <div class="summary-item" style="display: flex; justify-content: space-between; margin-bottom: 15px;">
                         <span>ราคาบัตร:</span>
-                        <span id="lbl-total" style="color:#ff4d4d; font-weight:bold; font-size:18px;">0</span> บาท
+                        <div>
+                            <span id="lbl-total" style="color:#ff4d4d; font-weight:bold; font-size:18px;">0</span> บาท
+                        </div>
                     </div>
                     
                     <div class="summary-actions">
-                        <button class="btn-main btn-confirm" onclick="goInputName()">ยืนยันที่นั่ง</button>
-                        <button class="btn-main btn-back" onclick="backToZone()">&lt; เลือกโซนอื่น</button>
+                        <button class="btn-main btn-confirm" style="width: 100%; margin-bottom: 8px;" onclick="goInputName()">ยืนยันที่นั่ง</button>
+                        <button class="btn-main btn-back" style="width: 100%; background: #64748b;" onclick="backToZone()">&lt; เลือกโซนอื่น</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 
     <!-- NAME -->
     <div id="step-name" class="step-panel">
