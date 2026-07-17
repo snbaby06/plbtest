@@ -1115,7 +1115,9 @@
         if (agreeChk) agreeChk.checked = false; 
         calculatePayment(); 
         startTimer(600); 
-        selectPaymentMethod('qr'); 
+	paymentMethod = '';
+	document.getElementById('method-card').classList.remove('selected');
+	document.getElementById('method-qr').classList.remove('selected');
         changeStep('step-pay');
     }
 
@@ -1149,26 +1151,33 @@
     }
 
     function selectDeliveryMethod(method) {
-        selectedDeliveryMethod = method;
-        const pickupBtn = document.getElementById('method-pickup');
-        if (pickupBtn) {
-            pickupBtn.classList.add('selected');
-            pickupBtn.querySelector('span:last-child').style.color = '#ff4d4d';
+    selectedDeliveryMethod = method;
+    const pickupBtn = document.getElementById('method-pickup');
+    
+    if (pickupBtn) {
+       pickupBtn.classList.add('selected');
+        
+       const lastSpan = pickupBtn.querySelector('span:last-child');
+        if (lastSpan) {
+            lastSpan.style.color = '#ff4d4d';
         }
     }
+}
     
     function selectPaymentMethod(method) {
-        paymentMethod = method;
-        document.getElementById('method-card').classList.remove('selected');
-        document.getElementById('method-qr').classList.remove('selected');
+    paymentMethod = method;     
+   
+    document.getElementById('method-card').classList.remove('selected');
+    document.getElementById('method-qr').classList.remove('selected');
 
-        if(method === 'card') {
-            document.getElementById('method-card').classList.add('selected');
-        } else {
-            document.getElementById('method-qr').classList.add('selected');
-        }
-        calculatePayment(); 
+    if(method === 'card') {
+        document.getElementById('method-card').classList.add('selected');
+    } else if(method === 'qr') {
+        document.getElementById('method-qr').classList.add('selected');
     }
+    
+    calculatePayment(); 
+}
 
     function toggleTicketProtect() {
     const protectChk = document.getElementById('chk-protect');
@@ -1212,6 +1221,11 @@
             return;
         }
 
+	if (typeof paymentMethod === 'undefined' || paymentMethod === '') {
+        alert('⚠️ กรุณาเลือกวิธีการชำระเงิน');
+        return;
+    }
+
         const chkAgree = document.getElementById('chk-agree');
         if (!chkAgree || !chkAgree.checked) {
             alert('⚠️ คุณยังไม่ได้ทำการตรวจสอบ และยอมรับข้อตกลงในการซื้อบัตร');
@@ -1219,9 +1233,17 @@
         }
 
         clearInterval(timerInterval);
-        alert(`🎉 ยินดีด้วยค่ะ! PLLI คนเก่งได้บัตรแล้ว! ขอให้พลังแต้มบุญส่งผลถึงวันกดบัตรจริง กดได้โซนที่ต้องการ สมใจหวังเลยนะ!🎫✨`);
-        location.reload();
-    }
+        const successMsg = `✅ รายการสั่งซื้อสำเร็จ\n` +
+                   `------------------------------------\n` +
+                   `🎉 ยินดีด้วยค่ะ! PLLI คนเก่งได้บัตรแล้ว!\n` +
+                   `ขอให้พลังแต้มบุญส่งผลถึงวันกดบัตรจริง\n` +
+                   `กดได้โซนที่ต้องการ สมใจหวังเลยนะ! 🎫✨\n` +
+                   `------------------------------------\n` +
+                   `💙💜🩷❤️🖤`;
+    
+    alert(successMsg);
+    location.reload(); 
+}
 
     function selZ(zoneName, defaultPrice) {
         sZone = zoneName; 
