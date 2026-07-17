@@ -555,18 +555,26 @@
 
     <!-- MEMBER VERIFICATION -->
     <div id="step-member" class="step-panel">
-        <div class="narrow-panel">
-            <div class="box-panel">
-                <h2 style="color: #ff1900;">🔒 WEVERSE MEMBERSHIP VERIFICATION</h2>
-                <div class="input-group">
-                    <label for="member-code">โปรดระบุวันเดบิวต์ของ PLAVE เพื่อยืนยันสิทธิ์ Membership</label>
-                    <label for="member-code">หมายเหตุ: คำถามนี้ใช้แทนการกรอกหมายเลข Weverse Membership เท่านั้น</label>
-                    <input type="tel" id="member-code" placeholder="YYYYMMDD" maxlength="8">
-                </div>
-                <button class="btn-main" style="background:#ff1900; color:#fff;" onclick="verifyMember()">ตกลง</button>
+    <div class="narrow-panel">
+        <div class="box-panel">
+            <h2 style="color: #ff1900;">🔒 WEVERSE MEMBERSHIP VERIFICATION</h2>
+            
+            <div class="input-group" style="text-align: center; margin-bottom: 15px;">
+                <!-- ปรับให้เป็น block และลด line-height เพื่อให้ชิดกัน -->
+                <label for="member-code" style="display: block; font-weight: bold; line-height: 1.2;">
+                    โปรดระบุวันเดบิวต์ของ PLAVE เพื่อยืนยันสิทธิ์ Membership
+                </label>
+                <label for="member-code" style="display: block; font-size: 13px; color: #666; line-height: 1.4; margin-top: 2px;">
+                    หมายเหตุ: คำถามนี้ใช้แทนการกรอกหมายเลข Weverse Membership เท่านั้น
+                </label>
+                
+                <input type="tel" id="member-code" placeholder="YYYYMMDD" maxlength="8" style="margin-top: 10px; width: 100%; padding: 10px; box-sizing: border-box;">
             </div>
+            
+            <button class="btn-main" style="background:#ff1900; color:#fff; width: 100%;" onclick="verifyMember()">ตกลง</button>
         </div>
     </div>
+</div>
 
     <!-- MAP -->
     <div id="step-zone" class="step-panel">
@@ -904,8 +912,7 @@
                             <span id="lbl-total" style="color:#ff4d4d; font-weight:bold; font-size:18px;">0</span> บาท
                         </div>
                     </div>
-                    
-                    <div class="summary-actions">
+                   <div class="summary-actions">
                         <button class="btn-main btn-confirm" style="width: 100%; margin-bottom: 8px;" onclick="goInputName()">ยืนยันที่นั่ง</button>
 						<button class="btn-main btn-back" onclick="backToZone()">&lt; เลือกโซนอื่น</button>
                     </div>
@@ -981,40 +988,50 @@
                      <div class="summary-side">
     <h3 style="margin-bottom: 15px; font-size: 16px; border-bottom: 1px solid #334155; padding-bottom: 8px;">รายละเอียดการจอง</h3>
     
-    <div class="summary-row">
-        <span>โซนที่นั่ง:</span>
-        <span id="sum-zone" style="font-weight: bold; color: #bd1313;">-</span>
-    </div>
-    <div class="summary-row">
-        <span>เลขที่นั่ง:</span>
-        <span id="sum-seats" style="font-weight: bold; color: #bd1313;">-</span>
-    </div>
-    <div class="summary-row">
-        <span>ชื่อบนบัตร:</span>
-        <span id="sum-names" style="text-align: right; font-weight: bold; color: #000;">-</span>
-    </div>
+   <div class="summary-row">
+    <span>โซนที่นั่ง:</span>
+    <span id="sum-zone" style="font-weight: bold; color: #bd1313;">-</span>
+</div>
+<div class="summary-row">
+    <span>เลขที่นั่ง:</span>
+    <span id="sum-seats" style="font-weight: bold; color: #bd1313;">-</span>
+</div>
+<div class="summary-row">
+    <span>ชื่อบนบัตร:</span>
+    <span id="sum-names" style="text-align: right; font-weight: bold; color: #000;">-</span>
+</div>
     
-    <div style="margin: 15px 0; border-top: 1px solid #334155; padding-top: 15px;"></div>
+<div style="margin: 15px 0; border-top: 1px solid #334155; padding-top: 15px;"></div>
 
-    <div class="summary-row">
-        <span>ราคาบัตร:</span>
-        <span id="sum-base-price">0 บาท</span>
-    </div>
+<div class="summary-row">
+    <span>ราคาบัตร:</span>
+    <span id="sum-base-price">0 บาท</span>
+</div>
     
-    <div class="summary-row">
-        <span>ค่าบริการ (30 บาทต่อใบ + Processing fee 3% (ถ้ามี)):</span>
-        <span id="sum-service-fee">0 บาท</span>
-    </div>
+<div class="summary-row">
+    <span>ค่าบริการ (30 บาทต่อใบ + Processing fee 3% (ถ้ามี)):</span>
+    <span id="sum-service-fee">0 บาท</span>
+</div>
     
-    <div class="summary-row">
-        <span>Ticket Protect (7%):</span>
-        <span id="sum-protect-fee">0 บาท</span>
-    </div>
-    
-    <div class="summary-row total">
-        <span>จำนวนเงินที่ต้องชำระ:</span>
-        <span id="sum-grand-total">0 บาท</span>
-    </div>
+<div class="summary-row">
+    <span>Ticket Protect (7%):</span>
+    <span id="sum-protect-fee">0 บาท</span>
+</div>
+
+<div class="summary-row">
+    <span>วิธีการรับบัตร:</span>
+    <span id="display-delivery-method" style="font-weight: bold; color: #000;">-</span>
+</div>
+
+<div class="summary-row">
+    <span>วิธีการชำระเงิน:</span>
+    <span id="display-payment-method" style="font-weight: bold; color: #000;">-</span>
+</div>
+
+<div class="summary-row total">
+    <span>จำนวนเงินที่ต้องชำระ:</span>
+    <span id="sum-grand-total">0 บาท</span>
+</div>
 
                     <div class="summary-actions" style="margin-top: 20px;">
                         <button class="btn-confirm" style="background:#b30000; width: 100%; padding: 14px; color: white; border: none; border-radius: 25px; font-size: 16px; font-weight: bold; cursor: pointer;" onclick="finish()">ยืนยันการสั่งซื้อ</button>
@@ -1028,7 +1045,7 @@
     let sZone = '';
     let selectedSeats = [];
     let isTicketProtect = true;
-    let paymentMethod = 'qr'; 
+    let paymentMethod = ''; 
     let timerInterval = null;
     let selectedDeliveryMethod = '';
 
@@ -1106,85 +1123,76 @@
             pickupBtn.querySelector('span:last-child').style.color = '#94a3b8';
         }
 
-
         isTicketProtect = true;
         const protectChk = document.getElementById('chk-protect');
         if (protectChk) protectChk.checked = true;
 
         const agreeChk = document.getElementById('chk-agree');
         if (agreeChk) agreeChk.checked = false; 
+
+        paymentMethod = '';
+        if (document.getElementById('method-card')) document.getElementById('method-card').classList.remove('selected');
+        if (document.getElementById('method-qr')) document.getElementById('method-qr').classList.remove('selected');
+        
         calculatePayment(); 
         startTimer(600); 
-	paymentMethod = '';
-	document.getElementById('method-card').classList.remove('selected');
-	document.getElementById('method-qr').classList.remove('selected');
+        
         changeStep('step-pay');
     }
 
     function calculatePayment() {
-        let baseTicketTotal = selectedSeats.reduce((sum, item) => sum + item.price, 0); 
-        let quantity = selectedSeats.length;
-        let serviceFeeTotal = 30 * quantity; 
+    let baseTicketTotal = selectedSeats.reduce((sum, item) => sum + item.price, 0); 
+    let quantity = selectedSeats.length;
+    let serviceFeeTotal = 30 * quantity; 
+    let processingFee = (baseTicketTotal + serviceFeeTotal) * 0.03;
+    let totalServiceAndProcessing = Math.floor(serviceFeeTotal + processingFee);
 
-        let processingFee = (baseTicketTotal + serviceFeeTotal) * 0.03;
-        let totalServiceAndProcessing = Math.floor(serviceFeeTotal + processingFee);
-
-        let protectFee = 0;
-        if (isTicketProtect) {
-            protectFee = Math.floor(baseTicketTotal * 0.07);
-        }
-
-        let grandTotal = baseTicketTotal + totalServiceAndProcessing + protectFee;
-
-        if (document.getElementById('sum-base-price')) {
-            document.getElementById('sum-base-price').innerText = baseTicketTotal.toLocaleString() + " บาท";
-        }
-        if (document.getElementById('sum-service-fee')) {
-            document.getElementById('sum-service-fee').innerText = totalServiceAndProcessing.toLocaleString() + " บาท";
-        }
-        if (document.getElementById('sum-protect-fee')) {
-            document.getElementById('sum-protect-fee').innerText = protectFee.toLocaleString() + " บาท";
-        }
-        if (document.getElementById('sum-grand-total')) {
-            document.getElementById('sum-grand-total').innerText = grandTotal.toLocaleString() + " บาท";
-        }
+    let protectFee = 0;
+    if (isTicketProtect) {
+        protectFee = Math.floor(baseTicketTotal * 0.07);
     }
 
-    function selectDeliveryMethod(method) {
-    selectedDeliveryMethod = method;
-    const pickupBtn = document.getElementById('method-pickup');
-    
-    if (pickupBtn) {
-       pickupBtn.classList.add('selected');
-        
-       const lastSpan = pickupBtn.querySelector('span:last-child');
-        if (lastSpan) {
-            lastSpan.style.color = '#ff4d4d';
-        }
+    let grandTotal = baseTicketTotal + totalServiceAndProcessing + protectFee;
+
+    if (document.getElementById('sum-base-price')) document.getElementById('sum-base-price').innerText = baseTicketTotal.toLocaleString() + " บาท";
+    if (document.getElementById('sum-service-fee')) document.getElementById('sum-service-fee').innerText = totalServiceAndProcessing.toLocaleString() + " บาท";
+    if (document.getElementById('sum-protect-fee')) document.getElementById('sum-protect-fee').innerText = protectFee.toLocaleString() + " บาท";
+    if (document.getElementById('sum-grand-total')) document.getElementById('sum-grand-total').innerText = grandTotal.toLocaleString() + " บาท";
+
+    const paymentNames = {
+        'card': 'บัตรเครดิต/เดบิต',
+        'qr': 'Thai QR PromptPay'
+    };
+    if (document.getElementById('display-payment-method')) {
+        document.getElementById('display-payment-method').innerText = paymentNames[paymentMethod] || "-";
+    }
+
+    const deliveryNames = {
+        'pickup': 'รับบัตรด้วยตัวเอง'
+    };
+    if (document.getElementById('display-delivery-method')) {
+        document.getElementById('display-delivery-method').innerText = deliveryNames[selectedDeliveryMethod] || "-";
     }
 }
     
     function selectPaymentMethod(method) {
-    paymentMethod = method;     
-   
-    document.getElementById('method-card').classList.remove('selected');
-    document.getElementById('method-qr').classList.remove('selected');
+        paymentMethod = method;      
+       
+        document.getElementById('method-card').classList.remove('selected');
+        document.getElementById('method-qr').classList.remove('selected');
 
-    if(method === 'card') {
-        document.getElementById('method-card').classList.add('selected');
-    } else if(method === 'qr') {
-        document.getElementById('method-qr').classList.add('selected');
+        document.getElementById('method-' + method).classList.add('selected');    
+        
+        calculatePayment(); 
     }
-    
-    calculatePayment(); 
-}
 
     function toggleTicketProtect() {
-    const protectChk = document.getElementById('chk-protect');
-    if (protectChk) {
-        isTicketProtect = protectChk.checked; 
-        calculatePayment();     }
-}
+        const protectChk = document.getElementById('chk-protect');
+        if (protectChk) {
+            isTicketProtect = protectChk.checked; 
+            calculatePayment();      
+        }
+    }
 
     function toggleAgree() {
         const chk = document.getElementById('chk-agree');
@@ -1214,6 +1222,21 @@
         }, 1000);
     }
 
+      function selectDeliveryMethod(method) {
+    selectedDeliveryMethod = method;
+    const pickupBtn = document.getElementById('method-pickup');
+    
+    if (pickupBtn) {
+       pickupBtn.classList.add('selected');
+       
+       const lastSpan = pickupBtn.querySelector('span:last-child');
+       if (lastSpan) {
+           lastSpan.style.color = '#ff4d4d';
+       }
+    }
+
+    calculatePayment(); 
+}
 
     function finish() {
         if (selectedDeliveryMethod === '') {
@@ -1221,10 +1244,10 @@
             return;
         }
 
-	if (typeof paymentMethod === 'undefined' || paymentMethod === '') {
-        alert('⚠️ กรุณาเลือกวิธีการชำระเงิน');
-        return;
-    }
+        if (typeof paymentMethod === 'undefined' || paymentMethod === '') {
+            alert('⚠️ กรุณาเลือกวิธีการชำระเงิน');
+            return;
+        }
 
         const chkAgree = document.getElementById('chk-agree');
         if (!chkAgree || !chkAgree.checked) {
@@ -1241,9 +1264,9 @@
                    `------------------------------------\n` +
                    `💙💜🩷❤️🖤`;
     
-    alert(successMsg);
-    location.reload(); 
-}
+        alert(successMsg);
+        location.reload(); 
+    }
 
     function selZ(zoneName, defaultPrice) {
         sZone = zoneName; 
@@ -1347,7 +1370,7 @@
                             return; 
                         }
 
-                        let collisionChance = 0.43; 
+                        let collisionChance = 0.40; 
                         if(Math.random() < collisionChance) {
                             dot.classList.add('taken'); 
                             alert(`❌ ที่นั่งถูกเลือกแล้ว กรุณาเลือกที่นั่งใหม่ค่ะ`);
