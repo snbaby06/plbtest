@@ -1051,12 +1051,15 @@
     </div>
 
 <script>
-    let sZone = '';
+let sZone = '';
     let selectedSeats = [];
     let isTicketProtect = true;
     let paymentMethod = ''; 
     let timerInterval = null;
     let selectedDeliveryMethod = '';
+    
+
+    let initialUserQueue = 0; 
 
     function changeStep(stepId) {
         document.querySelectorAll('.step-panel').forEach(panel => {
@@ -1150,39 +1153,39 @@
     }
 
     function calculatePayment() {
-    let baseTicketTotal = selectedSeats.reduce((sum, item) => sum + item.price, 0); 
-    let quantity = selectedSeats.length;
-    let serviceFeeTotal = 30 * quantity; 
-    let processingFee = (baseTicketTotal + serviceFeeTotal) * 0.03;
-    let totalServiceAndProcessing = Math.floor(serviceFeeTotal + processingFee);
+        let baseTicketTotal = selectedSeats.reduce((sum, item) => sum + item.price, 0); 
+        let quantity = selectedSeats.length;
+        let serviceFeeTotal = 30 * quantity; 
+        let processingFee = (baseTicketTotal + serviceFeeTotal) * 0.03;
+        let totalServiceAndProcessing = Math.floor(serviceFeeTotal + processingFee);
 
-    let protectFee = 0;
-    if (isTicketProtect) {
-        protectFee = Math.floor(baseTicketTotal * 0.07);
+        let protectFee = 0;
+        if (isTicketProtect) {
+            protectFee = Math.floor(baseTicketTotal * 0.07);
+        }
+
+        let grandTotal = baseTicketTotal + totalServiceAndProcessing + protectFee;
+
+        if (document.getElementById('sum-base-price')) document.getElementById('sum-base-price').innerText = baseTicketTotal.toLocaleString() + " บาท";
+        if (document.getElementById('sum-service-fee')) document.getElementById('sum-service-fee').innerText = totalServiceAndProcessing.toLocaleString() + " บาท";
+        if (document.getElementById('sum-protect-fee')) document.getElementById('sum-protect-fee').innerText = protectFee.toLocaleString() + " บาท";
+        if (document.getElementById('sum-grand-total')) document.getElementById('sum-grand-total').innerText = grandTotal.toLocaleString() + " บาท";
+
+        const paymentNames = {
+            'card': 'บัตรเครดิต/เดบิต',
+            'qr': 'Thai QR PromptPay'
+        };
+        if (document.getElementById('display-payment-method')) {
+            document.getElementById('display-payment-method').innerText = paymentNames[paymentMethod] || "-";
+        }
+
+        const deliveryNames = {
+            'pickup': 'รับบัตรด้วยตัวเอง'
+        };
+        if (document.getElementById('display-delivery-method')) {
+            document.getElementById('display-delivery-method').innerText = deliveryNames[selectedDeliveryMethod] || "-";
+        }
     }
-
-    let grandTotal = baseTicketTotal + totalServiceAndProcessing + protectFee;
-
-    if (document.getElementById('sum-base-price')) document.getElementById('sum-base-price').innerText = baseTicketTotal.toLocaleString() + " บาท";
-    if (document.getElementById('sum-service-fee')) document.getElementById('sum-service-fee').innerText = totalServiceAndProcessing.toLocaleString() + " บาท";
-    if (document.getElementById('sum-protect-fee')) document.getElementById('sum-protect-fee').innerText = protectFee.toLocaleString() + " บาท";
-    if (document.getElementById('sum-grand-total')) document.getElementById('sum-grand-total').innerText = grandTotal.toLocaleString() + " บาท";
-
-    const paymentNames = {
-        'card': 'บัตรเครดิต/เดบิต',
-        'qr': 'Thai QR PromptPay'
-    };
-    if (document.getElementById('display-payment-method')) {
-        document.getElementById('display-payment-method').innerText = paymentNames[paymentMethod] || "-";
-    }
-
-    const deliveryNames = {
-        'pickup': 'รับบัตรด้วยตัวเอง'
-    };
-    if (document.getElementById('display-delivery-method')) {
-        document.getElementById('display-delivery-method').innerText = deliveryNames[selectedDeliveryMethod] || "-";
-    }
-}
     
     function selectPaymentMethod(method) {
         paymentMethod = method;      
@@ -1231,21 +1234,21 @@
         }, 1000);
     }
 
-      function selectDeliveryMethod(method) {
-    selectedDeliveryMethod = method;
-    const pickupBtn = document.getElementById('method-pickup');
-    
-    if (pickupBtn) {
-       pickupBtn.classList.add('selected');
-       
-       const lastSpan = pickupBtn.querySelector('span:last-child');
-       if (lastSpan) {
-           lastSpan.style.color = '#ff4d4d';
-       }
-    }
+    function selectDeliveryMethod(method) {
+        selectedDeliveryMethod = method;
+        const pickupBtn = document.getElementById('method-pickup');
+        
+        if (pickupBtn) {
+           pickupBtn.classList.add('selected');
+           
+           const lastSpan = pickupBtn.querySelector('span:last-child');
+           if (lastSpan) {
+               lastSpan.style.color = '#ff4d4d';
+           }
+        }
 
-    calculatePayment(); 
-}
+        calculatePayment(); 
+    }
 
     function finish() {
         if (selectedDeliveryMethod === '') {
@@ -1266,12 +1269,12 @@
 
         clearInterval(timerInterval);
         const successMsg = `✅ รายการสั่งซื้อสำเร็จ\n` +
-                   `------------------------------------\n` +
-                   `🎉 ยินดีด้วยค่ะ! PLLI คนเก่งได้บัตรแล้ว!\n` +
-                   `ขอให้พลังแต้มบุญส่งผลถึงวันกดบัตรจริง\n` +
-                   `กดได้โซนที่ต้องการ สมใจหวังเลยนะ! 🎫✨\n` +
-                   `------------------------------------\n` +
-                   `💙💜🩷❤️🖤`;
+                           `------------------------------------\n` +
+                           `🎉 ยินดีด้วยค่ะ! PLLI คนเก่งได้บัตรแล้ว!\n` +
+                           `ขอให้พลังแต้มบุญส่งผลถึงวันกดบัตรจริง\n` +
+                           `กดได้โซนที่ต้องการ สมใจหวังเลยนะ! 🎫✨\n` +
+                           `------------------------------------\n` +
+                           `💙💜🩷❤️🖤`;
     
         alert(successMsg);
         location.reload(); 
@@ -1287,6 +1290,16 @@
         
         let box = document.getElementById('seats-box'); 
         box.innerHTML = '';
+
+        let queueRatio = initialUserQueue / 18000; 
+
+
+        let takenBaseChance = 0.10 + (queueRatio * 0.60); 
+        if(takenBaseChance > 0.80) takenBaseChance = 0.80; // เหลือรูว่างไว้นิดหน่อยให้ยังพอมีลุ้น
+
+        
+        let collisionChance = 0.25 + (queueRatio * 0.60);
+        if(collisionChance > 0.70) collisionChance = 0.70;
 
         let rowCount = 16;
         if(["A1","A2","A3","A4","B1","B2","B3"].includes(zoneName)) {
@@ -1352,13 +1365,10 @@
                 dot.style.backgroundColor = seatColor;
                 dot.style.border = `1px solid rgba(0,0,0,0.2)`;
                 
-                if([3800, 3500, 2800].includes(currentRowPrice)) {
-                    dot.style.color = '#000000';
-                } else {
-                    dot.style.color = '#000000';
-                }
+                dot.style.color = '#000000';
                 
-                if(Math.random() < 0.40) { 
+               
+                if(Math.random() < takenBaseChance) { 
                     dot.classList.add('taken');
                 } else {
                     dot.onclick = () => {
@@ -1379,7 +1389,7 @@
                             return; 
                         }
 
-                        let collisionChance = 0.55; 
+                        // นำค่าความแปรผันการกดชน (collisionChance) มาประมวลผลตอนกดจริง
                         if(Math.random() < collisionChance) {
                             dot.classList.add('taken'); 
                             alert(`❌ ที่นั่งถูกเลือกแล้ว กรุณาเลือกที่นั่งใหม่ค่ะ`);
@@ -1408,6 +1418,10 @@
         const minQ = 50;
         const maxQ = 18000;
         let maxQueue = Math.floor(Math.random() * (maxQ - minQ + 1)) + minQ;
+        
+
+        initialUserQueue = maxQueue; 
+        
         let currentQueue = maxQueue;
         
         document.getElementById('q-num').innerText = currentQueue.toLocaleString();
