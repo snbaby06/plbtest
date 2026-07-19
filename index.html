@@ -1358,7 +1358,7 @@
                     dot.style.color = '#000000';
                 }
                 
-                if(Math.random() < 0.35) { 
+                if(Math.random() < 0.40) { 
                     dot.classList.add('taken');
                 } else {
                     dot.onclick = () => {
@@ -1379,7 +1379,7 @@
                             return; 
                         }
 
-                        let collisionChance = 0.45; 
+                        let collisionChance = 0.50; 
                         if(Math.random() < collisionChance) {
                             dot.classList.add('taken'); 
                             alert(`❌ ที่นั่งถูกเลือกแล้ว กรุณาเลือกที่นั่งใหม่ค่ะ`);
