@@ -1295,10 +1295,10 @@ let sZone = '';
 
 
         let takenBaseChance = 0.20 + (queueRatio * 0.70); 
-        if(takenBaseChance > 0.85) takenBaseChance = 0.85;
+        if(takenBaseChance > 0.90) takenBaseChance = 0.90;
         
-        let collisionChance = 0.20 + (queueRatio * 0.65);
-        if(collisionChance > 0.75) collisionChance = 0.75;
+        let collisionChance = 0.30 + (queueRatio * 0.70);
+        if(collisionChance > 0.80) collisionChance = 0.80;
 
         let rowCount = 16;
         if(["A1","A2","A3","A4","B1","B2","B3"].includes(zoneName)) {
