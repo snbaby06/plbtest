@@ -1294,11 +1294,11 @@ let sZone = '';
         let queueRatio = initialUserQueue / 18000; 
 
 
-        let takenBaseChance = 0.10 + (queueRatio * 0.60); 
-        if(takenBaseChance > 0.75) takenBaseChance = 0.75;
+        let takenBaseChance = 0.20 + (queueRatio * 0.70); 
+        if(takenBaseChance > 0.85) takenBaseChance = 0.85;
         
-        let collisionChance = 0.10 + (queueRatio * 0.55);
-        if(collisionChance > 0.65) collisionChance = 0.65;
+        let collisionChance = 0.20 + (queueRatio * 0.65);
+        if(collisionChance > 0.75) collisionChance = 0.75;
 
         let rowCount = 16;
         if(["A1","A2","A3","A4","B1","B2","B3"].includes(zoneName)) {
