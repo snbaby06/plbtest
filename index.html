@@ -975,15 +975,17 @@
                     </div>
                 </div>
 
-                <div class="protect-box" onclick="toggleTicketProtect()" style="margin-top: 15px;">
-    <input type="checkbox" id="chk-protect" checked onclick="event.stopPropagation(); toggleTicketProtect();">
+                <div class="protect-box" onclick="toggleTicketProtect()" style="margin-top: 15px; display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
+    <input type="checkbox" id="chk-protect" checked onclick="event.stopPropagation(); toggleTicketProtect();" style="margin-top: 4px;">
     <div style="text-align: left;">
         <strong style="color: #000000; font-size: 15px;">Ticket Protect</strong>
-		<span style="font-size: 11px; color:#000000; font-weight: normal;">ค่าประกันคิด 7% จากราคาบัตร</span>
-		<span style="font-size: 11px; color:#ef4444; font-weight: normal;">(หมายเหตุ: ระบบจะเลือกบริการนี้ให้อัตโนมัติในขั้นตอนการชำระเงิน หากไม่ต้องการ โปรดนำเครื่องหมายถูกออกก่อนดำเนินการชำระเงิน)</span>
+        <span style="font-size: 11px; color:#000000; font-weight: normal;">| ค่าประกันคิด 7% จากราคาบัตร</span>
+        <br>
+        <span style="font-size: 11px; color:#ef4444; font-weight: normal; display: block; margin-top: 4px;">
+            (หมายเหตุ: ระบบจะเลือกบริการนี้ให้อัตโนมัติ หากไม่ต้องการ โปรดนำเครื่องหมายถูกออกก่อนดำเนินการชำระเงิน)
+        </span>
     </div>
 </div>
-
                 <div class="agree-box" onclick="toggleAgree()">
                     <input type="checkbox" id="chk-agree" onclick="event.stopPropagation();">
                     <div style="text-align: left;">
