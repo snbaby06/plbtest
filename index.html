@@ -549,7 +549,7 @@
     height: 100%;
     background-color: #22c55e;
     border-radius: 10px;
-    transition: width 2s ease; 
+    transition: width 4s ease; 
 }
 </style>
 
@@ -1433,7 +1433,7 @@ let sZone = '';
         updateTime();
 
         let interval = setInterval(() => {
-            let randomDecrease = Math.floor(Math.random() * 501) + 100; 
+            let randomDecrease = Math.floor(Math.random() * 401) + 100; 
             currentQueue -= randomDecrease;
 
             if (currentQueue <= 0) {
@@ -1450,7 +1450,7 @@ let sZone = '';
                 
                 updateTime();
             }
-        }, 2000);
+        }, 3000);
     }
 
     document.addEventListener('contextmenu', function(e) {
